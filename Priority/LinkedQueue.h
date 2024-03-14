@@ -2,19 +2,19 @@
 #ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
 
-#include "Node.h"
+#include "NodeP.h"
 #include "QueueADT.h"
 #include <vector>
 using namespace std;
 
 
-template <typename T>
+template <typename T, typename P>
 class LinkedQueue :public QueueADT<T>
 {
-private:
+protected:
 
-	Node<T>* backPtr;
-	Node<T>* frontPtr;
+	Node<T,P>* backPtr;
+	Node<T,P>* frontPtr;
 public:
 	LinkedQueue();
 	bool isEmpty() const;
@@ -24,30 +24,28 @@ public:
 	~LinkedQueue();
 
 	//copy constructor
-	LinkedQueue(const LinkedQueue<T>& LQ);
+	LinkedQueue(const LinkedQueue<T,P>& LQ);
 };
 
-
-template <typename T>
-LinkedQueue<T>::LinkedQueue()
+template <typename T, typename P>
+LinkedQueue<T,P>::LinkedQueue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
 
 }
 
-template <typename T>
-bool LinkedQueue<T>::isEmpty() const
+template <typename T,typename P>
+bool LinkedQueue<T,P>::isEmpty() const
 {
 	return (frontPtr == nullptr);
 }
 
 
-
-template <typename T>
-bool LinkedQueue<T>::enqueue(const T& newEntry)
+template <typename T, typename P>
+bool LinkedQueue<T,P>::enqueue(const T& newEntry)
 {
-	Node<T>* newNodePtr = new Node<T>(newEntry);
+	Node<T, P>* newNodePtr = new Node<T,P>(newEntry);
 	// Insert the new node
 	if (isEmpty())	//special case if this is the first node to insert
 		frontPtr = newNodePtr; // The queue is empty
@@ -59,13 +57,13 @@ bool LinkedQueue<T>::enqueue(const T& newEntry)
 } 
 
 
-template <typename T>
-bool LinkedQueue<T>::dequeue(T& frntEntry)
+template <typename T, typename P>
+bool LinkedQueue<T,P>::dequeue(T& frntEntry)
 {
 	if (isEmpty())
 		return false;
 
-	Node<T>* nodeToDeletePtr = frontPtr;
+	Node<T,P>* nodeToDeletePtr = frontPtr;
 	frntEntry = frontPtr->getItem();
 	frontPtr = frontPtr->getNext();
 	// Queue is not empty; remove front
@@ -79,8 +77,8 @@ bool LinkedQueue<T>::dequeue(T& frntEntry)
 
 }
 
-template <typename T>
-bool LinkedQueue<T>::peek(T& frntEntry) const
+template <typename T,typename P>
+bool LinkedQueue<T,P>::peek(T& frntEntry) const
 {
 	if (isEmpty())
 		return false;
@@ -90,8 +88,8 @@ bool LinkedQueue<T>::peek(T& frntEntry) const
 
 }
 
-template <typename T>
-LinkedQueue<T>::~LinkedQueue()
+template <typename T,typename P>
+LinkedQueue<T,P>::~LinkedQueue()
 {
 	T temp;
 
@@ -99,10 +97,10 @@ LinkedQueue<T>::~LinkedQueue()
 	while (dequeue(temp));
 }
 
-template <typename T>
-LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
+template <typename T, typename P>
+LinkedQueue<T,P>::LinkedQueue(const LinkedQueue<T,P>& LQ)
 {
-	Node<T>* NodePtr = LQ.frontPtr;
+	Node<T, P>* NodePtr = LQ.frontPtr;
 	if (!NodePtr) //LQ is empty
 	{
 		frontPtr = backPtr = nullptr;
@@ -110,14 +108,14 @@ LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
 	}
 
 	//insert the first node
-	Node<T>* ptr = new Node<T>(NodePtr->getItem());
+	Node<T, P>* ptr = new Node<T, P>(NodePtr->getItem());
 	frontPtr = backPtr = ptr;
 	NodePtr = NodePtr->getNext();
 
 	//insert remaining nodes
 	while (NodePtr)
 	{
-		Node<T>* ptr = new Node<T>(NodePtr->getItem());
+		Node<T, P>* ptr = new Node<T, P>(NodePtr->getItem());
 		backPtr->setNext(ptr);
 		backPtr = ptr;
 		NodePtr = NodePtr->getNext();
