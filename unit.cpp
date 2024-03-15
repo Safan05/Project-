@@ -16,6 +16,13 @@ bool unit::is_killed()
 		return true;
 	return false;
 }
+
+
+bool unit::operator>(const unit& a) const
+{
+	return Power > a.Power;
+}
+
 int unit::GetType() {
 	return Type;
 }
@@ -25,4 +32,5 @@ void unit::SetId(int I) {
 void unit::SetJoin(int J) {
 	JoinTime = J;
 }
+
 

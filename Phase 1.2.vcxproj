@@ -130,10 +130,18 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
+
+    <ClInclude Include="EarthForces\LinkedListStack.h" />
+    <ClInclude Include="EarthForces\LinkedQueue.h" />
+    <ClInclude Include="EarthForces\Node.h" />
+    <ClInclude Include="EarthForces\QueueADT.h" />
+    <ClInclude Include="EarthForces\StackADT.h" />
+
     <ClInclude Include="Priority\LinkedQueue.h" />
     <ClInclude Include="Priority\NodeP.h" />
     <ClInclude Include="Priority\PriorityQueue.h" />
     <ClInclude Include="Priority\QueueADT.h" />
+
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Game\RandGen.h" />
     <ClInclude Include="Type.h" />
