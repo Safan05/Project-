@@ -1,7 +1,7 @@
 #ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
-#include "Node.h"
-#include "QueueADT.h"
+#include "..\Node.h"
+#include "..\QueueADT.h"
 #include <vector>
 using namespace std;
 
