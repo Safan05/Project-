@@ -1,9 +1,9 @@
 #include "unit.h"
 
-unit::unit(int I, int JT, int H, int P, int AC, int T)
+unit::unit( int H, int P, int AC, int T)
 {
-	id = I;
-	JoinTime = JT;
+	//id = I;
+	//JoinTime = JT;
 	Health = H;
 	Power = P;
 	AttackCapacity = AC;
@@ -17,7 +17,20 @@ bool unit::is_killed()
 	return false;
 }
 
+
 bool unit::operator>(const unit& a) const
 {
 	return Power > a.Power;
 }
+
+int unit::GetType() {
+	return Type;
+}
+void unit::SetId(int I) {
+	id = I;
+}
+void unit::SetJoin(int J) {
+	JoinTime = J;
+}
+
+

@@ -10,8 +10,14 @@ private:
 	int AttackCapacity;
 	int Type;
 public:
-	unit(int I,int JT,int H,int P,int AC,int T);
+	unit(int H,int P,int AC,int T);
 	bool is_killed();
+
 	bool operator>(const unit& a) const;
+
+	int GetType();
+	void SetId(int I);
+	void SetJoin(int J);
+
 };
 
