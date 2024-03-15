@@ -127,27 +127,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EarthForces\EarthGunnery.h" />
+    <ClInclude Include="EarthForces\EarthSoldiers.h" />
+    <ClInclude Include="EarthForces\EarthTank.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
-
     <ClInclude Include="EarthForces\LinkedListStack.h" />
     <ClInclude Include="EarthForces\LinkedQueue.h" />
-    <ClInclude Include="EarthForces\Node.h" />
-    <ClInclude Include="EarthForces\QueueADT.h" />
     <ClInclude Include="EarthForces\StackADT.h" />
-
     <ClInclude Include="Priority\LinkedQueue.h" />
     <ClInclude Include="Priority\NodeP.h" />
     <ClInclude Include="Priority\PriorityQueue.h" />
     <ClInclude Include="Priority\QueueADT.h" />
-
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Game\RandGen.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EarthForces\EarthGunnery.cpp" />
+    <ClCompile Include="EarthForces\EarthSoldiers.cpp" />
+    <ClCompile Include="EarthForces\EarthTank.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
