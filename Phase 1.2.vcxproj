@@ -129,6 +129,11 @@
   <ItemGroup>
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="EarthForces\LinkedListStack.h" />
+    <ClInclude Include="EarthForces\LinkedQueue.h" />
+    <ClInclude Include="EarthForces\Node.h" />
+    <ClInclude Include="EarthForces\QueueADT.h" />
+    <ClInclude Include="EarthForces\StackADT.h" />
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="unit.h" />

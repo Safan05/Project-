@@ -12,5 +12,6 @@ private:
 public:
 	unit(int I,int JT,int H,int P,int AC,int T);
 	bool is_killed();
+	bool operator>(const unit& a) const;
 };
 

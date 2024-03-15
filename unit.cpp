@@ -16,3 +16,8 @@ bool unit::is_killed()
 		return true;
 	return false;
 }
+
+bool unit::operator>(const unit& a) const
+{
+	return Power > a.Power;
+}
