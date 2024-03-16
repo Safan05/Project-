@@ -17,6 +17,6 @@ public:
 	int GetType();
 	void SetId(int I);
 	void SetJoin(int J);
-
+	void PrintUnit();  //to be replaced with operatorover.??
 };
 

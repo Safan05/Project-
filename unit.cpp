@@ -1,5 +1,6 @@
 #include "unit.h"
-
+#include<iostream>
+using namespace std;
 unit::unit( int H, int P, int AC, int T)
 {
 	//id = I;
@@ -31,6 +32,11 @@ void unit::SetId(int I) {
 }
 void unit::SetJoin(int J) {
 	JoinTime = J;
+}
+
+void unit::PrintUnit()
+{
+	cout << id;
 }
 
 
