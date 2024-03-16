@@ -1,14 +1,12 @@
 #ifndef EarthG
 #define EarthG
-#include"LinkedQueue.h"
 #include"../unit.h";
-class EarthGunnery
+class EarthGunnery:public unit
 {
-	LinkedQueue<unit> EGunnery;
-	int Gcount;
+	
 public:
-	EarthGunnery();
-	bool EnqueueEGunnery(const unit& g);
+	EarthGunnery(int H, int P, int AC, int T);
+	bool attack();
 
 };
 #endif

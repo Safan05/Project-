@@ -48,6 +48,27 @@
     <ClInclude Include="Game\RandGen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EarthForces\EarthGunnery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\EarthSoldiers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\EarthTank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\LinkedListStack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\LinkedQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\StackADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\EarthArmy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="unit.cpp">
@@ -60,6 +81,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\RandGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\EarthGunnery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\EarthSoldiers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\EarthTank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\EarthArmy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

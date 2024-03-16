@@ -1,11 +1,10 @@
 #include"EarthGunnery.h"
 
-EarthGunnery::EarthGunnery()
+EarthGunnery::EarthGunnery(int H, int P, int AC, int T) :unit(H, P, AC, T)
 {
-	Gcount = 0;
 }
 
-bool EarthGunnery::EnqueueEGunnery(const unit& t)
+bool EarthGunnery::attack()
 {
-	return EGunnery.enqueue(t);
+    return false;
 }

@@ -1,5 +1,6 @@
 #include "RandGen.h"
 #include <iostream>
+#include"../EarthForces/EarthSoldiers.h"
 RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[])
 {
 	A = 1 + (rand() % 100);
@@ -25,8 +26,8 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[])
 			//add monster using alien army class;
 		}
 }
-unit* RandGen::GenEarth(int Ep[], int ER[]) {
-	B = 1 + (rand() % 100);
+unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
+	B = 1 + (rand() % 100);                     //and make unit* point to it
 	P = ER[0] + (rand() % (ER[1] - ER[0]+1));
 	H = ER[2] + (rand() % (ER[3] - ER[2]+1));
 	AC = ER[4] + (rand() % (ER[5] - ER[4]+1));
@@ -36,8 +37,8 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {
 		T = tank;
 	else
 		T = gunnery;
-	unit U(H,P,AC,T);
-	return &U;
+	unit* U = new EarthSoldiers(H,P,AC,T);      //switch on type to make appropriate object
+	return U;
 }
 unit* RandGen::GenAliens(int Ap[], int AR[]) {
 	B = 1 + (rand() % 100);
@@ -50,6 +51,6 @@ unit* RandGen::GenAliens(int Ap[], int AR[]) {
 		T = monster;
 	else
 		T = drone;
-	unit U(H, P, AC, T);
-	return &U;
+	unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+	return U;
 }
