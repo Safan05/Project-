@@ -22,5 +22,5 @@ bool EarthArmy::EnqueueETank(const EarthTank& t)
 bool EarthArmy::EnqueueEGunnery(const EarthGunnery& g)
 {
 	Gcount++;
-	return EGunnery.enqueue(g);
+	return EGunnery.PriorEnqueue(g);
 }

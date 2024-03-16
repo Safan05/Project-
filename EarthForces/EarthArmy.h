@@ -1,3 +1,4 @@
+#pragma once
 #ifndef EArmy
 #define EArmr
 #include"LinkedListStack.h"

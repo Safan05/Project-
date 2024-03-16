@@ -1,6 +1,7 @@
 #pragma once
 #include "..\unit.h"
 #include "..\Type.h"
+#include "..\EarthForces\EarthArmy.h"
 class RandGen
 {
 private:
@@ -8,7 +9,7 @@ private:
 	int A,B;
 	int P, H, AC,T;
 public:
-	RandGen(int n, int p, int Ep[], int Ap[],int ER[], int AR[]);
+	RandGen(int n, int p, int Ep[], int Ap[],int ER[], int AR[],EarthArmy* E);
 	unit* GenEarth(int Ep[], int ER[]);
 	unit* GenAliens(int Ap[], int AR[]);
 };
