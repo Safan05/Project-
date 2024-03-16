@@ -61,7 +61,7 @@ template<typename T>
 bool LinkedQueue<T>::PriorEnqueue(const T& newEntery)
 {
 	bool inside = false;
-	Node<T>* newNodePtr = new Node<T>(newEntry);
+	Node<T>* newNodePtr = new Node<T>(newEntery);
 	if (isEmpty())
 	{
 		frontPtr = newNodePtr;
@@ -70,7 +70,7 @@ bool LinkedQueue<T>::PriorEnqueue(const T& newEntery)
 	else
 	{
 		Node<T>* ptr = frontPtr;
-		if (p > ptr->getItem())
+		if (newEntery > ptr->getItem())
 		{
 			newNodePtr->setNext(frontPtr);
 			frontPtr = newNodePtr;
@@ -79,7 +79,7 @@ bool LinkedQueue<T>::PriorEnqueue(const T& newEntery)
 		else
 			while (ptr->getNext() && !inside)
 			{
-				if (p > ptr->getNext()->getItem())
+				if (newEntery > ptr->getNext()->getItem())
 				{
 					newNodePtr->setNext(ptr->getNext());
 					ptr->setNext(newNodePtr);
