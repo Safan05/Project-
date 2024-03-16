@@ -10,9 +10,13 @@ Game::Game()
 	LoadParameters(Filename);
 	char x = 'a';
 	while (x != 'x') {
-		cout << "Enter any char to generate army";
+		cout << "===========================" << endl;
+		cout << "Enter any char to generate army : ";
 		cin >> x;
+		cout << endl;
 		TS++;
+		E.PrintArmy();
+		cout << endl << "===========================" << endl;
 		G = new RandGen(N, Prob, EP, AP, ER, AR,&E);
 	}
 }

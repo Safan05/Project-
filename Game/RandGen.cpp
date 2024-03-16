@@ -7,24 +7,26 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],EarthArmy* E
 		for (int i = 0; i < n; i++) {
 			unit* U = GenEarth(Ep,ER);
 			if (U->GetType() == soldier)
-			E->EnqueueESoldier(U);
+				E->EnqueueESoldier(U);
 			//add soldier using earth army class;
-			else if (U->GetType() == gunnery);
+			else if (U->GetType() == gunnery)
+				E->EnqueueEGunnery(U);
 			//add gunnery using earth army class;
-			else;
+			else
+				E->EnqueueETank(U);
 			//add Tank using earth army class;
 		}
-	A = 1 + (rand() % 100);
-	if (A < p)
-		for (int i = 0; i < n; i++) {
-			unit* U = GenAliens(Ap,AR);
-			if (U->GetType() == aliensoldier);
-			//add soldier using alien army class;
-			else if (U->GetType() == drone);
-			//add drone using alien army class;
-			else;
-			//add monster using alien army class;
-		}
+	//A = 1 + (rand() % 100);
+	//if (A < p)
+	//	for (int i = 0; i < n; i++) {
+	//		unit* U = GenAliens(Ap,AR);
+	//		if (U->GetType() == aliensoldier);
+	//		//add soldier using alien army class;
+	//		else if (U->GetType() == drone);
+	//		//add drone using alien army class;
+	//		else;
+	//		//add monster using alien army class;
+	//	}
 }
 unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
 	B = 1 + (rand() % 100);                     //and make unit* point to it
@@ -38,12 +40,12 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 	}
 	else if (B <= Ep[0] + Ep[1]) {
 		T = tank;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new EarthTank(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else {
 		T = gunnery;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new EarthGunnery(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 }

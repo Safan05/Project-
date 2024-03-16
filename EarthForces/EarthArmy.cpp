@@ -1,29 +1,33 @@
 #include "EarthArmy.h"
 #include<iostream>
 using namespace std;
-EarthArmy::EarthArmy(Game* g =nullptr) //null ptr for now
+EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
 	Gptr = g;
 	Scount = 0;
 	Tcount = 0;
 	Gcount = 0;
+	id = 0;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
 	Scount++;
+	s->SetId(id++);
 	return ESoldiers.enqueue(s);
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
 	Tcount++;
+	t->SetId(id++);
 	return ETanks.push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
 	Gcount++;
+	g->SetId(id++);
 	return EGunnery.PriorEnqueue(g);
 }
 
