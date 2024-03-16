@@ -62,7 +62,7 @@ void EarthArmy::PrintArmy()
 			cout << ", ";
 		EStemp.enqueue(temp);
 	}
-	cout << " ]";
+	cout << "]";
 	for (int i = 0; i < Scount; i++)
 	{
 		EStemp.dequeue(temp);
@@ -80,7 +80,7 @@ void EarthArmy::PrintArmy()
 			cout << ", ";
 		EGtemp.enqueue(temp);
 	}
-	cout << " ]";
+	cout << "]";
 	for (int i = 0; i < Gcount; i++)
 	{
 		EGtemp.dequeue(temp);
