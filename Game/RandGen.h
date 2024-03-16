@@ -11,7 +11,7 @@ private:
 	int A,B;
 	int P, H, AC,T;
 public:
-	RandGen(int n, int p, int Ep[], int Ap[],int ER[], int AR[],EarthArmy* E);
+	RandGen(int n, int p, int Ep[], int Ap[],int ER[], int AR[],int TS,EarthArmy* E);
 	unit* GenEarth(int Ep[], int ER[]);
 	unit* GenAliens(int Ap[], int AR[]);
 };

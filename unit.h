@@ -9,7 +9,7 @@ class unit
 private:
 	int id;
 	int JoinTime;
-	int Health;
+	float Health;
 	int Power;
 	int AttackCapacity;
 	int Type;
