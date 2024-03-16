@@ -1,5 +1,7 @@
 #include "EarthSoldiers.h"
 #include<cmath>
+#include"..\Game\Game.h"
+//class Game;
 EarthSoldiers::EarthSoldiers(int H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }

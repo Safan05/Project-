@@ -1,6 +1,9 @@
 #pragma once
+#ifndef UNIT
+#define UNIT
 #include"Type.h"
-#include"Game/Game.h"
+//#include"Game/Game.h"
+class Game;
 class unit
 {
 private:
@@ -24,4 +27,4 @@ public:
 	void DecHealth(int h);
 	void PrintUnit();  //to be replaced with operatorover.??
 };
-
+#endif
