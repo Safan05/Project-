@@ -1,11 +1,11 @@
 #include "EarthTank.h"
 
-EarthTank::EarthTank()
+EarthTank::EarthTank(int H, int P, int AC, int T) : unit(H, P, AC, T)
 {
-	Tcount = 0;
+	
 }
 
-bool EarthTank::EnqueueETank(const unit& t)
+bool EarthTank::attack()
 {
-	return ETanks.push(t);
+	return false;
 }

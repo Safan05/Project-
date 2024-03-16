@@ -1,14 +1,10 @@
 #ifndef EarthT
 #define EarthT
-#include"LinkedListStack.h"
 #include"../unit.h";
-class EarthTank
+class EarthTank:public unit
 {
-	LinkedListStack<unit> ETanks;
-	int Tcount;
 public:
-	EarthTank();
-	bool EnqueueETank(const unit& t);
-
+	EarthTank(int H, int P, int AC, int T);
+	bool attack();
 };
 #endif

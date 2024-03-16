@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EarthForces\EarthArmy.h" />
     <ClInclude Include="EarthForces\EarthGunnery.h" />
     <ClInclude Include="EarthForces\EarthSoldiers.h" />
     <ClInclude Include="EarthForces\EarthTank.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EarthForces\EarthArmy.cpp" />
     <ClCompile Include="EarthForces\EarthGunnery.cpp" />
     <ClCompile Include="EarthForces\EarthSoldiers.cpp" />
     <ClCompile Include="EarthForces\EarthTank.cpp" />
