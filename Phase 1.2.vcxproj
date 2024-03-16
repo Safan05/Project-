@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlienArmy.h" />
     <ClInclude Include="EarthForces\EarthArmy.h" />
     <ClInclude Include="EarthForces\EarthGunnery.h" />
     <ClInclude Include="EarthForces\EarthSoldiers.h" />

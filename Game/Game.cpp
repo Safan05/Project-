@@ -42,3 +42,38 @@ void Game::LoadParameters(char FileName[])
 			AR[i] *= -1;
 	}
 }
+
+bool Game::EnqueueKilled(unit* d)
+{
+	Kcount++;
+	return KilledList.enqueue(d);
+}
+
+EarthArmy Game::GetEArmy()
+{
+	return EarthArmy(E);
+}
+
+AlienArmy Game::GetAArmy()
+{
+	return AlienArmy(A);
+}
+
+void Game::PrintKList()
+{
+	unit* temp;
+	LinkedQueue<unit*> Ktemp;
+	cout << Kcount << " units [";
+	for (int i = 0; i < Kcount; i++)
+	{
+		KilledList.dequeue(temp);
+		temp->PrintUnit();
+		if (i != Kcount - 1)
+			cout << ", ";
+		Ktemp.enqueue(temp);
+	}
+	cout << "]";
+	while (Ktemp.dequeue(temp))
+		KilledList.enqueue(temp);
+	
+}
