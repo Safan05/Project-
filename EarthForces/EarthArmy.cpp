@@ -3,30 +3,29 @@
 using namespace std;
 EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
+	for (int i = 0; i < 3; i++)
+		EunitsCount[i] = 0;
 	Gptr = g;
-	Scount = 0;
-	Tcount = 0;
-	Gcount = 0;
 	id = 0;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
-	Scount++;
+	EunitsCount[0]++;
 	s->SetId(id++);
 	return ESoldiers.enqueue(s);
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
-	Tcount++;
+	EunitsCount[1]++;
 	t->SetId(id++);
 	return ETanks.push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
-	Gcount++;
+	EunitsCount[2]++;
 	g->SetId(id++);
 	return EGunnery.PriorEnqueue(g);
 }
@@ -53,17 +52,17 @@ void EarthArmy::PrintArmy()
 
 	///////////////Printing ES List/////////////////
 	LinkedQueue<unit*> EStemp;
-	cout << Scount << " ES [";
-	for (int i = 0; i < Scount; i++)
+	cout << EunitsCount[0] << " ES [";
+	for (int i = 0; i < EunitsCount[0]; i++)
 	{
 		ESoldiers.dequeue(temp);
 		temp->PrintUnit();
-		if (i != Scount - 1)
+		if (i != EunitsCount[0] - 1)
 			cout << ", ";
 		EStemp.enqueue(temp);
 	}
 	cout << "]";
-	for (int i = 0; i < Scount; i++)
+	for (int i = 0; i < EunitsCount[0]; i++)
 	{
 		EStemp.dequeue(temp);
 		ESoldiers.enqueue(temp);
@@ -71,20 +70,25 @@ void EarthArmy::PrintArmy()
 
 	///////////////Printing EG List/////////////////
 	LinkedQueue<unit*> EGtemp;
-	cout << Gcount << " EG [";
-	for (int i = 0; i < Gcount; i++)
+	cout << EunitsCount[2] << " EG [";
+	for (int i = 0; i < EunitsCount[2]; i++)
 	{
 		EGunnery.dequeue(temp);
 		temp->PrintUnit();
-		if (i != Gcount - 1)
+		if (i != EunitsCount[2] - 1)
 			cout << ", ";
 		EGtemp.enqueue(temp);
 	}
 	cout << "]";
-	for (int i = 0; i < Gcount; i++)
+	for (int i = 0; i < EunitsCount[2]; i++)
 	{
 		EGtemp.dequeue(temp);
 		EGunnery.enqueue(temp);
 	}
 	//ETanks.PrintList(); only if operator overloading is allowed
+}
+
+int* EarthArmy::GetEcount()
+{
+	return EunitsCount;
 }

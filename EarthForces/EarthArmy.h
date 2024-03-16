@@ -7,7 +7,6 @@
 #include"EarthSoldiers.h"
 #include"EarthTank.h"
 #include"EarthGunnery.h"
-//#include"..\Game\Game.h"
 class Game;
 class EarthArmy
 {
@@ -15,9 +14,7 @@ class EarthArmy
 	LinkedQueue<unit*> ESoldiers;
 	LinkedListStack<unit*> ETanks;
 	LinkedQueue<unit*> EGunnery;
-	int Scount;
-	int Tcount;
-	int Gcount;
+	int EunitsCount[3];  //ES,ET,EG
 	int id;
 public:
 	EarthArmy(Game* g=nullptr);
@@ -28,5 +25,6 @@ public:
 	LinkedListStack<unit*> GetETanks();
 	LinkedQueue<unit*> GetEGunnery();
 	void PrintArmy();
+	int* GetEcount();
 };
 #endif

@@ -1,6 +1,6 @@
 #include"EarthGunnery.h"
 
-EarthGunnery::EarthGunnery(int H, int P, int AC, int T) :unit(H, P, AC, T)
+EarthGunnery::EarthGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 

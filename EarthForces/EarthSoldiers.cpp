@@ -2,7 +2,7 @@
 #include<cmath>
 #include"..\Game\Game.h"
 //class Game;
-EarthSoldiers::EarthSoldiers(int H, int P, int AC, int T) :unit(H, P, AC, T)
+EarthSoldiers::EarthSoldiers(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
@@ -12,15 +12,22 @@ bool EarthSoldiers::attack(Game* GPtr)
 	unit* enemy;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
-		GPtr->GetEArmy().GetESoldiers().dequeue(enemy);
-		double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
-		enemy->DecHealth(damage);
-		if (enemy->GetHealth() < 0)
+		if (GPtr->GetEArmy().GetESoldiers().dequeue(enemy))
 		{
-			GPtr->EnqueueKilled(enemy);
-		}
-		else {
-			templist.enqueue(enemy);
+			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
+			enemy->DecHealth(damage);
+			if (!enemy->Wasattacked())
+			{
+				enemy->SetAttacked(true);
+				enemy->SetTa(GPtr->GetTS());
+			}
+			if (enemy->GetHealth() < 0)
+			{
+				GPtr->EnqueueKilled(enemy);
+			}
+			else {
+				templist.enqueue(enemy);
+			}
 		}
 	}
 	while (GPtr->GetEArmy().GetESoldiers().dequeue(enemy))
