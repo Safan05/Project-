@@ -6,6 +6,6 @@ class EarthTank:public unit
 
 public:
 	EarthTank(int H, int P, int AC, int T);
-	bool attack();
+	bool attack(Game* GPtr);
 };
 #endif

@@ -2,6 +2,8 @@
 #include "..\unit.h"
 #include "..\Type.h"
 #include "..\EarthForces\EarthArmy.h"
+#include "..\EarthForces\EarthArmy.h"
+#include "..\EarthForces\EarthArmy.h"
 class RandGen
 {
 private:
