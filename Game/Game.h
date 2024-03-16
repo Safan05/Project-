@@ -15,12 +15,15 @@ private:
 	AlienArmy A;
 	LinkedQueue<unit*> KilledList;
 	int Kcount;
-public:
+	int Shots[6];   //first 3 pos are shots fired by EarthForces
+public:             //to be incremented when game class implements war logic
 	Game();
 	void LoadParameters(char FileName[]);
 	bool EnqueueKilled(unit* d);
 	EarthArmy GetEArmy();
 	AlienArmy GetAArmy();
+	int GetTS();
 	void PrintKList();
+	void GenerateWarReport();
 };
 

@@ -8,7 +8,7 @@ class EarthSoldiers:public unit
 {
 	
 public:
-	EarthSoldiers(int H, int P, int AC, int T);
+	EarthSoldiers(double H, int P, int AC, int T);
 	bool attack(Game* GPtr);
 };
 #endif

@@ -1,7 +1,7 @@
 #include "unit.h"
 #include<iostream>
 using namespace std;
-unit::unit( int H, int P, int AC, int T)
+unit::unit( double H, int P, int AC, int T)
 {
 	//id = I;
 	//JoinTime = JT;
@@ -9,6 +9,7 @@ unit::unit( int H, int P, int AC, int T)
 	Power = P;
 	AttackCapacity = AC;
 	Type = T;
+	Isattacked = false;
 }
 
 bool unit::is_killed()
@@ -49,10 +50,38 @@ int unit::GetHealth()
 	return Health;
 }
 
-void unit::DecHealth(int h)
+void unit::DecHealth(double h)
 {
 	Health -= h;
 }
+
+void unit::SetAttacked(bool a)
+{
+	Isattacked = a;
+}
+
+bool unit::Wasattacked()
+{
+	return Isattacked;
+}
+
+void unit::SetTa(int t)
+{
+	ImpTime[1] = t;
+}
+
+void unit::SetTd(int t)
+{
+	ImpTime[2] = t;
+}
+
+void unit::DeathReport(std::ofstream& wr)
+{
+	wr  << ImpTime[2] << "\t" << id << "\t"
+		<< JoinTime << "\t" << ImpTime[1] - ImpTime[0] << "\t"
+		<< ImpTime[2] - ImpTime[1] << "\t" << ImpTime[2] - ImpTime[0] << endl;
+}
+
 
 void unit::PrintUnit()
 {

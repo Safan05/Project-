@@ -1,5 +1,5 @@
 #include "EarthTank.h"
-EarthTank::EarthTank(int H, int P, int AC, int T) : unit(H, P, AC, T)
+EarthTank::EarthTank(double H, int P, int AC, int T) : unit(H, P, AC, T)
 {
 }
 

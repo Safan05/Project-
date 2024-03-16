@@ -46,6 +46,7 @@ void Game::LoadParameters(char FileName[])
 
 bool Game::EnqueueKilled(unit* d)
 {
+	d->SetTd(TS);
 	Kcount++;
 	return KilledList.enqueue(d);
 }
@@ -58,6 +59,11 @@ EarthArmy Game::GetEArmy()
 AlienArmy Game::GetAArmy()
 {
 	return AlienArmy(A);
+}
+
+int Game::GetTS()
+{
+	return TS;
 }
 
 void Game::PrintKList()
@@ -77,4 +83,23 @@ void Game::PrintKList()
 	while (Ktemp.dequeue(temp))
 		KilledList.enqueue(temp);
 	
+}
+
+void Game::GenerateWarReport()
+{
+	ofstream WR("War Report.txt", ios::out);
+	WR << "\tEarth VS Aliens War Report\n";
+	WR << "Td\tID\tTj\tDf\tDd\tDb\n";
+	LinkedQueue<unit*> TempK;
+	unit* kunit;
+	while (KilledList.dequeue(kunit))
+	{                              //Note:killedlist is ascend.sorted already 
+		kunit->DeathReport(WR);    //as it's queue implemented
+		TempK.enqueue(kunit);
+	}
+	while (TempK.dequeue(kunit))
+		KilledList.enqueue(kunit);
+	WR << "\nBattle Result : ";
+	WR << "ES count : " << *E.GetEcount() << "\tET count : "
+		<< E.GetEcount()[1] << "\tEG count : " << E.GetEcount()[2] << endl;
 }

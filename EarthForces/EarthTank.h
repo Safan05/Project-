@@ -5,7 +5,7 @@ class EarthTank:public unit
 {
 
 public:
-	EarthTank(int H, int P, int AC, int T);
+	EarthTank(double H, int P, int AC, int T);
 	bool attack(Game* GPtr);
 };
 #endif
