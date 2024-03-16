@@ -34,6 +34,26 @@ void unit::SetJoin(int J) {
 	JoinTime = J;
 }
 
+int unit::GetAC()
+{
+	return AttackCapacity;
+}
+
+int unit::GetPow()
+{
+	return Power;
+}
+
+int unit::GetHealth()
+{
+	return Health;
+}
+
+void unit::DecHealth(int h)
+{
+	Health -= h;
+}
+
 void unit::PrintUnit()
 {
 	cout << id;
