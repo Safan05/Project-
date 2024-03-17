@@ -67,7 +67,7 @@ void EarthArmy::PrintArmy()
 		EStemp.dequeue(temp);
 		ESoldiers.enqueue(temp);
 	}
-
+	cout << endl;
 	///////////////Printing EG List/////////////////
 	LinkedQueue<unit*> EGtemp;
 	cout << EunitsCount[2] << " EG [";
@@ -85,6 +85,7 @@ void EarthArmy::PrintArmy()
 		EGtemp.dequeue(temp);
 		EGunnery.enqueue(temp);
 	}
+	cout << endl;
 	//ETanks.PrintList(); only if operator overloading is allowed
 }
 

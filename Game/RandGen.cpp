@@ -1,8 +1,12 @@
 #include "RandGen.h"
 #include <iostream>
+double drand(double M, double N)
+{
+	return M + (rand() / (RAND_MAX / (N - M)));
+}
 RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E)
 {
-	A = 1 + (rand() % 100);
+	A = drand(1,100);
 	if(A<p)
 		for (int i = 0; i < n; i++) {
 			unit* U = GenEarth(Ep,ER);
@@ -17,7 +21,7 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 				E->EnqueueETank(U);
 			//add Tank using earth army class;
 		}
-	//A = 1 + (rand() % 100);
+	//A = drand(1,100);
 	//if (A < p)
 	//	for (int i = 0; i < n; i++) {
 	//		unit* U = GenAliens(Ap,AR);
@@ -31,10 +35,10 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 	//	}
 }
 unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
-	B = 1 + (rand() % 100);                     //and make unit* point to it
-	P = ER[0] + (rand() % (ER[1] - ER[0]+1));
-	H = ER[2] + (rand() % (ER[3] - ER[2]+1));
-	AC = ER[4] + (rand() % (ER[5] - ER[4]+1));
+	B =drand(1,100);                     //and make unit* point to it
+	P =drand(ER[0],ER[1]);
+	H = drand(ER[2],ER[3]);
+	AC = drand(ER[4], ER[5]);
 	if (B <= Ep[0]) {
 		T = soldier;
 		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
@@ -52,10 +56,10 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 	}
 }
 unit* RandGen::GenAliens(int Ap[], int AR[]) {
-	B = 1 + (rand() % 100);
-	P = AR[0] + (rand() % (AR[1] - AR[0]+1));
-	H = AR[2] + (rand() % (AR[3] - AR[2]+1));
-	AC = AR[4] + (rand() % (AR[5] - AR[4]+1));
+	B = drand(1, 100);                     //and make unit* point to it
+	P = drand(AR[0], AR[1]);
+	H = drand(AR[2], AR[3]);
+	AC = drand(AR[4], AR[5]);
 	if (B <= Ap[0]) {
 		T = aliensoldier;
 		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object

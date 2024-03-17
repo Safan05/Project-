@@ -8,17 +8,21 @@ Game::Game()
 	std::cout << "Enter The file name to load" << endl;
 	std::cin >> Filename;
 	LoadParameters(Filename);
-	char x = 'a';
+	char x ;
+	cout << "Enter any key to start : ";
+	cin >> x;
+	cout << endl;
 	while (x != 'x') {
 		TS++;
 		cout << "Current TimeStep : " <<TS<<endl;
-		cout << "===========================" << endl;
-		cout << "Enter any char to generate army : ";
+		cout << "============= Earth Forces Alive Units =============" << endl;
+		E.PrintArmy();
+		cout << "============= Alien Forces Alive Units =============" << endl<<endl<<endl<<endl;//empty lines for now
+		cout << "============= Killed/Destructed Units =============" << endl<<endl<<endl;
+		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
+		cout << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
-		E.PrintArmy();
-		cout << endl << "===========================" << endl;
-		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
 	}
 }
 
