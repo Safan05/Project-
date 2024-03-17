@@ -1,6 +1,6 @@
 #include "RandGen.h"
 #include <iostream>
-RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E)
+RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E,AlienArmy* AL)
 {
 	A = 1 + (rand() % 100);
 	if(A<p)
@@ -17,18 +17,21 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 				E->EnqueueETank(U);
 			//add Tank using earth army class;
 		}
-	//A = 1 + (rand() % 100);
-	//if (A < p)
-	//	for (int i = 0; i < n; i++) {
-	//		unit* U = GenAliens(Ap,AR);
-	// 			U->SetJoin(TS);
-	//		if (U->GetType() == aliensoldier);
-	//		//add soldier using alien army class;
-	//		else if (U->GetType() == drone);
-	//		//add drone using alien army class;
-	//		else;
-	//		//add monster using alien army class;
-	//	}
+	A = 1 + (rand() % 100);
+	if (A < p)
+		for (int i = 0; i < n; i++) {
+			unit* U = GenAliens(Ap,AR);
+	 			U->SetJoin(TS);
+				if (U->GetType() == aliensoldier)
+					AL->AddAS(U);
+				//add soldier using alien army class;
+				else if (U->GetType() == drone)
+					AL->AddAD(U);
+				//add drone using alien army class;
+				else
+					AL->AddAM(U);
+			//add monster using alien army class;
+		}
 }
 unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
 	B = 1 + (rand() % 100);                     //and make unit* point to it
@@ -58,17 +61,17 @@ unit* RandGen::GenAliens(int Ap[], int AR[]) {
 	AC = AR[4] + (rand() % (AR[5] - AR[4]+1));
 	if (B <= Ap[0]) {
 		T = aliensoldier;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new AlienSoldiers(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else if (B <= Ap[0] + Ap[1]) {
 		T = monster;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new AlienMonsters(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else {
 		T = drone;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new AlienDrones(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 

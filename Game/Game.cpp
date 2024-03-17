@@ -18,7 +18,8 @@ Game::Game()
 		cout << endl;
 		E.PrintArmy();
 		cout << endl << "===========================" << endl;
-		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
+		A.PrintArmy();
+		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E,&A);
 	}
 }
 

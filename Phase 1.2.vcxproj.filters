@@ -69,7 +69,16 @@
     <ClInclude Include="EarthForces\EarthArmy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlienArmy.h">
+    <ClInclude Include="Alien Forces\AlienArmy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien Forces\AlienSoldiers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien Forces\AlienMonsters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien Forces\AlienDrones.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,5 +107,20 @@
     <ClCompile Include="EarthForces\EarthArmy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Alien Forces\AlienArmy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien Forces\AlienSoldiers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien Forces\AlienDrones.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien Forces\AlienMonsters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Try.txt" />
   </ItemGroup>
 </Project>

@@ -127,7 +127,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AlienArmy.h" />
+    <ClInclude Include="Alien Forces\AlienArmy.h" />
+    <ClInclude Include="Alien Forces\AlienDrones.h" />
+    <ClInclude Include="Alien Forces\AlienMonsters.h" />
+    <ClInclude Include="Alien Forces\AlienSoldiers.h" />
     <ClInclude Include="EarthForces\EarthArmy.h" />
     <ClInclude Include="EarthForces\EarthGunnery.h" />
     <ClInclude Include="EarthForces\EarthSoldiers.h" />
@@ -148,6 +151,10 @@
     <ClInclude Include="unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Alien Forces\AlienArmy.cpp" />
+    <ClCompile Include="Alien Forces\AlienDrones.cpp" />
+    <ClCompile Include="Alien Forces\AlienMonsters.cpp" />
+    <ClCompile Include="Alien Forces\AlienSoldiers.cpp" />
     <ClCompile Include="EarthForces\EarthArmy.cpp" />
     <ClCompile Include="EarthForces\EarthGunnery.cpp" />
     <ClCompile Include="EarthForces\EarthSoldiers.cpp" />
@@ -156,6 +163,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
     <ClCompile Include="unit.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Try.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

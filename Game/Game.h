@@ -2,7 +2,7 @@
 #include "RandGen.h"
 #include"..\EarthForces\EarthArmy.h"
 #include "..\EarthForces\EarthSoldiers.h"
-#include"..\AlienArmy.h"
+#include"..\Alien Forces\AlienArmy.h"
 class Game
 {
 private:
