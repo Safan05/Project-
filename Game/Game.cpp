@@ -17,7 +17,10 @@ Game::Game()
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
-		cout << "============= Alien Forces Alive Units =============" << endl<<endl<<endl<<endl;//empty lines for now
+		cout << endl << "===========================" << endl;
+		A.PrintArmy();
+		cout << "============= Alien Forces Alive Units =============" << endl;
+    G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E,&A);
 		cout << "============= Killed/Destructed Units =============" << endl<<endl<<endl;
 		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
 		cout << "Enter any key to move to next time step : ";
