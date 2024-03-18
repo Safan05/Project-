@@ -14,15 +14,13 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
+		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
-		cout << endl << "===========================" << endl;
-		A.PrintArmy();
 		cout << "============= Alien Forces Alive Units =============" << endl;
-    G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E,&A);
+		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl<<endl<<endl;
-		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
 		cout << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
@@ -100,7 +98,7 @@ void Game::GenerateWarReport()
 	LinkedQueue<unit*> TempK;
 	unit* kunit;
 	while (KilledList.dequeue(kunit))
-	{                              //Note:killedlist is ascend.sorted already 
+	{                              //Note:killed-list is ascend.sorted already 
 		kunit->DeathReport(WR);    //as it's queue implemented
 		TempK.enqueue(kunit);
 	}
