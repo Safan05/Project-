@@ -18,11 +18,11 @@ Game::Game()
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
 		cout << endl << "===========================" << endl;
-		A.PrintArmy();
 		cout << "============= Alien Forces Alive Units =============" << endl;
-    G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E,&A);
+		A.PrintArmy();
+		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		cout << "============= Killed/Destructed Units =============" << endl<<endl<<endl;
-		G = new RandGen(N, Prob, EP, AP, ER, AR,TS,&E);
+		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		cout << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
