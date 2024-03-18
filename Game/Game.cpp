@@ -20,7 +20,8 @@ Game::Game()
 		E.PrintArmy();
 		cout << "============= Alien Forces Alive Units =============" << endl;
 		A.PrintArmy();
-		cout << "============= Killed/Destructed Units =============" << endl<<endl<<endl;
+		cout << "============= Killed/Destructed Units =============" << endl;
+		this->PrintKList();
 		cout << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
@@ -48,7 +49,21 @@ void Game::LoadParameters(char FileName[])
 			AR[i] *= -1;
 	}
 }
-
+void Game::TestCode() {
+	double x = G->drand(1, 100);
+	if (x < 10);
+	//pick ES and insert again
+	else if (x < 20);
+	//pick ET and insert in Killed list
+	else if (x < 30);
+	//pick EG , decrement it's length and insert again
+	else if (x < 40);
+	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
+	else if (x < 50);
+	//pick 5 monsters from their list and insert them again
+	else if (x < 60);
+	//pick 6 drones from their list and insert them in killed list
+}
 bool Game::EnqueueKilled(unit* d)
 {
 	d->SetTd(TS);

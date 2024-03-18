@@ -25,5 +25,6 @@ public:             //to be incremented when game class implements war logic
 	int GetTS();
 	void PrintKList();
 	void GenerateWarReport();
+	void TestCode();
 };
 
