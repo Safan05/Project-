@@ -9,10 +9,10 @@ EarthSoldiers::EarthSoldiers(double H, int P, int AC, int T) :unit(H, P, AC, T)
 bool EarthSoldiers::attack(Game* GPtr)
 {
 	LinkedQueue<unit*>templist;
-	unit* enemy;
+	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetESoldiers().dequeue(enemy))
+		if (GPtr->GetAArmy().getAS().dequeue(enemy))
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);

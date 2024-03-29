@@ -1,5 +1,7 @@
 #include "AlienDrones.h"
 #include<iostream>
+#include<cmath>
+#include"..\Game\Game.h"
 
 AlienDrones::AlienDrones(double h, int p, int ac, int t) :unit(h, p, ac, t)
 {
@@ -14,29 +16,43 @@ bool AlienDrones::enqueue(unit* s)
 
 bool AlienDrones::deque(unit* beg, unit* end)
 {
-	if (count < 2) return false;
-	LinkedQueue::dequeue(beg);
-	Node<unit*>* E = frontPtr;
-
-	while (E->getNext()->getNext())
+	if (!LinkedQueue<unit*>::dequeue(beg))
+		return false;
+	count--;
+	if (!frontPtr->getNext())
+		end = nullptr;
+	else
+	{
+		Node<unit*>* E = frontPtr;
+		while (E->getNext()->getNext())
 			E = E->getNext();
-	backPtr = E;
-	end = E->getNext()->getItem();
+		backPtr = E;
+		end = E->getNext()->getItem();
+		delete E->getNext();
+		count--;
+	}
 	return true;
 }
 
 
 void AlienDrones::PrintAD()
 {
-	LinkedQueue<unit*> temp(*this);
-	unit* ad;
-	while (temp.dequeue(ad))
+	Node<unit*>* H = frontPtr;
+	while (H)
 	{
-		ad->PrintUnit();
+		H->getItem()->PrintUnit();
 		std::cout << " ";
+		H = H->getNext();
 	}
 }
 
 int AlienDrones::getCount() { return count; }
 
-bool AlienDrones::attack(Game* GPtr) { return false; }
+bool AlienDrones::attack(Game* GPtr)
+{
+	if (count < 2 || (GPtr->GetEArmy().GetETanks().isEmpty() && GPtr->GetEArmy().GetEGunnery().isEmpty()))
+		return false;
+	unit* enemy;
+	unit* attacker1 = frontPtr->getItem(), * attacker2 = backPtr->getItem();
+	//to be contninued after better understanding of the logic
+}

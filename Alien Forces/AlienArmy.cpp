@@ -30,6 +30,12 @@ int AlienArmy::getAlienCount()
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
 
+AlienSoldiers AlienArmy::getAS() { return AS; }
+
+AlienMonsters AlienArmy::getAM() { return AM; }
+
+AlienDrones AlienArmy::getAD() { return AD; }
+
 void AlienArmy::PrintArmy()
 {
 	///////////////Printing AS List/////////////////
