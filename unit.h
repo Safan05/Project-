@@ -12,7 +12,7 @@ private:
 	int JoinTime;
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
 	double Health;
-	double Power;
+	int Power;
 	double AttackCapacity;
 	int Type;
 	bool Isattacked;

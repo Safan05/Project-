@@ -1,31 +1,32 @@
+
 #ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
-#include "..\Node.h"
-#include "..\QueueADT.h"
-#include <vector>
-using namespace std;
 
+
+#include "Node.h"
+#include "QueueADT.h"
 
 template <typename T>
 class LinkedQueue :public QueueADT<T>
 {
-private:
-
+protected:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 public:
 	LinkedQueue();
 	bool isEmpty() const;
 	bool enqueue(const T& newEntry);
-	bool PriorEnqueue(const T& newEntery);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	~LinkedQueue();
-
-	//copy constructor
-	LinkedQueue(const LinkedQueue<T>& LQ);
 };
+/////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+Function: Queue()
+The constructor of the Queue class.
+
+*/
 
 template <typename T>
 LinkedQueue<T>::LinkedQueue()
@@ -34,14 +35,29 @@ LinkedQueue<T>::LinkedQueue()
 	frontPtr = nullptr;
 
 }
+/////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+Function: isEmpty
+Sees whether this queue is empty.
+
+Input: None.
+Output: True if the queue is empty; otherwise false.
+*/
 template <typename T>
 bool LinkedQueue<T>::isEmpty() const
 {
 	return (frontPtr == nullptr);
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
 
+/*Function:enqueue
+Adds newEntry at the back of this queue.
+
+Input: newEntry .
+Output: True if the operation is successful; otherwise false.
+*/
 
 template <typename T>
 bool LinkedQueue<T>::enqueue(const T& newEntry)
@@ -55,46 +71,18 @@ bool LinkedQueue<T>::enqueue(const T& newEntry)
 
 	backPtr = newNodePtr; // New node is the last node now
 	return true;
-} 
+} // end enqueue
 
-template<typename T>
-bool LinkedQueue<T>::PriorEnqueue(const T& newEntery)
-{
-	bool inside = false;
-	Node<T>* newNodePtr = new Node<T>(newEntery);
-	if (isEmpty())
-	{
-		frontPtr = newNodePtr;
-		inside = true;
-	}
-	else
-	{
-		Node<T>* ptr = frontPtr;
-		if (newEntery > ptr->getItem())
-		{
-			newNodePtr->setNext(frontPtr);
-			frontPtr = newNodePtr;
-			inside = true;
-		}
-		else
-			while (ptr->getNext() && !inside)
-			{
-				if (newEntery > ptr->getNext()->getItem())
-				{
-					newNodePtr->setNext(ptr->getNext());
-					ptr->setNext(newNodePtr);
-					inside = true;
-				}
-				ptr = ptr->getNext();
-			}
-		if (!inside)
-		{
-			ptr->setNext(newNodePtr);
-			inside = true;
-		}
-	}
-	return inside;
-}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*Function: dequeue
+Removes the front of this queue. That is, removes the item that was added
+earliest.
+
+Input: None.
+Output: True if the operation is successful; otherwise false.
+*/
 
 template <typename T>
 bool LinkedQueue<T>::dequeue(T& frntEntry)
@@ -113,8 +101,19 @@ bool LinkedQueue<T>::dequeue(T& frntEntry)
 	delete nodeToDeletePtr;
 
 	return true;
-
 }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+Function: peek
+copies the front of this queue to the passed param. The operation does not modify the queue.
+
+Input: None.
+Output: The front of the queue.
+*/
 
 template <typename T>
 bool LinkedQueue<T>::peek(T& frntEntry) const
@@ -126,38 +125,13 @@ bool LinkedQueue<T>::peek(T& frntEntry) const
 	return true;
 
 }
+///////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 LinkedQueue<T>::~LinkedQueue()
 {
 	T temp;
-
-	//Free (Dequeue) all nodes in the queue
 	while (dequeue(temp));
 }
 
-template <typename T>
-LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
-{
-	Node<T>* NodePtr = LQ.frontPtr;
-	if (!NodePtr) //LQ is empty
-	{
-		frontPtr = backPtr = nullptr;
-		return;
-	}
-
-	//insert the first node
-	Node<T>* ptr = new Node<T>(NodePtr->getItem());
-	frontPtr = backPtr = ptr;
-	NodePtr = NodePtr->getNext();
-
-	//insert remaining nodes
-	while (NodePtr)
-	{
-		Node<T>* ptr = new Node<T>(NodePtr->getItem());
-		backPtr->setNext(ptr);
-		backPtr = ptr;
-		NodePtr = NodePtr->getNext();
-	}
-}
 #endif

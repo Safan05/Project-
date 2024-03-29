@@ -1,13 +1,14 @@
 #ifndef LinkedStack
 #define LinkedStack
 #include"StackADT.h"
-#include"..\Node.h"
+#include"Node.h"
 #include<iostream>
 using namespace std;
 
 template <typename t>
 class LinkedListStack :public StackADT<t>
 {
+protected:
 	Node<t>* head;
 public:
 	LinkedListStack()

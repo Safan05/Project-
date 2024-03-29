@@ -1,96 +1,64 @@
 #include "EarthArmy.h"
 #include<iostream>
 using namespace std;
+
 EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
-	for (int i = 0; i < 3; i++)
-		EunitsCount[i] = 0;
 	Gptr = g;
 	id = 0;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
-	EunitsCount[0]++;
 	s->SetId(id++);
-	return ESoldiers.enqueue(s);
+	return ESoldiers.Enqueue(s);
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
-	EunitsCount[1]++;
 	t->SetId(id++);
-	return ETanks.push(t);
+	return ETanks.Push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
-	EunitsCount[2]++;
 	g->SetId(id++);
-	return EGunnery.PriorEnqueue(g);
+	return EGunnery.Enqueue(g);
 }
 
-LinkedQueue<unit*> EarthArmy::GetESoldiers()
+EarthSoldiers EarthArmy::GetES()
 {
-	return LinkedQueue<unit*>(ESoldiers);
+	return EarthSoldiers(ESoldiers);
 }
 
-LinkedListStack<unit*> EarthArmy::GetETanks()
+EarthGunnery EarthArmy::GetEG()
 {
-	return LinkedListStack<unit*>(ETanks);
+	return EarthGunnery(EGunnery);
 }
 
-
-LinkedQueue<unit*> EarthArmy::GetEGunnery()
+EarthTank EarthArmy::GetET()
 {
-	return LinkedQueue<unit*>(EGunnery);
+	return EarthTank(ETanks);
 }
 
 void EarthArmy::PrintArmy()
 {
-	unit* temp;	
 	///////////////Printing ES List/////////////////
-	LinkedQueue<unit*> EStemp(ESoldiers);
-	int i = EunitsCount[0];
-	cout << EunitsCount[0] << " ES [";
-	while (EStemp.dequeue(temp))
-	{
-		temp->PrintUnit(); i--;
-		if (i != 0)
-			cout << ", ";
-	}
+	cout << ESoldiers.GetScount() << " ES [";
+	ESoldiers.PrintES();
 	cout << "]";
 	cout << endl;
+
 	///////////////Printing EG List/////////////////
-	LinkedQueue<unit*> EGtemp(EGunnery);
-	i = EunitsCount[2];
-	cout << EunitsCount[2] << " EG [";
-	while (EGtemp.dequeue(temp))
-	{
-		temp->PrintUnit(); i--;
-		if (i != 0)
-			cout << ", ";
-	}
+	
+	cout << EGunnery.GetGcount() << " EG [";
+	EGunnery.PrintEG();
 	cout << "]";
 	cout << endl;
 	///////////////Printing ET List/////////////////
-	LinkedListStack<unit*> ETtemp;
-	while (ETanks.pop(temp))
-		ETtemp.push(temp);
-	i = EunitsCount[1];
-	cout << EunitsCount[1] << " ET [";
-	while (ETtemp.pop(temp))
-	{
-		temp->PrintUnit();
-		ETanks.push(temp); i--;
-		if (i != 0)
-			cout << ", ";
-	}
+	
+	cout << ETanks.GetTcount() << " ET [";
+	ETanks.PrintET();
 	cout << "]";
 	cout << endl;
-}
-
-int* EarthArmy::GetEcount()
-{
-	return EunitsCount;
 }

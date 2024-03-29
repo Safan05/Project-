@@ -21,15 +21,6 @@
     <ClInclude Include="unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QueueADT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Priority\LinkedQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -57,15 +48,6 @@
     <ClInclude Include="EarthForces\EarthTank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EarthForces\LinkedListStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EarthForces\LinkedQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EarthForces\StackADT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EarthForces\EarthArmy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -79,6 +61,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Alien Forces\AlienDrones.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\LinkedQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\Node.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\QueueADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\StackADT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\priNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\priQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\LinkedStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

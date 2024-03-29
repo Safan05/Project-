@@ -1,8 +1,5 @@
-#pragma once
 #ifndef EArmy
-#define EArmr
-#include"LinkedListStack.h"
-#include"LinkedQueue.h"
+#define EArmy
 #include"../unit.h";
 #include"EarthSoldiers.h"
 #include"EarthTank.h"
@@ -11,20 +8,18 @@ class Game;
 class EarthArmy
 {
 	Game* Gptr;
-	LinkedQueue<unit*> ESoldiers;
-	LinkedListStack<unit*> ETanks;
-	LinkedQueue<unit*> EGunnery;
-	int EunitsCount[3];  //ES,ET,EG
+	EarthSoldiers ESoldiers;
+	EarthGunnery EGunnery;
+	EarthTank ETanks;
 	int id;
 public:
-	EarthArmy(Game* g=nullptr);
+	EarthArmy(Game* g = nullptr);
 	bool EnqueueESoldier(unit* s);
 	bool EnqueueETank(unit* t);
 	bool EnqueueEGunnery(unit* g);
-	LinkedQueue<unit*> GetESoldiers();
-	LinkedListStack<unit*> GetETanks();
-	LinkedQueue<unit*> GetEGunnery();
+	EarthSoldiers GetES();
+	EarthGunnery GetEG();
+	EarthTank GetET();
 	void PrintArmy();
-	int* GetEcount();
 };
 #endif

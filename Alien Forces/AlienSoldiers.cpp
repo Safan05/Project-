@@ -39,14 +39,14 @@ int AlienSoldiers::getCount() {	return count; }
 
 bool AlienSoldiers::attack(Game* GPtr)
 {
-	if (!frontPtr || GPtr->GetEArmy().GetESoldiers().isEmpty())
+	if (!frontPtr || GPtr->GetEArmy().GetES().isEmpty())
 		return false;
 	unit* enemy;
 	unit* attacker = frontPtr->getItem();
 	LinkedQueue<unit*> temp;
 	for (int i = 0; i < attacker->GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetESoldiers().dequeue(enemy))
+		if (GPtr->GetEArmy().GetES().dequeue(enemy))
 		{
 			double damage = (attacker->GetPow() * attacker->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->SetAttacked(true);
@@ -57,6 +57,6 @@ bool AlienSoldiers::attack(Game* GPtr)
 		}
 	}
 	while (temp.dequeue(enemy))
-		GPtr->GetEArmy().GetESoldiers().enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return true;
 }
