@@ -2,6 +2,7 @@
 #define EarthG
 #include"../unit.h";
 #include"../DS/priQueue.h"
+class Game;
 class EarthGunnery :public priQueue<unit*>, public unit
 {
 	int Gcount;
