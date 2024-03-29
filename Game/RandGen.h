@@ -15,5 +15,6 @@ public:
 	RandGen(int n, int p, int Ep[], int Ap[],int ER[], int AR[],int TS,EarthArmy* E,AlienArmy* Al);
 	unit* GenEarth(int Ep[], int ER[]);
 	unit* GenAliens(int Ap[], int AR[]);
+	double drand(double M, double N);
 };
 
