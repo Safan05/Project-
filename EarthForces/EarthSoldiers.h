@@ -1,14 +1,17 @@
 #ifndef EarthS
 #define EarthS
 #include"../unit.h";
-#include"LinkedQueue.h"
-//#include"..\Game\Game.h"
+#include"../DS/LinkedQueue.h"
 class Game;
-class EarthSoldiers:public unit
+class EarthSoldiers:public LinkedQueue<unit*>,public unit
 {
-	
+	int Scount;
 public:
-	EarthSoldiers(double H, int P, int AC, int T);
+	EarthSoldiers(double H = 0, int P = 0, int AC = 0, int T = 0);
+	bool Enqueue(unit*);
+	bool Dequeue(unit*);
+	int GetScount();
 	bool attack(Game* GPtr);
+	void PrintES();
 };
 #endif

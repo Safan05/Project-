@@ -42,7 +42,7 @@ int AlienMonsters::getCount() {	return count; }
 
 bool AlienMonsters::attack(Game* GPtr) 
 {
-	if (count == 0 || (GPtr->GetEArmy().GetETanks().isEmpty() && GPtr->GetEArmy().GetESoldiers().isEmpty()))
+	if (count == 0 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetES().isEmpty()))
 		return false;
 	LinkedListStack<unit*> Ttemp;
 	LinkedQueue<unit*> Stemp;
@@ -53,7 +53,7 @@ bool AlienMonsters::attack(Game* GPtr)
 	//Attacking tanks with half attack capacity
 	for (int i = 0; i < ac / 2; i++)
 	{
-		if (GPtr->GetEArmy().GetETanks().pop(enemy))
+		if (GPtr->GetEArmy().GetET().pop(enemy))
 		{
 			double damage = (attacker->GetPow() * attacker->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->SetAttacked(true);
@@ -64,12 +64,12 @@ bool AlienMonsters::attack(Game* GPtr)
 		}
 	}
 	while (Ttemp.pop(enemy))
-		GPtr->GetEArmy().GetETanks().push(enemy);
+		GPtr->GetEArmy().GetET().push(enemy);
 
 	//Attacking soldiers with half attack capacity
 	for (int i = ac / 2; i < ac; i++)
 	{
-		if (GPtr->GetEArmy().GetESoldiers().dequeue(enemy))
+		if (GPtr->GetEArmy().GetES().dequeue(enemy))
 		{
 			double damage = (attacker->GetPow() * attacker->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->SetAttacked(true);
@@ -80,7 +80,7 @@ bool AlienMonsters::attack(Game* GPtr)
 		}
 	}
 	while (Stemp.dequeue(enemy))
-		GPtr->GetEArmy().GetESoldiers().enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 
 	return true;
 }

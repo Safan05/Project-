@@ -1,6 +1,6 @@
 #pragma once
 #include"..\unit.h"
-#include"..\LinkedQueue.h"
+#include"../DS/LinkedQueue.h"
 
 class AlienSoldiers :public unit, public LinkedQueue<unit*>
 {

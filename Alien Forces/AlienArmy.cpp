@@ -1,6 +1,6 @@
 #include "AlienArmy.h"
 #include<iostream>
-
+using namespace std;
 AlienArmy::AlienArmy(Game* g)
 {
 	Gptr = g;

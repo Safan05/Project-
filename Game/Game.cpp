@@ -120,6 +120,6 @@ void Game::GenerateWarReport()
 	while (TempK.dequeue(kunit))
 		KilledList.enqueue(kunit);
 	WR << "\nBattle Result : ";
-	WR << "ES count : " << *E.GetEcount() << "\tET count : "
-		<< E.GetEcount()[1] << "\tEG count : " << E.GetEcount()[2] << endl;
+	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
+		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
 }
