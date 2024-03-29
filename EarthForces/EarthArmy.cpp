@@ -48,45 +48,46 @@ LinkedQueue<unit*> EarthArmy::GetEGunnery()
 
 void EarthArmy::PrintArmy()
 {
-	unit* temp;
-
+	unit* temp;	
 	///////////////Printing ES List/////////////////
-	LinkedQueue<unit*> EStemp;
+	LinkedQueue<unit*> EStemp(ESoldiers);
+	int i = EunitsCount[0];
 	cout << EunitsCount[0] << " ES [";
-	for (int i = 0; i < EunitsCount[0]; i++)
+	while (EStemp.dequeue(temp))
 	{
-		ESoldiers.dequeue(temp);
-		temp->PrintUnit();
-		if (i != EunitsCount[0] - 1)
+		temp->PrintUnit(); i--;
+		if (i != 0)
 			cout << ", ";
-		EStemp.enqueue(temp);
 	}
 	cout << "]";
-	for (int i = 0; i < EunitsCount[0]; i++)
-	{
-		EStemp.dequeue(temp);
-		ESoldiers.enqueue(temp);
-	}
 	cout << endl;
 	///////////////Printing EG List/////////////////
-	LinkedQueue<unit*> EGtemp;
+	LinkedQueue<unit*> EGtemp(EGunnery);
+	i = EunitsCount[2];
 	cout << EunitsCount[2] << " EG [";
-	for (int i = 0; i < EunitsCount[2]; i++)
+	while (EGtemp.dequeue(temp))
 	{
-		EGunnery.dequeue(temp);
-		temp->PrintUnit();
-		if (i != EunitsCount[2] - 1)
+		temp->PrintUnit(); i--;
+		if (i != 0)
 			cout << ", ";
-		EGtemp.enqueue(temp);
 	}
 	cout << "]";
-	for (int i = 0; i < EunitsCount[2]; i++)
-	{
-		EGtemp.dequeue(temp);
-		EGunnery.enqueue(temp);
-	}
 	cout << endl;
-	//ETanks.PrintList(); only if operator overloading is allowed
+	///////////////Printing ET List/////////////////
+	LinkedListStack<unit*> ETtemp;
+	while (ETanks.pop(temp))
+		ETtemp.push(temp);
+	i = EunitsCount[1];
+	cout << EunitsCount[1] << " ET [";
+	while (ETtemp.pop(temp))
+	{
+		temp->PrintUnit();
+		ETanks.push(temp); i--;
+		if (i != 0)
+			cout << ", ";
+	}
+	cout << "]";
+	cout << endl;
 }
 
 int* EarthArmy::GetEcount()
