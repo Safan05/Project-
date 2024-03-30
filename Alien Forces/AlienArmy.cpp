@@ -9,18 +9,21 @@ AlienArmy::AlienArmy(Game* g)
 
 bool AlienArmy::AddAS(unit* s)
 {
+	if (s->GetId() == -1)
 	s->SetId(id++);
 	return AS.enqueue(s);
 }
 
 bool AlienArmy::AddAM(unit* m)
 {
+	if (m->GetId() == -1)
 	m->SetId(id++);
 	return AM.AddAlienMonster(m);
 }
 
 bool AlienArmy::AddAD(unit* d)
 {
+	if (d->GetId() == -1)
 	d->SetId(id++);
 	return AD.enqueue(d);
 }

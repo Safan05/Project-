@@ -10,8 +10,11 @@ unit::unit( double H, int P, int AC, int T)
 	AttackCapacity = AC;
 	Type = T;
 	Isattacked = false;
+	id = -1;
 }
-
+int unit::GetId() {
+	return id;
+}
 bool unit::is_killed()
 {
 	if(Health<=0)

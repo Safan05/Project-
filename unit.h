@@ -23,6 +23,7 @@ public:
 	virtual bool attack(Game* GPtr) = 0;
 	int GetType();
 	void SetId(int I);
+	int GetId();
 	void SetJoin(int J);
 	int GetAC();
 	int GetPow();

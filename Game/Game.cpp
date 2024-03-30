@@ -14,6 +14,7 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
+		srand(time(NULL));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
@@ -22,7 +23,8 @@ Game::Game()
 		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
-		cout << "Enter any key to move to next time step : ";
+//		this->TestCode();
+		cout <<endl<< "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
 	}
@@ -51,12 +53,24 @@ void Game::LoadParameters(char FileName[])
 }
 void Game::TestCode() {
 	double x = G->drand(1, 100);
-	if (x < 10);
-	//pick ES and insert again
-	else if (x < 20);
-	//pick ET and insert in Killed list
-	else if (x < 30);
-	//pick EG , decrement it's length and insert again
+	if (x < 100) { 	//pick ES and insert again
+		unit* u ;
+		E.dequeES(u);
+		if(u!=NULL)
+		E.EnqueueESoldier(u);
+	}
+	else if (x < 20) {	//pick ET and insert in Killed list
+
+		unit* u;
+		E.GetET().Pop(u);
+		EnqueueKilled(u);
+	}
+	else if (x < 30) {	//pick EG , decrement it's length to half and insert again
+		unit* u ;
+		E.GetEG().Dequeue(u);
+		u->DecHealth(u->GetHealth() / 2);
+		E.EnqueueEGunnery(u);
+	}
 	else if (x < 40);
 	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
 	else if (x < 50);
