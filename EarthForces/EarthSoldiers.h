@@ -9,7 +9,7 @@ class EarthSoldiers:public LinkedQueue<unit*>,public unit
 	int ESshots;
 public:
 	EarthSoldiers(double H = 0, int P = 0, int AC = 0, int T = 0);
-	bool enqueue(unit*);
+	bool enqueue(unit*&);
 	bool dequeue(unit*&);
 	int GetScount();
 	int GetESshots();

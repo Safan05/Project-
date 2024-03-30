@@ -1,9 +1,13 @@
 #include "Game.h"
 #include <fstream>
 #include <iostream>
+#include <ctime>
 using namespace std;
 Game::Game()
 {
+	unit* nn = NULL, * mm = NULL;
+
+
 	TS = 0;
 	std::cout << "Enter The file name to load" << endl;
 	std::cin >> Filename;
@@ -16,6 +20,7 @@ Game::Game()
 		TS++;
 		srand(time(0));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+		TestCode();
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
@@ -23,7 +28,6 @@ Game::Game()
 		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
-		this->TestCode();
 		cout <<endl<< "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
@@ -53,30 +57,57 @@ void Game::LoadParameters(char FileName[])
 }
 void Game::TestCode() {
 	double x = G->drand(1, 100);
-	if (x < 100) { 	//pick ES and insert again
+	if (x < 10) 
+	{ 	//pick ES and insert again
 		unit* u = nullptr;
-		E.dequeES(u);
-		if(u!=NULL)
-		E.EnqueueESoldier(u);
+		if (E.GetES().dequeue(u))
+			E.EnqueueESoldier(u);
 	}
 	else if (x < 20) {	//pick ET and insert in Killed list
 
 		unit* u = nullptr;
-		E.GetET().pop(u);
-		EnqueueKilled(u);
+		if (E.GetET().pop(u))
+			EnqueueKilled(u);
 	}
 	else if (x < 30) {	//pick EG , decrement it's length to half and insert again
 		unit* u = nullptr;
-		E.GetEG().dequeue(u);
-		u->DecHealth(u->GetHealth() / 2);
-		E.EnqueueEGunnery(u);
+		if (E.GetEG().dequeue(u))
+		{
+			u->DecHealth(u->GetHealth() / 2);
+			E.EnqueueEGunnery(u);
+		}
 	}
-	else if (x < 40);
-	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
-	else if (x < 50);
-	//pick 5 monsters from their list and insert them again
-	else if (x < 60);
-	//pick 6 drones from their list and insert them in killed list
+	else if (x < 40) {	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (A.getAS().dequeue(u))
+				TempList.enqueue(u);
+		}
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (TempList.dequeue(u))
+				A.AddAS(u);
+		}
+	}
+	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
+
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (A.getAM().removeAlienMonster(u))
+				A.AddAM(u);
+		}
+	}
+	else if (x < 60) { 	//pick 6 drones from their list and insert them in killed list
+
+		for (int i = 0; i < 3; i++) {
+			unit* u1=nullptr,*u2=nullptr;
+			if (A.getAD().dequeue(u1, u2)) {
+				EnqueueKilled(u1);
+				if(u2!=NULL)
+				EnqueueKilled(u2);
+			}
+		}
+	}
 }
 bool Game::EnqueueKilled(unit* d)
 {

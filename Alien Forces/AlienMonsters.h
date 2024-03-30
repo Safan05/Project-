@@ -7,7 +7,7 @@ class AlienMonsters:public unit
 public:
 	AlienMonsters(double h = 0, int p = 0, int ac = 0, int t = 0);
 	bool AddAlienMonster(unit*);
-	bool removeAlienMonster(unit*);
+	bool removeAlienMonster(unit*&);
 	void PrintAM();
 	int getCount();
 	bool attack(Game* GPtr);

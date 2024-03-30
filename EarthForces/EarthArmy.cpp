@@ -29,22 +29,22 @@ bool EarthArmy::EnqueueEGunnery(unit* g)
 	g->SetId(id++);
 	return EGunnery.enqueue(g);
 }
-bool EarthArmy::dequeES(unit*& s) {
-	return ESoldiers.dequeue(s);
-}
-EarthSoldiers EarthArmy::GetES()
+//bool EarthArmy::dequeES(unit*& s) {
+//	return ESoldiers.Dequeue(s);
+//}
+EarthSoldiers& EarthArmy::GetES()
 {
-	return EarthSoldiers(ESoldiers);
-}
-
-EarthGunnery EarthArmy::GetEG()
-{
-	return EarthGunnery(EGunnery);
+	return ESoldiers;
 }
 
-EarthTank EarthArmy::GetET()
+EarthGunnery& EarthArmy::GetEG()
 {
-	return EarthTank(ETanks);
+	return EGunnery;
+}
+
+EarthTank& EarthArmy::GetET()
+{
+	return ETanks;
 }
 
 void EarthArmy::PrintArmy()

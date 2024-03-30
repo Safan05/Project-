@@ -7,16 +7,18 @@ EarthTank::EarthTank(double H, int P, int AC, int T) : unit(H, P, AC, T)
 	ESbelow80 = false;
 }
 
-bool EarthTank::push(unit* t)
+bool EarthTank::push(unit*& t)
 {
 	Tcount++;
 	return LinkedListStack<unit*>::push(t);
 }
 
-bool EarthTank::pop(unit* t)
+bool EarthTank::pop(unit*& t)
 {
+	bool check = LinkedListStack<unit*>::pop(t);
+	if(check)
 	Tcount--;
-	return LinkedListStack<unit*>::pop(t);
+	return check;
 }
 
 bool EarthTank::attack(Game* Gptr)

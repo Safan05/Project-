@@ -14,16 +14,20 @@ bool AlienDrones::enqueue(unit* s)
 	return DoubleQueue<unit*>::enqueue(s);
 }
 
-bool AlienDrones::dequeue(unit* beg, unit* end)
+bool AlienDrones::dequeue(unit*& beg, unit*& end)
 {
 	if (isEmpty()) return false;
 	DoubleQueue<unit*>::dequeue(beg);
+	count--;
 	if (!isEmpty())
 	{
 		end = backPtr->getItem();
 		backPtr = backPtr->getPrevious();
-		delete backPtr->getNext();
-		backPtr->setNext(NULL);
+		if (backPtr) {
+			delete backPtr->getNext();
+			backPtr->setNext(NULL);
+		}
+		count--;
 	}
 	else end = NULL;
 	return true;

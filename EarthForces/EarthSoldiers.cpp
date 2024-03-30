@@ -7,7 +7,7 @@ EarthSoldiers::EarthSoldiers(double H, int P, int AC, int T) :unit(H, P, AC, T)
 	Scount = 0;
 }
 
-bool EarthSoldiers::enqueue(unit* s)
+bool EarthSoldiers::enqueue(unit*& s)
 {
 	Scount++;
 	return LinkedQueue<unit*>::enqueue(s);

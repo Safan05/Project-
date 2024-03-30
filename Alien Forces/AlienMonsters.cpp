@@ -19,7 +19,7 @@ bool AlienMonsters::AddAlienMonster(unit* m)
 	return true;
 }
 
-bool AlienMonsters::removeAlienMonster(unit* m)
+bool AlienMonsters::removeAlienMonster(unit*& m)
 {
 	if (count < 1) return false;
 	int i = rand() % count;

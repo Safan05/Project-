@@ -16,9 +16,9 @@ public:
 	bool AddAS(unit*);
 	bool AddAM(unit*);
 	bool AddAD(unit*);
-	AlienSoldiers getAS();
-	AlienMonsters getAM();
-	AlienDrones getAD();
+	AlienSoldiers& getAS();
+	AlienMonsters& getAM();
+	AlienDrones& getAD();
 	int getAlienCount();
 	void PrintArmy();
 };

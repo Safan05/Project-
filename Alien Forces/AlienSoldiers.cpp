@@ -8,13 +8,13 @@ AlienSoldiers::AlienSoldiers(double h, int p, int ac, int t) :unit(h, p, ac, t)
 	count = 0;
 }
 
-bool AlienSoldiers::enqueue(unit* s)
+bool AlienSoldiers::enqueue(unit*& s)
 {
 	count++;
 	return LinkedQueue<unit*>::enqueue(s);
 }
 
-bool AlienSoldiers::dequeue(unit* s)
+bool AlienSoldiers::dequeue(unit*& s)
 {
 	if (LinkedQueue<unit*>::dequeue(s))
 	{
