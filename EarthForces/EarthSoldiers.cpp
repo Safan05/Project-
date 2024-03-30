@@ -3,6 +3,7 @@
 #include"..\Game\Game.h"
 EarthSoldiers::EarthSoldiers(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
+	ESshots = 0;
 	Scount = 0;
 }
 
@@ -23,32 +24,34 @@ int EarthSoldiers::GetScount()
 	return Scount;
 }
 
+int EarthSoldiers::GetESshots()
+{
+	return ESshots;
+}
+
 bool EarthSoldiers::attack(Game* GPtr)
 {
 	LinkedQueue<unit*>templist;
 	unit* enemy = nullptr;
+	unit* Eunit = frontPtr->getItem();
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
 		if (GPtr->GetAArmy().getAS().dequeue(enemy))
 		{
-			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
+			double damage = (Eunit->GetPow() * Eunit->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			ESshots++;
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 			}
 			if (enemy->GetHealth() < 0)
-			{
 				GPtr->EnqueueKilled(enemy);
-			}
-			else {
+			else 
 				templist.enqueue(enemy);
-			}
 		}
 	}
-	while (GPtr->GetAArmy().getAS().dequeue(enemy))
-		templist.enqueue(enemy);
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
 	return true;
