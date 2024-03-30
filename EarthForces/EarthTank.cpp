@@ -10,7 +10,7 @@ bool EarthTank::Push(unit* t)
 	return LinkedListStack<unit*>::push(t);
 }
 
-bool EarthTank::Pop(unit* t)
+bool EarthTank::Pop(unit*& t)
 {
 	Tcount--;
 	return LinkedListStack<unit*>::pop(t);

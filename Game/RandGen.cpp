@@ -1,6 +1,6 @@
 #include "RandGen.h"
 #include <iostream>
-
+#include <time.h>
 RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E,AlienArmy* AL)
 {
 	A = drand(1,100);
@@ -35,6 +35,7 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 		}
   
 }
+
 double RandGen::drand(double M, double N)
 {
 	return M + (rand() / (RAND_MAX / (N - M)));
