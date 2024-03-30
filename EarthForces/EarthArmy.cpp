@@ -5,7 +5,7 @@ using namespace std;
 EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
 	Gptr = g;
-	id = -1;
+	id = 0;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)
@@ -29,9 +29,9 @@ bool EarthArmy::EnqueueEGunnery(unit* g)
 	g->SetId(id++);
 	return EGunnery.enqueue(g);
 }
-//bool EarthArmy::dequeES(unit*& s) {
-//	return ESoldiers.Dequeue(s);
-//}
+bool EarthArmy::dequeES(unit*& s) {
+	return ESoldiers.dequeue(s);
+}
 EarthSoldiers EarthArmy::GetES()
 {
 	return EarthSoldiers(ESoldiers);

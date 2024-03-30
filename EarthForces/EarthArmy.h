@@ -17,7 +17,7 @@ public:
 	bool EnqueueESoldier(unit* s);
 	bool EnqueueETank(unit* t);
 	bool EnqueueEGunnery(unit* g);
-	//bool dequeES(unit*& s);
+	bool dequeES(unit*& s);
 	EarthSoldiers GetES();
 	EarthGunnery GetEG();
 	EarthTank GetET();

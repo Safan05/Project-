@@ -13,10 +13,12 @@ bool EarthSoldiers::enqueue(unit* s)
 	return LinkedQueue<unit*>::enqueue(s);
 }
 
-bool EarthSoldiers::dequeue(unit* s)
+bool EarthSoldiers::dequeue(unit*& s)
 {
+	bool check= LinkedQueue<unit*>::dequeue(s);
+	if(check)
 	Scount--;
-	return LinkedQueue<unit*>::dequeue(s);
+	return check;
 }
 
 int EarthSoldiers::GetScount()

@@ -1,6 +1,5 @@
 #include "RandGen.h"
 #include <iostream>
-#include <time.h>
 RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E,AlienArmy* AL)
 {
 	A = drand(1,100);

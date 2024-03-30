@@ -14,7 +14,7 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
-		srand(time(NULL));
+		srand(time(0));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
@@ -23,7 +23,7 @@ Game::Game()
 		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
-//		this->TestCode();
+		this->TestCode();
 		cout <<endl<< "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
@@ -55,7 +55,7 @@ void Game::TestCode() {
 	double x = G->drand(1, 100);
 	if (x < 100) { 	//pick ES and insert again
 		unit* u = nullptr;
-		E.GetES().dequeue(u);
+		E.dequeES(u);
 		if(u!=NULL)
 		E.EnqueueESoldier(u);
 	}
