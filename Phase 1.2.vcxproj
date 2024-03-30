@@ -131,6 +131,8 @@
     <ClInclude Include="Alien Forces\AlienDrones.h" />
     <ClInclude Include="Alien Forces\AlienMonsters.h" />
     <ClInclude Include="Alien Forces\AlienSoldiers.h" />
+    <ClInclude Include="DS\DoubleNode.h" />
+    <ClInclude Include="DS\DoubleQueue.h" />
     <ClInclude Include="DS\LinkedStack.h" />
     <ClInclude Include="DS\priNode.h" />
     <ClInclude Include="DS\LinkedQueue.h" />

@@ -41,7 +41,7 @@ bool AlienSoldiers::attack(Game* GPtr)
 {
 	if (!frontPtr || GPtr->GetEArmy().GetES().isEmpty())
 		return false;
-	unit* enemy = nullptr;
+	unit* enemy = NULL;
 	unit* attacker = frontPtr->getItem();
 	LinkedQueue<unit*> temp;
 	for (int i = 0; i < attacker->GetAC(); i++)
