@@ -5,14 +5,13 @@ using namespace std;
 EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
 	Gptr = g;
-	id = 0;
+	id = -1;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
-	if (s->GetId() == -1) {
+	if (s->GetId() == -1) 
 		s->SetId(id++);
-	}
 	return ESoldiers.enqueue(s);
  
 }

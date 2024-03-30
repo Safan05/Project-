@@ -54,20 +54,20 @@ void Game::LoadParameters(char FileName[])
 void Game::TestCode() {
 	double x = G->drand(1, 100);
 	if (x < 100) { 	//pick ES and insert again
-		unit* u ;
-		E.dequeES(u);
+		unit* u = nullptr;
+		E.GetES().dequeue(u);
 		if(u!=NULL)
 		E.EnqueueESoldier(u);
 	}
 	else if (x < 20) {	//pick ET and insert in Killed list
 
-		unit* u;
-		E.GetET().Pop(u);
+		unit* u = nullptr;
+		E.GetET().pop(u);
 		EnqueueKilled(u);
 	}
 	else if (x < 30) {	//pick EG , decrement it's length to half and insert again
-		unit* u ;
-		E.GetEG().Dequeue(u);
+		unit* u = nullptr;
+		E.GetEG().dequeue(u);
 		u->DecHealth(u->GetHealth() / 2);
 		E.EnqueueEGunnery(u);
 	}
