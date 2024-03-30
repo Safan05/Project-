@@ -10,22 +10,28 @@ EarthArmy::EarthArmy(Game* g) //null ptr for now
 
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
-	s->SetId(id++);
+	if (s->GetId() == -1) {
+		s->SetId(id++);
+	}
 	return ESoldiers.Enqueue(s);
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
+	if (t->GetId() == -1)
 	t->SetId(id++);
 	return ETanks.Push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
+	if (g->GetId() == -1)
 	g->SetId(id++);
 	return EGunnery.Enqueue(g);
 }
-
+//bool EarthArmy::dequeES(unit*& s) {
+//	return ESoldiers.Dequeue(s);
+//}
 EarthSoldiers EarthArmy::GetES()
 {
 	return EarthSoldiers(ESoldiers);

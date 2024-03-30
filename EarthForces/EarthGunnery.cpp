@@ -11,7 +11,7 @@ bool EarthGunnery::Enqueue(unit* g)
     return priQueue<unit*>::enqueue(g, g->GetPow());
 }
 
-bool EarthGunnery::Dequeue(unit* g)
+bool EarthGunnery::Dequeue(unit*& g)
 {
     Gcount--;
     int gp;
