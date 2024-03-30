@@ -41,7 +41,7 @@ double RandGen::drand(double M, double N)
 	return M + (rand() / (RAND_MAX / (N - M)));
 }
 unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
-	B =drand(1,100);                     //and make unit* point to it
+	B =drand(1,100);                            //and make unit* point to it
 	P =drand(ER[0],ER[1]);
 	H = drand(ER[2],ER[3]);
 	AC = drand(ER[4], ER[5]);

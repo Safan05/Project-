@@ -1,4 +1,5 @@
 #include "EarthTank.h"
+#include"../Game/Game.h"
 EarthTank::EarthTank(double H, int P, int AC, int T) : unit(H, P, AC, T)
 {
 	Tcount = 0;
@@ -18,6 +19,12 @@ bool EarthTank::pop(unit* t)
 
 bool EarthTank::attack(Game* ptr)
 {
+	LinkedListStack<unit*> templist;  //any DS for templist of monsters 
+	unit* enemy;                     //is valid however stack is easier in pushing
+	for (int i = 0; i < unit::GetAC(); i++)
+	{
+		
+	}
 	return false;
 }
 
