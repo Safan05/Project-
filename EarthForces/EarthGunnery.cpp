@@ -23,9 +23,10 @@ bool EarthGunnery::dequeue(unit* g)
 
 bool EarthGunnery::attack(Game* Gptr)
 {
-    LinkedQueue<unit*>templist;
+    LinkedQueue<unit*>templist; int gp;
+    unit* Eunit = head->getItem(gp);
     unit* enemy = nullptr;
-    for (int i = 0; i < unit::GetAC(); i++)
+    for (int i = 0; i < unit::GetAC() / 2; i++)
     {
         if (Gptr->GetAArmy().getAM().removeAlienMonster(enemy))
         {
@@ -37,18 +38,16 @@ bool EarthGunnery::attack(Game* Gptr)
                 enemy->SetTa(Gptr->GetTS());  //document time of fist attack
             }
             if (enemy->GetHealth() < 0)
-            {
                 Gptr->EnqueueKilled(enemy);   //add to killed list
-            }
-            else {
+            else 
                 templist.enqueue(enemy);
-            }
         }
         else
             return false;    //no unit to attack
     }
     while (templist.dequeue(enemy))       //return alive monsters back
         Gptr->GetAArmy().AddAM(enemy);
+    //attack drones
     return true;
 }
 
