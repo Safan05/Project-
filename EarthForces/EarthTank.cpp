@@ -4,13 +4,13 @@ EarthTank::EarthTank(double H, int P, int AC, int T) : unit(H, P, AC, T)
 	Tcount = 0;
 }
 
-bool EarthTank::Push(unit* t)
+bool EarthTank::push(unit* t)
 {
 	Tcount++;
 	return LinkedListStack<unit*>::push(t);
 }
 
-bool EarthTank::Pop(unit*& t)
+bool EarthTank::pop(unit* t)
 {
 	Tcount--;
 	return LinkedListStack<unit*>::pop(t);

@@ -13,21 +13,22 @@ bool EarthArmy::EnqueueESoldier(unit* s)
 	if (s->GetId() == -1) {
 		s->SetId(id++);
 	}
-	return ESoldiers.Enqueue(s);
+	return ESoldiers.enqueue(s);
+ 
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
 	if (t->GetId() == -1)
 	t->SetId(id++);
-	return ETanks.Push(t);
+	return ETanks.push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
 	if (g->GetId() == -1)
 	g->SetId(id++);
-	return EGunnery.Enqueue(g);
+	return EGunnery.enqueue(g);
 }
 //bool EarthArmy::dequeES(unit*& s) {
 //	return ESoldiers.Dequeue(s);
