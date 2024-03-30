@@ -4,6 +4,9 @@
 using namespace std;
 Game::Game()
 {
+	unit* nn = NULL, * mm = NULL;
+
+
 	TS = 0;
 	std::cout << "Enter The file name to load" << endl;
 	std::cin >> Filename;
@@ -16,6 +19,7 @@ Game::Game()
 		TS++;
 		srand(time(NULL));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+		TestCode();
 		cout << "Current TimeStep : " <<TS<<endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
@@ -23,7 +27,6 @@ Game::Game()
 		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
-//		this->TestCode();
 		cout <<endl<< "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
@@ -53,23 +56,25 @@ void Game::LoadParameters(char FileName[])
 }
 void Game::TestCode() {
 	double x = G->drand(1, 100);
-	if (x < 100) { 	//pick ES and insert again
+	if (x < 100) 
+	{ 	//pick ES and insert again
 		unit* u = nullptr;
-		E.GetES().dequeue(u);
-		if(u!=NULL)
-		E.EnqueueESoldier(u);
+		if (E.GetES().dequeue(u))
+			E.EnqueueESoldier(u);
 	}
 	else if (x < 20) {	//pick ET and insert in Killed list
 
 		unit* u = nullptr;
-		E.GetET().pop(u);
-		EnqueueKilled(u);
+		if (E.GetET().pop(u))
+			EnqueueKilled(u);
 	}
 	else if (x < 30) {	//pick EG , decrement it's length to half and insert again
 		unit* u = nullptr;
-		E.GetEG().dequeue(u);
-		u->DecHealth(u->GetHealth() / 2);
-		E.EnqueueEGunnery(u);
+		if (E.GetEG().dequeue(u))
+		{
+			u->DecHealth(u->GetHealth() / 2);
+			E.EnqueueEGunnery(u);
+		}
 	}
 	else if (x < 40);
 	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length

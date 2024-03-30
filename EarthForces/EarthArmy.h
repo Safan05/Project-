@@ -18,9 +18,9 @@ public:
 	bool EnqueueETank(unit* t);
 	bool EnqueueEGunnery(unit* g);
 	//bool dequeES(unit*& s);
-	EarthSoldiers GetES();
-	EarthGunnery GetEG();
-	EarthTank GetET();
+	EarthSoldiers& GetES();
+	EarthGunnery& GetEG();
+	EarthTank& GetET();
 	void PrintArmy();
 };
 #endif

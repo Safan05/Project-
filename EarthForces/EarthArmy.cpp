@@ -32,19 +32,19 @@ bool EarthArmy::EnqueueEGunnery(unit* g)
 //bool EarthArmy::dequeES(unit*& s) {
 //	return ESoldiers.Dequeue(s);
 //}
-EarthSoldiers EarthArmy::GetES()
+EarthSoldiers& EarthArmy::GetES()
 {
-	return EarthSoldiers(ESoldiers);
+	return ESoldiers;
 }
 
-EarthGunnery EarthArmy::GetEG()
+EarthGunnery& EarthArmy::GetEG()
 {
-	return EarthGunnery(EGunnery);
+	return EGunnery;
 }
 
-EarthTank EarthArmy::GetET()
+EarthTank& EarthArmy::GetET()
 {
-	return EarthTank(ETanks);
+	return ETanks;
 }
 
 void EarthArmy::PrintArmy()
