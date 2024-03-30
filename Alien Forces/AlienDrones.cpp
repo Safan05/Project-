@@ -11,33 +11,28 @@ AlienDrones::AlienDrones(double h, int p, int ac, int t) :unit(h, p, ac, t)
 bool AlienDrones::enqueue(unit* s)
 {
 	count++;
-	return LinkedQueue<unit*>::enqueue(s);
+	return DoubleQueue<unit*>::enqueue(s);
 }
 
-bool AlienDrones::deque(unit* beg, unit* end)
+bool AlienDrones::dequeue(unit* beg, unit* end)
 {
-	if (!LinkedQueue<unit*>::dequeue(beg))
-		return false;
-	count--;
-	if (!frontPtr->getNext())
-		end = nullptr;
-	else
+	if (isEmpty()) return false;
+	DoubleQueue<unit*>::dequeue(beg);
+	if (!isEmpty())
 	{
-		Node<unit*>* E = frontPtr;
-		while (E->getNext()->getNext())
-			E = E->getNext();
-		backPtr = E;
-		end = E->getNext()->getItem();
-		delete E->getNext();
-		count--;
+		end = backPtr->getItem();
+		backPtr = backPtr->getPrevious();
+		delete backPtr->getNext();
+		backPtr->setNext(NULL);
 	}
+	else end = NULL;
 	return true;
 }
 
 
 void AlienDrones::PrintAD()
 {
-	Node<unit*>* H = frontPtr;
+	DoubleNode<unit*>* H = frontPtr;
 	while (H)
 	{
 		H->getItem()->PrintUnit();

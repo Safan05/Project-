@@ -47,7 +47,7 @@ bool AlienMonsters::attack(Game* GPtr)
 	LinkedListStack<unit*> Ttemp;
 	LinkedQueue<unit*> Stemp;
 	unit* attacker = monsters[rand() % count];
-	unit* enemy;
+	unit* enemy = NULL;
 	int ac = attacker->GetAC();
 
 	//Attacking tanks with half attack capacity

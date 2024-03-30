@@ -84,6 +84,12 @@
     <ClInclude Include="DS\LinkedStack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DS\DoubleNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DS\DoubleQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="unit.cpp">
