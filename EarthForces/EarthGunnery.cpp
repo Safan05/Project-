@@ -7,13 +7,13 @@ EarthGunnery::EarthGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool EarthGunnery::Enqueue(unit* g)
+bool EarthGunnery::enqueue(unit* g)
 {
     Gcount++;
     return priQueue<unit*>::enqueue(g, g->GetPow());
 }
 
-bool EarthGunnery::Dequeue(unit* g)
+bool EarthGunnery::dequeue(unit* g)
 {
     Gcount--;
     int gp;

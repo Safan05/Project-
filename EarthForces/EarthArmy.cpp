@@ -11,19 +11,19 @@ EarthArmy::EarthArmy(Game* g) //null ptr for now
 bool EarthArmy::EnqueueESoldier(unit* s)
 {
 	s->SetId(id++);
-	return ESoldiers.Enqueue(s);
+	return ESoldiers.enqueue(s);
 }
 
 bool EarthArmy::EnqueueETank(unit* t)
 {
 	t->SetId(id++);
-	return ETanks.Push(t);
+	return ETanks.push(t);
 }
 
 bool EarthArmy::EnqueueEGunnery(unit* g)
 {
 	g->SetId(id++);
-	return EGunnery.Enqueue(g);
+	return EGunnery.enqueue(g);
 }
 
 EarthSoldiers EarthArmy::GetES()
