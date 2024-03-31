@@ -22,6 +22,8 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 	if (!isEmpty())
 	{
 		end = backPtr->getItem();
+		if (backPtr == frontPtr)
+			frontPtr = NULL;       //special case if only one node exists 
 		backPtr = backPtr->getPrevious();
 		if (backPtr) {
 			delete backPtr->getNext();

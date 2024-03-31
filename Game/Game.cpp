@@ -4,10 +4,8 @@
 #include <ctime>
 using namespace std;
 Game::Game()
-{
-	unit* nn = NULL, * mm = NULL;
-
-
+{	
+	
 	TS = 0;
 	std::cout << "Enter The file name to load" << endl;
 	std::cin >> Filename;
@@ -61,7 +59,7 @@ void Game::TestCode() {
 	{ 	//pick ES and insert again
 		unit* u = nullptr;
 		if (E.GetES().dequeue(u))
-			E.EnqueueESoldier(u);
+			E.GetES().enqueue(u);
 	}
 	else if (x < 20) {	//pick ET and insert in Killed list
 
@@ -74,7 +72,7 @@ void Game::TestCode() {
 		if (E.GetEG().dequeue(u))
 		{
 			u->DecHealth(u->GetHealth() / 2);
-			E.EnqueueEGunnery(u);
+			E.GetEG().enqueue(u);
 		}
 	}
 	else if (x < 40) {	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
@@ -86,7 +84,7 @@ void Game::TestCode() {
 		for (int i = 0; i < 5; i++) {
 			unit* u = nullptr;
 			if (TempList.dequeue(u))
-				A.AddAS(u);
+				A.getAS().enqueue(u);
 		}
 	}
 	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
@@ -94,7 +92,7 @@ void Game::TestCode() {
 		for (int i = 0; i < 5; i++) {
 			unit* u = nullptr;
 			if (A.getAM().removeAlienMonster(u))
-				A.AddAM(u);
+				A.getAM().AddAlienMonster(u);
 		}
 	}
 	else if (x < 60) { 	//pick 6 drones from their list and insert them in killed list
@@ -103,8 +101,8 @@ void Game::TestCode() {
 			unit* u1=nullptr,*u2=nullptr;
 			if (A.getAD().dequeue(u1, u2)) {
 				EnqueueKilled(u1);
-				if(u2!=NULL)
-				EnqueueKilled(u2);
+				if (u2)
+					EnqueueKilled(u2);
 			}
 		}
 	}
