@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <fstream>
 #include <iostream>
+#include <ctime>
 using namespace std;
 Game::Game()
 {
@@ -17,7 +18,7 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
-		srand(time(NULL));
+		srand(time(0));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		TestCode();
 		cout << "Current TimeStep : " <<TS<<endl;
@@ -56,7 +57,7 @@ void Game::LoadParameters(char FileName[])
 }
 void Game::TestCode() {
 	double x = G->drand(1, 100);
-	if (x < 100) 
+	if (x < 10) 
 	{ 	//pick ES and insert again
 		unit* u = nullptr;
 		if (E.GetES().dequeue(u))
@@ -76,12 +77,37 @@ void Game::TestCode() {
 			E.EnqueueEGunnery(u);
 		}
 	}
-	else if (x < 40);
-	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
-	else if (x < 50);
-	//pick 5 monsters from their list and insert them again
-	else if (x < 60);
-	//pick 6 drones from their list and insert them in killed list
+	else if (x < 40) {	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (A.getAS().dequeue(u))
+				TempList.enqueue(u);
+		}
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (TempList.dequeue(u))
+				A.AddAS(u);
+		}
+	}
+	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
+
+		for (int i = 0; i < 5; i++) {
+			unit* u = nullptr;
+			if (A.getAM().removeAlienMonster(u))
+				A.AddAM(u);
+		}
+	}
+	else if (x < 60) { 	//pick 6 drones from their list and insert them in killed list
+
+		for (int i = 0; i < 3; i++) {
+			unit* u1=nullptr,*u2=nullptr;
+			if (A.getAD().dequeue(u1, u2)) {
+				EnqueueKilled(u1);
+				if(u2!=NULL)
+				EnqueueKilled(u2);
+			}
+		}
+	}
 }
 bool Game::EnqueueKilled(unit* d)
 {

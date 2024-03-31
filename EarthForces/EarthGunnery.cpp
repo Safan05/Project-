@@ -5,6 +5,7 @@
 using namespace std;
 EarthGunnery::EarthGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
+    Gcount = 0;
 }
 
 bool EarthGunnery::enqueue(unit*& g)
@@ -16,9 +17,11 @@ bool EarthGunnery::enqueue(unit*& g)
 
 bool EarthGunnery::dequeue(unit*& g)
 {
-    Gcount--;
     int gp;
-    return priQueue<unit*>::dequeue(g,gp);
+    bool check = priQueue<unit*>::dequeue(g, gp);
+    if(check)
+    Gcount--;
+    return check;
 }
 
 bool EarthGunnery::attack(Game* Gptr)

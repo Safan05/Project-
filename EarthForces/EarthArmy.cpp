@@ -5,7 +5,7 @@ using namespace std;
 EarthArmy::EarthArmy(Game* g) //null ptr for now
 {
 	Gptr = g;
-	id = -1;
+	id = 0;
 }
 
 bool EarthArmy::EnqueueESoldier(unit* s)

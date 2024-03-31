@@ -15,8 +15,10 @@ bool EarthTank::push(unit*& t)
 
 bool EarthTank::pop(unit*& t)
 {
+	bool check = LinkedListStack<unit*>::pop(t);
+	if(check)
 	Tcount--;
-	return LinkedListStack<unit*>::pop(t);
+	return check;
 }
 
 bool EarthTank::attack(Game* Gptr)

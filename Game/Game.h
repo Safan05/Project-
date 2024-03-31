@@ -14,6 +14,7 @@ private:
 	EarthArmy E;
 	AlienArmy A;
 	LinkedQueue<unit*> KilledList;
+	LinkedQueue<unit*> TempList;
 	int Kcount;
 	int Shots[6];   //first 3 pos are shots fired by EarthForces
 public:             //to be incremented when game class implements war logic
