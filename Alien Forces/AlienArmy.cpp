@@ -22,7 +22,8 @@ bool AlienArmy::AddAM(unit* m)
 bool AlienArmy::AddAD(unit* d)
 {
 	d->SetId(id++);
-	return AD.enqueue(d);
+	unit* temp = NULL;          //Adds the new drone at the end of the Doublequeue ,edit if needed
+	return AD.enqueue(temp,d);
 }
 
 int AlienArmy::getAlienCount()
