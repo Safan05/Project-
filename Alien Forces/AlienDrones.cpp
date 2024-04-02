@@ -8,10 +8,22 @@ AlienDrones::AlienDrones(double h, int p, int ac, int t) :unit(h, p, ac, t)
 	count = 0;
 }
 
-bool AlienDrones::enqueue(unit* s)
+bool AlienDrones::enqueue(unit*& front, unit*& back)
 {
-	count++;
-	return DoubleQueue<unit*>::enqueue(s);
+	if (front)
+	{
+		count++;
+		DoubleNode<unit*>* newNode = new DoubleNode<unit*>(front);
+		newNode->setNext(frontPtr);
+		frontPtr->setPrevious(newNode);
+		frontPtr = frontPtr->getNext();
+	}
+	if (back)
+	{
+		count++;
+		DoubleQueue<unit*>::enqueue(back);
+	}
+	return true;
 }
 
 bool AlienDrones::dequeue(unit*& beg, unit*& end)
