@@ -1,25 +1,28 @@
 #ifndef EArmy
 #define EArmy
-#include"../unit.h";
+#include"Soldier.h";
+#include"ETank.h"
+#include"EGunnery.h"
 #include"EarthSoldiers.h"
-#include"EarthTank.h"
+#include"EarthTanks.h"
 #include"EarthGunnery.h"
 class Game;
 class EarthArmy
 {
 	Game* Gptr;
-	EarthSoldiers ESoldiers;
-	EarthGunnery EGunnery;
-	EarthTank ETanks;
+	EarthSoldiers ES;
+	EarthGunnery EG;
+	EarthTanks ET;
 	int id;
 public:
 	EarthArmy(Game* g = nullptr);
-	bool EnqueueESoldier(unit* s);
-	bool EnqueueETank(unit* t);
-	bool EnqueueEGunnery(unit* g);
+	bool AddUnit(unit*, Type t);
+	bool AddES(unit* s);
+	bool AddET(unit* t);
+	bool AddEG(unit* g);
 	EarthSoldiers& GetES();
 	EarthGunnery& GetEG();
-	EarthTank& GetET();
+	EarthTanks& GetET();
 	void PrintArmy();
 };
 #endif

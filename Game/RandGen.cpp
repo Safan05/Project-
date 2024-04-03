@@ -7,15 +7,15 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 		for (int i = 0; i < n; i++) {
 			unit* U = GenEarth(Ep,ER);
 			U->SetJoin(TS);
-			if (U->GetType() == soldier)
-				E->EnqueueESoldier(U);
-			//add soldier using earth army class;
-			else if (U->GetType() == gunnery)
-				E->EnqueueEGunnery(U);
-			//add gunnery using earth army class;
-			else
-				E->EnqueueETank(U);
-			//add Tank using earth army class;
+			//if (U->GetType() == soldier)
+			//	E->EnqueueESoldier(U);
+			////add soldier using earth army class;
+			//else if (U->GetType() == gunnery)
+			//	E->EnqueueEGunnery(U);
+			////add gunnery using earth army class;
+			//else
+			//	E->EnqueueETank(U);
+			////add Tank using earth army class;
 		}
 	A = drand(1, 100);
 	if (A < p)
@@ -46,17 +46,17 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 	AC = drand(ER[4], ER[5]);
 	if (B <= Ep[0]) {
 		T = soldier;
-		unit* U = new EarthSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new Soldier(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else if (B <= Ep[0] + Ep[1]) {
 		T = tank;
-		unit* U = new EarthTank(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new ETank(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else {
 		T = gunnery;
-		unit* U = new EarthGunnery(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new EGunnery(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 }

@@ -8,59 +8,76 @@ EarthArmy::EarthArmy(Game* g) //null ptr for now
 	id = 0;
 }
 
-bool EarthArmy::EnqueueESoldier(unit* s)
+bool EarthArmy::AddUnit(unit* u, Type t)
+{
+	switch (t)
+	{
+	case soldier:
+		AddES(u);
+		break;
+	case tank:
+		AddET(u);
+		break;
+	case gunnery:
+		AddEG(u);
+		break;
+	default:
+		break;
+	}
+	return true;
+}
+
+bool EarthArmy::AddES(unit* s)
 {
 	s->SetId(id++);
-	return ESoldiers.enqueue(s);
+	return ES.enqueue(s);
  }
 
-bool EarthArmy::EnqueueETank(unit* t)
+bool EarthArmy::AddET(unit* t)
 {
 	t->SetId(id++);
-	return ETanks.push(t);
+	return ET.push(t);
 }
 
-bool EarthArmy::EnqueueEGunnery(unit* g)
+bool EarthArmy::AddEG(unit* g)
 {
 	g->SetId(id++);
-	return EGunnery.enqueue(g);
+	return EG.enqueue(g);
 }
-//bool EarthArmy::dequeES(unit*& s) {
-//	return ESoldiers.Dequeue(s);
-//}
+
 EarthSoldiers& EarthArmy::GetES()
 {
-	return ESoldiers;
+	return ES;
 }
 
 EarthGunnery& EarthArmy::GetEG()
 {
-	return EGunnery;
+	return EG;
 }
 
-EarthTank& EarthArmy::GetET()
+EarthTanks& EarthArmy::GetET()
 {
-	return ETanks;
+	return ET;
 }
 
 void EarthArmy::PrintArmy()
 {
 	///////////////Printing ES List/////////////////
-	cout << ESoldiers.GetScount() << " ES [";
-	ESoldiers.PrintES();
+	cout << ES.GetScount() << " ES [";
+	ES.PrintES();
 	cout << "]";
 	cout << endl;
 
 	///////////////Printing EG List/////////////////
 	
-	cout << EGunnery.GetGcount() << " EG [";
-	EGunnery.PrintEG();
+	cout << EG.GetGcount() << " EG [";
+	EG.PrintEG();
 	cout << "]";
 	cout << endl;
 	///////////////Printing ET List/////////////////
 	
-	cout << ETanks.GetTcount() << " ET [";
-	ETanks.PrintET();
+	cout << ET.GetTcount() << " ET [";
+	ET.PrintET();
 	cout << "]";
 	cout << endl;
 }

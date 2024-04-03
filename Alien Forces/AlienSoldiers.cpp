@@ -37,7 +37,7 @@ void AlienSoldiers::PrintAS()
 
 int AlienSoldiers::getCount() {	return count; }
 
-bool AlienSoldiers::attack(Game* GPtr)
+int AlienSoldiers::attack(Game* GPtr)
 {
 	if (!frontPtr || GPtr->GetEArmy().GetES().isEmpty())
 		return false;

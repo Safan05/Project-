@@ -61,7 +61,7 @@ void AlienDrones::PrintAD()
 
 int AlienDrones::getCount() { return count; }
 
-bool AlienDrones::attack(Game* GPtr)
+int AlienDrones::attack(Game* GPtr)
 {
 	if (count < 2 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetEG().isEmpty()))
 		return false;

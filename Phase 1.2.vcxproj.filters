@@ -45,7 +45,7 @@
     <ClInclude Include="EarthForces\EarthSoldiers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EarthForces\EarthTank.h">
+    <ClInclude Include="EarthForces\EarthTanks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EarthForces\EarthArmy.h">
@@ -90,6 +90,15 @@
     <ClInclude Include="DS\DoubleQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EarthForces\Soldier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\ETank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\EGunnery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="unit.cpp">
@@ -110,7 +119,7 @@
     <ClCompile Include="EarthForces\EarthSoldiers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EarthForces\EarthTank.cpp">
+    <ClCompile Include="EarthForces\EarthTanks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EarthForces\EarthArmy.cpp">

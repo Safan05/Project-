@@ -10,5 +10,5 @@ public:
 	bool removeAlienMonster(unit*&);
 	void PrintAM();
 	int getCount();
-	bool attack(Game* GPtr);
+	int attack(Game* GPtr);
 };
