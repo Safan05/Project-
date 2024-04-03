@@ -1,17 +1,17 @@
 #ifndef EarthT
 #define EarthT
 #include"../unit.h";
-#include"../DS/LinkedStack.h"
-class EarthTank :public LinkedListStack<unit*>, public unit
+#include"../EarthForces/ETank.h"
+class EarthTanks :public LinkedListStack<unit*>
 {
 	int Tcount;
 	int ETshots;
 	bool ESbelow80;
 public:
-	EarthTank(double H = 0, int P = 0, int AC = 0, int T = 0);
+	EarthTanks();
 	bool push(unit*&);
 	bool pop(unit*&);
-	bool attack(Game* GPtr);
+	bool ETattack(Game* GPtr);
 	int GetTcount();
 	void PrintET();
 };

@@ -10,5 +10,5 @@ public:
 	bool dequeue(unit*&, unit*&);
 	void PrintAD();
 	int getCount();
-	bool attack(Game* GPtr);
+	int attack(Game* GPtr);
 };

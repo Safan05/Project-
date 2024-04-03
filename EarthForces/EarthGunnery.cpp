@@ -3,9 +3,10 @@
 #include"..\Game\Game.h"
 #include<iostream>
 using namespace std;
-EarthGunnery::EarthGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
+EarthGunnery::EarthGunnery()
 {
     Gcount = 0;
+    EGshots = 0;
 }
 
 bool EarthGunnery::enqueue(unit*& g)
@@ -18,40 +19,23 @@ bool EarthGunnery::enqueue(unit*& g)
 bool EarthGunnery::dequeue(unit*& g)
 {
     int gp;
-    bool check = priQueue<unit*>::dequeue(g, gp);
-    if(check)
-    Gcount--;
-    return check;
+    if(priQueue<unit*>::dequeue(g, gp))
+    {
+        Gcount--;
+        return true;
+    }
+    return false;
 }
 
-bool EarthGunnery::attack(Game* Gptr)
+bool EarthGunnery::attack(Game* GPtr)
 {
-    LinkedQueue<unit*>templist; int gp;
-    unit* Eunit = head->getItem(gp);
-    unit* enemy = nullptr;
-    for (int i = 0; i < unit::GetAC() / 2; i++)
+    int g;
+    if (head)
     {
-        if (Gptr->GetAArmy().getAM().removeAlienMonster(enemy))
-        {
-            double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
-            enemy->DecHealth(damage);
-            if (!enemy->Wasattacked())
-            {
-                enemy->SetAttacked(true);     //mark as attacked
-                enemy->SetTa(Gptr->GetTS());  //document time of fist attack
-            }
-            if (enemy->GetHealth() < 0)
-                Gptr->EnqueueKilled(enemy);   //add to killed list
-            else 
-                templist.enqueue(enemy);
-        }
-        else
-            return false;    //no unit to attack
+        EGshots += head->getItem(g)->attack(GPtr);
+        return true;
     }
-    while (templist.dequeue(enemy))       //return alive monsters back
-        Gptr->GetAArmy().AddAM(enemy);
-    //attack drones
-    return true;
+    return false;
 }
 
 int EarthGunnery::GetGcount()

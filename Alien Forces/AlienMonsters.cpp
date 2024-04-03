@@ -40,7 +40,7 @@ void AlienMonsters::PrintAM()
 
 int AlienMonsters::getCount() {	return count; }
 
-bool AlienMonsters::attack(Game* GPtr) 
+int AlienMonsters::attack(Game* GPtr) 
 {
 	if (count == 0 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetES().isEmpty()))
 		return false;

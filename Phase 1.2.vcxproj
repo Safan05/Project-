@@ -143,7 +143,10 @@
     <ClInclude Include="EarthForces\EarthArmy.h" />
     <ClInclude Include="EarthForces\EarthGunnery.h" />
     <ClInclude Include="EarthForces\EarthSoldiers.h" />
-    <ClInclude Include="EarthForces\EarthTank.h" />
+    <ClInclude Include="EarthForces\EarthTanks.h" />
+    <ClInclude Include="EarthForces\EGunnery.h" />
+    <ClInclude Include="EarthForces\Soldier.h" />
+    <ClInclude Include="EarthForces\ETank.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Priority\LinkedQueue.h" />
     <ClInclude Include="Priority\NodeP.h" />
@@ -161,7 +164,7 @@
     <ClCompile Include="EarthForces\EarthArmy.cpp" />
     <ClCompile Include="EarthForces\EarthGunnery.cpp" />
     <ClCompile Include="EarthForces\EarthSoldiers.cpp" />
-    <ClCompile Include="EarthForces\EarthTank.cpp" />
+    <ClCompile Include="EarthForces\EarthTanks.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />

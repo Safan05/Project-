@@ -1,13 +1,13 @@
 #ifndef EarthG
 #define EarthG
-#include"../unit.h";
-#include"../DS/priQueue.h"
+#include"../unit.h"
 class Game;
-class EarthGunnery :public priQueue<unit*>, public unit
+class EarthGunnery :public priQueue<unit*>
 {
 	int Gcount;
+	int EGshots;
 public:
-	EarthGunnery(double H = 0, int P = 0, int AC = 0, int T = 0);
+	EarthGunnery();
 	bool enqueue(unit*&);
 	bool dequeue(unit*&);
 	bool attack(Game* GPtr);
