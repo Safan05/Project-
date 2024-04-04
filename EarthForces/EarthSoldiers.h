@@ -15,5 +15,6 @@ public:
 	int GetESshots();
 	bool ESattack(Game* GPtr);
 	void PrintES();
+	~EarthSoldiers();
 };
 #endif

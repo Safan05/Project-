@@ -81,4 +81,13 @@ void EarthSoldiers::PrintES()
 	}
 }
 
+EarthSoldiers::~EarthSoldiers()
+{
+	unit* temp = nullptr;
+	while (this->dequeue(temp))
+	{
+		delete temp;
+	}
+}
+
 

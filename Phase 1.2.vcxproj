@@ -144,9 +144,6 @@
     <ClInclude Include="EarthForces\EarthGunnery.h" />
     <ClInclude Include="EarthForces\EarthSoldiers.h" />
     <ClInclude Include="EarthForces\EarthTanks.h" />
-    <ClInclude Include="EarthForces\EGunnery.h" />
-    <ClInclude Include="EarthForces\Soldier.h" />
-    <ClInclude Include="EarthForces\ETank.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Priority\LinkedQueue.h" />
     <ClInclude Include="Priority\NodeP.h" />
@@ -155,6 +152,13 @@
     <ClInclude Include="Game\RandGen.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="unit.h" />
+    <ClInclude Include="Unit\ADrone.h" />
+    <ClInclude Include="Unit\AMonster.h" />
+    <ClInclude Include="Unit\ASoldier.h" />
+    <ClInclude Include="Unit\EGunnery.h" />
+    <ClInclude Include="Unit\ESoldier.h" />
+    <ClInclude Include="Unit\ETank.h" />
+    <ClInclude Include="Unit\unit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Alien Forces\AlienArmy.cpp" />
@@ -169,6 +173,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
     <ClCompile Include="unit.cpp" />
+    <ClCompile Include="Unit\unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Try.txt" />

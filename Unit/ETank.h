@@ -1,7 +1,6 @@
 #pragma once
 #include"../Unit/unit.h"
 #include"../Game/Game.h"
-//class Game;
 class ETank :public unit
 {
 	bool ESbelow80;

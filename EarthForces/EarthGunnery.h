@@ -14,5 +14,6 @@ public:
 	bool attack(Game* GPtr);
 	int GetGcount();
 	void PrintEG();
+	~EarthGunnery();
 };
 #endif
