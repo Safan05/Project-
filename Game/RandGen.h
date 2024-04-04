@@ -11,7 +11,8 @@ class RandGen
 private:
 	//	int N, Prob, ES, ET, EG, AS, AM, AD;
 	double A, B;
-	double P, H, AC, T;
+	double P, H, T;
+	int AC;
 public:
 	RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, EarthArmy* E, AlienArmy* Al);
 	unit* GenEarth(int Ep[], int ER[]);

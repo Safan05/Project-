@@ -1,5 +1,4 @@
 #include "unit.h"
-#include "Game/Game.cpp"
 #include<iostream>
 using namespace std;
 unit::unit(double H, int P, int AC, int T)

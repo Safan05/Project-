@@ -15,7 +15,7 @@ class EarthArmy
 	int id;
 public:
 	EarthArmy(Game* g = nullptr);
-	bool AddUnit(unit*, Type t);
+	bool AddUnit(unit*);
 	bool AddES(unit* s);
 	bool AddET(unit* t);
 	bool AddEG(unit* g);

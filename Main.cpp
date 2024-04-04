@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+	srand(time(0));
 	Game g;
 	return 0;
 }

@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <fstream>
 #include <iostream>
-#include <ctime>
 using namespace std;
 Game::Game()
 {
@@ -16,7 +15,6 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
-		srand(time(0));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		TestCode();
 		cout << "Current TimeStep : " << TS << endl;
@@ -166,7 +164,4 @@ void Game::GenerateWarReport()
 	WR << "\nBattle Result : ";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
-}
-Game::~Game() {
-
 }
