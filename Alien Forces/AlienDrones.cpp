@@ -3,9 +3,10 @@
 #include<cmath>
 #include"..\Game\Game.h"
 
-AlienDrones::AlienDrones(double h, int p, int ac, int t) :unit(h, p, ac, t)
+AlienDrones::AlienDrones()
 {
 	count = 0;
+	shots = 0;
 }
 
 bool AlienDrones::enqueue(unit*& front, unit*& back)
@@ -60,12 +61,3 @@ void AlienDrones::PrintAD()
 }
 
 int AlienDrones::getCount() { return count; }
-
-int AlienDrones::attack(Game* GPtr)
-{
-	if (count < 2 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetEG().isEmpty()))
-		return false;
-	unit* enemy;
-	unit* attacker1 = frontPtr->getItem(), * attacker2 = backPtr->getItem();
-	//to be contninued after better understanding of the logic
-}

@@ -85,6 +85,7 @@ void Game::TestCode() {
 			unit* u = nullptr;
 			if (TempList.dequeue(u))
 				A.getAS().enqueue(u);
+			
 		}
 	}
 	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
@@ -116,12 +117,12 @@ bool Game::EnqueueKilled(unit* d)
 
 EarthArmy Game::GetEArmy()
 {
-	return EarthArmy(E);
+	return E;
 }
 
 AlienArmy Game::GetAArmy()
 {
-	return AlienArmy(A);
+	return A;
 }
 
 int Game::GetTS()

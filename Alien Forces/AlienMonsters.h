@@ -1,12 +1,12 @@
 #pragma once
 class unit;
 class Game;
-class AlienMonsters :public unit
+class AlienMonsters
 {
 	int count;
 	unit* monsters[1000];
 public:
-	AlienMonsters(double h = 0, int p = 0, int ac = 0, int t = 0);
+	AlienMonsters();
 	bool AddAlienMonster(unit*);
 	bool removeAlienMonster(unit*&);
 	void PrintAM();

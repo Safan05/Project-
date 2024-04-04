@@ -3,9 +3,9 @@
 #include"AlienSoldiers.h"
 #include"AlienMonsters.h"
 #include"AlienDrones.h"
-#include"../Type.h"
+#include"..\Unit\unit.h"
+#include"..\Type.h"
 class Game;
-class unit;
 class AlienArmy
 {
 	Game* Gptr;               //pointer to the game class 

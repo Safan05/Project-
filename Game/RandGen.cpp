@@ -1,7 +1,10 @@
 #include "RandGen.h"
-#include "..\EarthForces\Soldier.h"
-#include "..\EarthForces\ETank.h"
-#include "..\EarthForces\EGunnery.h"
+#include "..\Unit\ESoldier.h"
+#include "..\Unit\ETank.h"
+#include "..\Unit\EGunnery.h"
+#include"..\Unit\ASoldier.h"
+#include"..\Unit\AMonster.h"
+#include"..\Unit\ADrone.h"
 #include <iostream>
 RandGen::RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, EarthArmy* E, AlienArmy* AL)
 {
@@ -49,7 +52,7 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 	AC = drand(ER[4], ER[5]);
 	if (B <= Ep[0]) {
 		T = soldier;
-		unit* U = new Soldier(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new ESoldier(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else if (B <= Ep[0] + Ep[1]) {
@@ -70,17 +73,17 @@ unit* RandGen::GenAliens(int Ap[], int AR[]) {
 	AC = drand(AR[4], AR[5]);
 	if (B <= Ap[0]) {
 		T = aliensoldier;
-		unit* U = new AlienSoldiers(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new ASoldier(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else if (B <= Ap[0] + Ap[1]) {
 		T = monster;
-		unit* U = new AlienMonsters(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new AMonster(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 	else {
 		T = drone;
-		unit* U = new AlienDrones(H, P, AC, T);      //switch on type to make appropriate object
+		unit* U = new ADrone(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 

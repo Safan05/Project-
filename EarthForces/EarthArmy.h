@@ -3,9 +3,9 @@
 #include"EarthSoldiers.h"
 #include"EarthTanks.h"
 #include"EarthGunnery.h"
-#include"../Type.h"
+#include"..\Unit\unit.h"
+#include"..\Type.h"
 class Game;
-class unit;
 class EarthArmy
 {
 	Game* Gptr;

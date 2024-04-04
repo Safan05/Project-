@@ -1,5 +1,4 @@
 #include "AlienArmy.h"
-#include "../Game/Game.cpp"
 #include<iostream>
 using namespace std;
 AlienArmy::AlienArmy(Game* g)

@@ -1,6 +1,5 @@
 #include "EarthArmy.h"
 #include<iostream>
-#include "../Game/Game.cpp"
 using namespace std;
 
 EarthArmy::EarthArmy(Game* g) //null ptr for now
