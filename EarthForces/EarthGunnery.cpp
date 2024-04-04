@@ -54,3 +54,12 @@ void EarthGunnery::PrintEG()
         temp = temp->getNext();
     }
 }
+
+EarthGunnery::~EarthGunnery()
+{
+    unit* temp = nullptr;
+    while (this->dequeue(temp))
+    {
+        delete temp;
+    }
+}

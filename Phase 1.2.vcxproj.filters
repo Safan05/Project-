@@ -90,13 +90,25 @@
     <ClInclude Include="DS\DoubleQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EarthForces\Soldier.h">
+    <ClInclude Include="Unit\ADrone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EarthForces\ETank.h">
+    <ClInclude Include="Unit\AMonster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EarthForces\EGunnery.h">
+    <ClInclude Include="Unit\ASoldier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit\EGunnery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit\ESoldier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit\ETank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit\unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -135,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Alien Forces\AlienMonsters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

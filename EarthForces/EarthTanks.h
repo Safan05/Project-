@@ -15,5 +15,6 @@ public:
 	bool ETattack(Game* GPtr);
 	int GetTcount();
 	void PrintET();
+	~EarthTanks();
 };
 #endif

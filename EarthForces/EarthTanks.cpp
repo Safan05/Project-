@@ -48,3 +48,12 @@ void EarthTanks::PrintET()
 		temp = temp->getNext();
 	}
 }
+
+EarthTanks::~EarthTanks()
+{
+	unit* temp = nullptr;
+	while (this->pop(temp))
+	{
+		delete temp;
+	}
+}
