@@ -4,13 +4,13 @@
 #include <ctime>
 using namespace std;
 Game::Game()
-{	
-	
+{
+
 	TS = 0;
 	std::cout << "Enter The file name to load" << endl;
 	std::cin >> Filename;
 	LoadParameters(Filename);
-	char x ;
+	char x;
 	cout << "Enter any key to start : ";
 	cin >> x;
 	cout << endl;
@@ -19,14 +19,14 @@ Game::Game()
 		srand(time(0));
 		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 		TestCode();
-		cout << "Current TimeStep : " <<TS<<endl;
+		cout << "Current TimeStep : " << TS << endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
 		cout << "============= Alien Forces Alive Units =============" << endl;
 		A.PrintArmy();
 		cout << "============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
-		cout <<endl<< "Enter any key to move to next time step : ";
+		cout << endl << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
 	}
@@ -55,7 +55,7 @@ void Game::LoadParameters(char FileName[])
 }
 void Game::TestCode() {
 	double x = G->drand(1, 100);
-	if (x < 10) 
+	if (x < 10)
 	{ 	//pick ES and insert again
 		unit* u = nullptr;
 		if (E.GetES().dequeue(u))
@@ -98,7 +98,7 @@ void Game::TestCode() {
 	else if (x < 60) { 	//pick 6 drones from their list and insert them in killed list
 
 		for (int i = 0; i < 3; i++) {
-			unit* u1=nullptr,*u2=nullptr;
+			unit* u1 = nullptr, * u2 = nullptr;
 			if (A.getAD().dequeue(u1, u2)) {
 				EnqueueKilled(u1);
 				if (u2)
@@ -145,7 +145,7 @@ void Game::PrintKList()
 	cout << "]";
 	while (Ktemp.dequeue(temp))
 		KilledList.enqueue(temp);
-	
+
 }
 
 void Game::GenerateWarReport()
@@ -165,4 +165,7 @@ void Game::GenerateWarReport()
 	WR << "\nBattle Result : ";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
+}
+Game::~Game() {
+
 }

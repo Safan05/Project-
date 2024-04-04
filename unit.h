@@ -3,10 +3,6 @@
 #define UNIT
 #include"Type.h"
 #include<fstream>
-#include"DS/LinkedQueue.h"
-#include"DS/LinkedStack.h"
-#include"DS/priQueue.h"
-#include"Game/Game.h"
 class Game;
 class unit
 {
@@ -20,7 +16,7 @@ private:
 	int Type;
 	bool Isattacked;
 public:
-	unit(double H,int P,int AC,int T);
+	unit(double H, int P, int AC, int T);
 	bool is_killed();
 	bool operator>(const unit& a) const;
 	virtual int attack(Game* GPtr) = 0;
@@ -37,6 +33,6 @@ public:
 	void SetTa(int t);
 	void SetTd(int t);
 	void DeathReport(std::ofstream& wr);
-	void PrintUnit(); 
+	void PrintUnit();
 };
 #endif

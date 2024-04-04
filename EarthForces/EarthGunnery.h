@@ -1,6 +1,7 @@
 #ifndef EarthG
 #define EarthG
-#include"../unit.h"
+#include"../DS/priQueue.h"
+class unit;
 class Game;
 class EarthGunnery :public priQueue<unit*>
 {

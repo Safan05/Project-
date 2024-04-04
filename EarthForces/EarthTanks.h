@@ -1,7 +1,8 @@
 #ifndef EarthT
 #define EarthT
-#include"../unit.h";
-#include"../EarthForces/ETank.h"
+#include"../DS/LinkedStack.h"
+class unit;
+class Game;
 class EarthTanks :public LinkedListStack<unit*>
 {
 	int Tcount;

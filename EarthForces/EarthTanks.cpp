@@ -1,6 +1,6 @@
 #include "EarthTanks.h"
 #include"../Game/Game.h"
-EarthTanks::EarthTanks() 
+EarthTanks::EarthTanks()
 {
 	ETshots = 0;
 	Tcount = 0;

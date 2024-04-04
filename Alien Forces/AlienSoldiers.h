@@ -1,7 +1,7 @@
 #pragma once
-#include"..\unit.h"
 #include"..\DS\LinkedQueue.h"
-
+class unit;
+class Game;
 class AlienSoldiers :public unit, public LinkedQueue<unit*>
 {
 	int count;

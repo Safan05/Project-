@@ -4,10 +4,10 @@
 class EGunnery :public unit
 {
 public:
-	EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
-	{}
-	int attack(Game* GPtr)
-	{
+    EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
+    {}
+    int attack(Game* GPtr)
+    {
         int EGshots = 0;
         LinkedQueue<unit*>templist; int gp;
         unit* enemy = nullptr;
@@ -32,5 +32,5 @@ public:
             GPtr->GetAArmy().AddAM(enemy);
         //attack drones
         return EGshots;
-	}
+    }
 };

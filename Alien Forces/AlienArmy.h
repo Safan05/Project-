@@ -1,15 +1,17 @@
-#pragma once
-#include"..\unit.h"
+#ifndef AArmy
+#define AArmy
 #include"AlienSoldiers.h"
 #include"AlienMonsters.h"
 #include"AlienDrones.h"
-class game;
+#include"../Type.h"
+class Game;
+class unit;
 class AlienArmy
 {
 	Game* Gptr;               //pointer to the game class 
 	AlienSoldiers AS;         //Alien Soldiers
-	AlienDrones AD;    //Alien Drones
-	AlienMonsters AM;                 //Alien Monsters 
+	AlienDrones AD;			  //Alien Drones
+	AlienMonsters AM;         //Alien Monsters 
 	int id;
 public:
 	AlienArmy(Game* g = nullptr);
@@ -22,3 +24,4 @@ public:
 	int getAlienCount();
 	void PrintArmy();
 };
+#endif
