@@ -2,14 +2,14 @@
 #include"..\DS\LinkedQueue.h"
 class unit;
 class Game;
-class AlienSoldiers :public unit, public LinkedQueue<unit*>
+class AlienSoldiers :public LinkedQueue<unit*>
 {
 	int count;
+	int shots;
 public:
-	AlienSoldiers(double h = 0, int p = 0, int ac = 0, int t = 0);
+	AlienSoldiers();
 	bool enqueue(unit*& s);
 	bool dequeue(unit*& s);
 	void PrintAS();
 	int getCount();
-	int attack(Game* GPtr);
 };
