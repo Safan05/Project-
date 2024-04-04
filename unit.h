@@ -3,7 +3,7 @@
 #define UNIT
 #include"Type.h"
 #include<fstream>
-class Game;
+#include"Game/Game.h"
 class unit
 {
 private:
