@@ -1,11 +1,14 @@
 #include "RandGen.h"
+#include "..\EarthForces\Soldier.h"
+#include "..\EarthForces\ETank.h"
+#include "..\EarthForces\EGunnery.h"
 #include <iostream>
-RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,EarthArmy* E,AlienArmy* AL)
+RandGen::RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, EarthArmy* E, AlienArmy* AL)
 {
-	A = drand(1,100);
-	if(A<p)
+	A = drand(1, 100);
+	if (A < p)
 		for (int i = 0; i < n; i++) {
-			unit* U = GenEarth(Ep,ER);
+			unit* U = GenEarth(Ep, ER);
 			U->SetJoin(TS);
 			//if (U->GetType() == soldier)
 			//	E->EnqueueESoldier(U);
@@ -20,19 +23,19 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[],int ER[],int AR[],int TS,Earth
 	A = drand(1, 100);
 	if (A < p)
 		for (int i = 0; i < n; i++) {
-			unit* U = GenAliens(Ap,AR);
-	 			U->SetJoin(TS);
-				if (U->GetType() == aliensoldier)
-					AL->AddAS(U);
-				//add soldier using alien army class;
-				else if (U->GetType() == drone)
-					AL->AddAD(U);
-				//add drone using alien army class;
-				else
-					AL->AddAM(U);
+			unit* U = GenAliens(Ap, AR);
+			U->SetJoin(TS);
+			if (U->GetType() == aliensoldier)
+				AL->AddAS(U);
+			//add soldier using alien army class;
+			else if (U->GetType() == drone)
+				AL->AddAD(U);
+			//add drone using alien army class;
+			else
+				AL->AddAM(U);
 			//add monster using alien army class;
 		}
-  
+
 }
 
 double RandGen::drand(double M, double N)
@@ -40,9 +43,9 @@ double RandGen::drand(double M, double N)
 	return M + (rand() / (RAND_MAX / (N - M)));
 }
 unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
-	B =drand(1,100);                            //and make unit* point to it
-	P =drand(ER[0],ER[1]);
-	H = drand(ER[2],ER[3]);
+	B = drand(1, 100);                            //and make unit* point to it
+	P = drand(ER[0], ER[1]);
+	H = drand(ER[2], ER[3]);
 	AC = drand(ER[4], ER[5]);
 	if (B <= Ep[0]) {
 		T = soldier;

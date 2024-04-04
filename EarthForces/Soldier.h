@@ -1,16 +1,17 @@
 #pragma once
 #include"../unit.h"
-class Game;
+#include"../Game/Game.h"
 class Soldier : public unit
 {
 public:
 	Soldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
-	{	}
-	int attack(Game* GPtr) 
+	{
+	}
+	int attack(Game* GPtr)
 	{
 		int ESshots = 0;
-		LinkedQueue<unit*>templist;
-		unit* enemy = nullptr; 
+		LinkedQueue<unit*> templist;
+		unit* enemy = nullptr;
 		for (int i = 0; i < unit::GetAC(); i++)
 		{
 			if (GPtr->GetAArmy().getAS().dequeue(enemy))

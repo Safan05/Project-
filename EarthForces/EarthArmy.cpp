@@ -1,5 +1,6 @@
 #include "EarthArmy.h"
 #include<iostream>
+#include "../Game/Game.cpp"
 using namespace std;
 
 EarthArmy::EarthArmy(Game* g) //null ptr for now
@@ -31,7 +32,7 @@ bool EarthArmy::AddES(unit* s)
 {
 	s->SetId(id++);
 	return ES.enqueue(s);
- }
+}
 
 bool EarthArmy::AddET(unit* t)
 {
@@ -69,13 +70,13 @@ void EarthArmy::PrintArmy()
 	cout << endl;
 
 	///////////////Printing EG List/////////////////
-	
+
 	cout << EG.GetGcount() << " EG [";
 	EG.PrintEG();
 	cout << "]";
 	cout << endl;
 	///////////////Printing ET List/////////////////
-	
+
 	cout << ET.GetTcount() << " ET [";
 	ET.PrintET();
 	cout << "]";

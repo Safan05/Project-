@@ -2,7 +2,7 @@
 
 #include"DoubleNode.h"
 #include "QueueADT.h"
-
+#include <iostream>
 template <typename T>
 class DoubleQueue :public QueueADT<T>
 {

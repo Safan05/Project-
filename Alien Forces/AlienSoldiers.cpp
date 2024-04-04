@@ -35,7 +35,7 @@ void AlienSoldiers::PrintAS()
 	}
 }
 
-int AlienSoldiers::getCount() {	return count; }
+int AlienSoldiers::getCount() { return count; }
 
 int AlienSoldiers::attack(Game* GPtr)
 {

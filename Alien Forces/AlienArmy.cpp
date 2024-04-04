@@ -1,4 +1,5 @@
 #include "AlienArmy.h"
+#include "../Game/Game.cpp"
 #include<iostream>
 using namespace std;
 AlienArmy::AlienArmy(Game* g)
@@ -23,7 +24,7 @@ bool AlienArmy::AddAD(unit* d)
 {
 	d->SetId(id++);
 	unit* temp = NULL;          //Adds the new drone at the end of the Doublequeue ,edit if needed
-	return AD.enqueue(temp,d);
+	return AD.enqueue(temp, d);
 }
 
 int AlienArmy::getAlienCount()
@@ -46,7 +47,7 @@ void AlienArmy::PrintArmy()
 	///////////////Printing AM List/////////////////
 	cout << AM.getCount() << " AM [";
 	AM.PrintAM();
-	cout << "]\n"; 
+	cout << "]\n";
 	///////////////Printing AD List/////////////////
 	cout << AD.getCount() << " AD [";
 	AD.PrintAD();

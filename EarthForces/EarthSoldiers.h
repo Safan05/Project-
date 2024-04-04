@@ -1,9 +1,9 @@
 #ifndef EarthS
 #define EarthS
-#include"../unit.h"
 #include"../DS/LinkedQueue.h"
 class Game;
-class EarthSoldiers:public LinkedQueue<unit*>
+class unit;
+class EarthSoldiers :public LinkedQueue<unit*>
 {
 	int Scount;
 	int ESshots;

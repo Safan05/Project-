@@ -23,7 +23,9 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 {
 	if (count < 1) return false;
 	int i = rand() % count;
-	std::swap(monsters[i], monsters[count - 1]);
+	unit* temp = monsters[i];
+	monsters[i] = monsters[count - 1];
+	monsters[count - 1] = temp;
 	m = monsters[count - 1];
 	count--;
 	return true;
@@ -38,9 +40,9 @@ void AlienMonsters::PrintAM()
 	}
 }
 
-int AlienMonsters::getCount() {	return count; }
+int AlienMonsters::getCount() { return count; }
 
-int AlienMonsters::attack(Game* GPtr) 
+int AlienMonsters::attack(Game* GPtr)
 {
 	if (count == 0 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetES().isEmpty()))
 		return false;

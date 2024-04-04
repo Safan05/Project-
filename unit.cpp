@@ -1,7 +1,8 @@
 #include "unit.h"
+#include "Game/Game.cpp"
 #include<iostream>
 using namespace std;
-unit::unit( double H, int P, int AC, int T)
+unit::unit(double H, int P, int AC, int T)
 {
 	//id = I;
 	//JoinTime = JT;
@@ -17,7 +18,7 @@ int unit::GetId() {
 }
 bool unit::is_killed()
 {
-	if(Health<=0)
+	if (Health <= 0)
 		return true;
 	return false;
 }
@@ -80,7 +81,7 @@ void unit::SetTd(int t)
 
 void unit::DeathReport(std::ofstream& wr)
 {
-	wr  << ImpTime[2] << "\t" << id << "\t"
+	wr << ImpTime[2] << "\t" << id << "\t"
 		<< JoinTime << "\t" << ImpTime[1] - ImpTime[0] << "\t"
 		<< ImpTime[2] - ImpTime[1] << "\t" << ImpTime[2] - ImpTime[0] << endl;
 }

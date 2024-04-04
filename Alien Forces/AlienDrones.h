@@ -1,6 +1,7 @@
 #pragma once
-#include"..\unit.h"
 #include"..\DS\DoubleQueue.h"
+class unit;
+class Game;
 class AlienDrones :public unit, public DoubleQueue<unit*>
 {
 	int count;

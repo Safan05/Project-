@@ -1,6 +1,7 @@
 #pragma once
-#include"..\unit.h"
-class AlienMonsters:public unit
+class unit;
+class Game;
+class AlienMonsters :public unit
 {
 	int count;
 	unit* monsters[1000];

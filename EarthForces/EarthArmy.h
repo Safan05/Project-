@@ -1,12 +1,11 @@
 #ifndef EArmy
 #define EArmy
-#include"Soldier.h";
-#include"ETank.h"
-#include"EGunnery.h"
 #include"EarthSoldiers.h"
 #include"EarthTanks.h"
 #include"EarthGunnery.h"
+#include"../Type.h"
 class Game;
+class unit;
 class EarthArmy
 {
 	Game* Gptr;
