@@ -27,7 +27,12 @@ Game::Game()
 		cout << endl << "Enter any key to move to next time step : ";
 		cin >> x;
 		cout << endl;
+		if (TS >= 50) {
+			cout << "You have reached the limit of generating more units!";
+			break;
+		}
 	}
+	//this->GenerateWarReport();
 }
 
 void Game::LoadParameters(char FileName[])
