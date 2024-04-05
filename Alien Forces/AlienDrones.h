@@ -12,4 +12,5 @@ public:
 	bool dequeue(unit*&, unit*&);
 	void PrintAD();
 	int getCount();
+	~AlienDrones();
 };

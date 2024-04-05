@@ -29,7 +29,7 @@ public:
             }
         }
         while (templist.dequeue(enemy))       //return alive monsters back
-            GPtr->GetAArmy().AddAM(enemy);
+            GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
         //attack drones
         return EGshots;
     }

@@ -61,3 +61,13 @@ void AlienDrones::PrintAD()
 }
 
 int AlienDrones::getCount() { return count; }
+
+AlienDrones::~AlienDrones()
+{
+	unit* temp1 = NULL, *temp2 = NULL;
+	while (dequeue(temp1, temp2))
+	{
+		delete temp1;
+		delete temp2;
+	}
+}

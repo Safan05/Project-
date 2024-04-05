@@ -32,7 +32,7 @@ public:
 					templist.push(enemy);
 			}
 			while (templist.pop(enemy))
-				Gptr->GetAArmy().AddAM(enemy);
+				Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
 		}
 		bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30 / 100)) ? true : false;
 		if (AttackAS)

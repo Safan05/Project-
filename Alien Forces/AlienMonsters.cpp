@@ -41,3 +41,10 @@ void AlienMonsters::PrintAM()
 }
 
 int AlienMonsters::getCount() { return count; }
+
+AlienMonsters::~AlienMonsters()
+{
+	for (int i = 0; i < count; i++)
+		if (monsters[i])
+			delete monsters[i];
+}
