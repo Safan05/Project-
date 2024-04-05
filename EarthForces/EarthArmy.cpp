@@ -12,7 +12,7 @@ bool EarthArmy::AddUnit(unit* u)
 {
 	switch (u->GetType())
 	{
-	case soldier:
+	case earthsoldier:
 		AddES(u);
 		break;
 	case tank:

@@ -153,7 +153,7 @@ void Game::GenerateWarReport()
 	WR << "\tEarth VS Aliens War Report\n";
 	WR << "Td\tID\tTj\tDf\tDd\tDb\n";
 	LinkedQueue<unit*> TempK;
-	unit* kunit; int es,et,eg,as,ad,am = 0;
+	unit* kunit; int es = 0, et =0, eg = 0, as = 0, ad = 0, am = 0;
 	while (KilledList.dequeue(kunit))
 	{                              //Note:killed-list is ascend.sorted already 
 		kunit->DeathReport(WR);    //as it's queue implemented
