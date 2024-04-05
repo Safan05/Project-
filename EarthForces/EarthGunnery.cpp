@@ -12,7 +12,7 @@ EarthGunnery::EarthGunnery()
 bool EarthGunnery::enqueue(unit*& g)
 {
     Gcount++;
-    return priQueue<unit*>::enqueue(g, g->GetPow());
+    return priQueue<unit*>::enqueue(g, g->GetPow() + g->GetHealth());
 }
 
 

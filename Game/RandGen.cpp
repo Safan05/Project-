@@ -51,7 +51,7 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 	H = drand(ER[2], ER[3]);
 	AC = drand(ER[4], ER[5]);
 	if (B <= Ep[0]) {
-		T = soldier;
+		T = earthsoldier;
 		unit* U = new ESoldier(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
