@@ -155,32 +155,17 @@ void Game::GenerateWarReport()
 	WR << "\tEarth VS Aliens War Report\n";
 	WR << "Td\tID\tTj\tDf\tDd\tDb\n";
 	LinkedQueue<unit*> TempK;
-	unit* kunit; int es,et,eg,as,ad,am = 0;
+	unit* kunit;
 	while (KilledList.dequeue(kunit))
 	{                              //Note:killed-list is ascend.sorted already 
 		kunit->DeathReport(WR);    //as it's queue implemented
-		switch (kunit->GetType())
-		{
-		case earthsoldier: es++; break;
-		case tank: et++; break;
-		case gunnery: eg++; break;
-		case aliensoldier: as++; break;
-		case drone: ad++; break;
-		case monster: am++; break;
-		default:
-			break;
-		}
 		TempK.enqueue(kunit);
 	}
 	while (TempK.dequeue(kunit))
 		KilledList.enqueue(kunit);
-	WR << "\nBattle Result : \n";
+	WR << "\nBattle Result : ";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
-	WR << "ES_Destructed/ ES_Total = " << es / E.GetES().GetScount() << "\tET_Destructed/ ET_Total = " << et / E.GetET().GetTcount()
-		<< "\tEG_Destructed/ EG_Total = " << eg / E.GetEG().GetGcount();
-	int TotalU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
-	WR << "\nTotal_Destructed/ Total units " << (es + et + eg + as + am + ad) / TotalU;
 }
 Game::~Game() {
 

@@ -1,6 +1,6 @@
 #pragma once
 	enum Type {
-		earthsoldier,
+		soldier,
 		tank,
 		gunnery,
 		aliensoldier,
