@@ -7,23 +7,22 @@ AlienArmy::AlienArmy(Game* g)
 	id = 2000;
 }
 
-bool AlienArmy::AddAS(unit* s)
+bool AlienArmy::AddUnit(unit* u)
 {
-	s->SetId(id++);
-	return AS.enqueue(s);
-}
-
-bool AlienArmy::AddAM(unit* m)
-{
-	m->SetId(id++);
-	return AM.AddAlienMonster(m);
-}
-
-bool AlienArmy::AddAD(unit* d)
-{
-	d->SetId(id++);
-	unit* temp = NULL;          //Adds the new drone at the end of the Doublequeue ,edit if needed
-	return AD.enqueue(temp, d);
+	u->SetId(id++);
+	switch (u->GetType())
+	{
+	case aliensoldier:
+		return AS.enqueue(u);
+	case monster:
+		return AM.AddAlienMonster(u);
+	case drone:
+	{ 
+		unit* ptr = NULL;
+		return AD.enqueue(ptr, u);
+	}
+	default: return false;
+	}
 }
 
 int AlienArmy::getAlienCount()

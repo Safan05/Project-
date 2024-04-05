@@ -26,6 +26,5 @@ public:             //to be incremented when game class implements war logic
 	void PrintKList();
 	void GenerateWarReport();
 	void TestCode();
-	~Game();
 };
 

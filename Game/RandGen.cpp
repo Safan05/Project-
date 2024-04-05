@@ -13,30 +13,14 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, E
 		for (int i = 0; i < n; i++) {
 			unit* U = GenEarth(Ep, ER);
 			U->SetJoin(TS);
-			//if (U->GetType() == soldier)
-			//	E->EnqueueESoldier(U);
-			////add soldier using earth army class;
-			//else if (U->GetType() == gunnery)
-			//	E->EnqueueEGunnery(U);
-			////add gunnery using earth army class;
-			//else
-			//	E->EnqueueETank(U);
-			////add Tank using earth army class;
+			E->AddUnit(U);
 		}
 	A = drand(1, 100);
 	if (A < p)
 		for (int i = 0; i < n; i++) {
 			unit* U = GenAliens(Ap, AR);
 			U->SetJoin(TS);
-			if (U->GetType() == aliensoldier)
-				AL->AddAS(U);
-			//add soldier using alien army class;
-			else if (U->GetType() == drone)
-				AL->AddAD(U);
-			//add drone using alien army class;
-			else
-				AL->AddAM(U);
-			//add monster using alien army class;
+			AL->AddUnit(U);
 		}
 
 }

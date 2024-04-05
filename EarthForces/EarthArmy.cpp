@@ -8,9 +8,9 @@ EarthArmy::EarthArmy(Game* g) //null ptr for now
 	id = 0;
 }
 
-bool EarthArmy::AddUnit(unit* u, Type t)
+bool EarthArmy::AddUnit(unit* u)
 {
-	switch (t)
+	switch (u->GetType())
 	{
 	case soldier:
 		AddES(u);

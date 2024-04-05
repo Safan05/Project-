@@ -15,9 +15,7 @@ class AlienArmy
 	int id;
 public:
 	AlienArmy(Game* g = nullptr);
-	bool AddAS(unit*);
-	bool AddAM(unit*);
-	bool AddAD(unit*);
+	bool AddUnit(unit*);
 	AlienSoldiers& getAS();
 	AlienMonsters& getAM();
 	AlienDrones& getAD();
