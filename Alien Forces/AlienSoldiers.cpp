@@ -37,3 +37,10 @@ void AlienSoldiers::PrintAS()
 }
 
 int AlienSoldiers::getCount() { return count; }
+
+AlienSoldiers::~AlienSoldiers()
+{
+	unit* temp = NULL;
+	while (dequeue(temp))
+		delete temp;
+}

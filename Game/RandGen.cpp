@@ -20,15 +20,7 @@ RandGen::RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, E
 		for (int i = 0; i < n; i++) {
 			unit* U = GenAliens(Ap, AR);
 			U->SetJoin(TS);
-			if (U->GetType() == aliensoldier)
-				AL->AddAS(U);
-			//add soldier using alien army class;
-			else if (U->GetType() == drone)
-				AL->AddAD(U);
-			//add drone using alien army class;
-			else
-				AL->AddAM(U);
-			//add monster using alien army class;
+			AL->AddUnit(U);
 		}
 
 }

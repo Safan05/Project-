@@ -12,4 +12,5 @@ public:
 	void PrintAM();
 	int getCount();
 	int attack(Game* GPtr);
+	~AlienMonsters();
 };
