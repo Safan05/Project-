@@ -32,7 +32,7 @@ Game::Game()
 			break;
 		}
 	}
-	//this->GenerateWarReport();
+	this->GenerateWarReport();
 }
 
 void Game::LoadParameters(char FileName[])
@@ -186,5 +186,10 @@ void Game::GenerateWarReport()
 	WR << "\nTotal_Destructed/ Total units " << (es + et + eg + as + am + ad) / TotalU;
 }
 Game::~Game() {
-
+	unit* temp = nullptr;
+	while (KilledList.dequeue(temp))
+		delete temp;
+	temp = nullptr;
+	while (TempList.dequeue(temp))
+		delete temp;
 }
