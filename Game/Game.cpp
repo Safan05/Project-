@@ -15,7 +15,21 @@ Game::Game()
 	cout << endl;
 	while (x != 'x') {
 		TS++;
-		G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+		//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+		if (G.Probability(Prob)) {
+			for (int i = 0; i < N; i++) {
+				unit* U = G.GenEarth(EP, ER);
+				U->SetJoin(TS);
+				E.AddUnit(U);
+			}
+		}
+		if (G.Probability(Prob)) {
+			for (int i = 0; i < N; i++) {
+				unit* U = G.GenAliens(AP, AR);
+				U->SetJoin(TS);
+				A.AddUnit(U);
+			}
+		}
 		TestCode();
 		cout << "Current TimeStep : " << TS << endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
@@ -32,8 +46,8 @@ Game::Game()
 			break;
 		}
 	}
-	this->GenerateWarReport();
 }
+
 
 void Game::LoadParameters(char FileName[])
 {
@@ -57,7 +71,7 @@ void Game::LoadParameters(char FileName[])
 	}
 }
 void Game::TestCode() {
-	double x = G->drand(1, 100);
+	double x = G.drand(1, 100);
 	if (x < 10)
 	{ 	//pick ES and insert again
 		unit* u = nullptr;
@@ -78,17 +92,18 @@ void Game::TestCode() {
 			E.GetEG().enqueue(u);
 		}
 	}
-	else if (x < 40) {	//pick 5 AS from their length,decrement their health, put them in temp list then insert again to original length
+	else if (x < 40) {	//pick 5 AS from their list,decrement their health, put them in temp list then insert again to original length
 		for (int i = 0; i < 5; i++) {
 			unit* u = nullptr;
 			if (A.getAS().dequeue(u))
-				TempList.enqueue(u);
+				u->DecHealth(u->GetHealth() / (G.drand(2, 10)));
+			TempList.enqueue(u);
 		}
 		for (int i = 0; i < 5; i++) {
 			unit* u = nullptr;
 			if (TempList.dequeue(u))
 				A.getAS().enqueue(u);
-			
+
 		}
 	}
 	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
