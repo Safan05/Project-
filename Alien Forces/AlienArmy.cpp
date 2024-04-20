@@ -30,6 +30,14 @@ int AlienArmy::getAlienCount()
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
 
+bool AlienArmy::Alienattack(Game* g)
+{
+	bool a1 = AS.ASattack(g);
+	bool a2 = AM.AMattack(g);
+	bool a3 = AD.ADattack(g);
+	return (a1 || a2 || a3);
+}
+
 AlienSoldiers& AlienArmy::getAS() { return AS; }
 
 AlienMonsters& AlienArmy::getAM() { return AM; }

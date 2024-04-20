@@ -149,16 +149,22 @@
     <ClCompile Include="Unit\unit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EarthForces\UML.cpp">
+    <ClCompile Include="Unit\ADrone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\AMonster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\ASoldier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Unit\ESoldier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Unit\ETank.cpp">
+    <ClCompile Include="Unit\EGunnery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Unit\EGunnery.cpp">
+    <ClCompile Include="Unit\ETank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

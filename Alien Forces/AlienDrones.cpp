@@ -6,7 +6,6 @@
 AlienDrones::AlienDrones()
 {
 	count = 0;
-	shots = 0;
 }
 
 bool AlienDrones::enqueue(unit*& front, unit*& back)
@@ -61,6 +60,18 @@ void AlienDrones::PrintAD()
 }
 
 int AlienDrones::getCount() { return count; }
+
+bool AlienDrones::ADattack(Game* GPtr)
+{
+	if (count < 2)
+		return false;
+	else 
+	{
+		bool a1 = frontPtr->getItem()->attack(GPtr);
+		bool a2 = backPtr->getItem()->attack(GPtr);
+		return (a1 || a2);
+	}
+}
 
 AlienDrones::~AlienDrones()
 {
