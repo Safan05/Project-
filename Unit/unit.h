@@ -7,7 +7,7 @@
 class Game;
 class unit
 {
-private:
+protected:
 	int id;
 	int JoinTime;
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
