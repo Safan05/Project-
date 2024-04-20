@@ -30,7 +30,11 @@ Game::Game()
 				A.AddUnit(U);
 			}
 		}
-		TestCode();
+	//	TestCode();
+		unit* EU;
+		E.GetES().peek(EU);
+		if (EU)
+			EU->attack(this);
 		cout << "Current TimeStep : " << TS << endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
@@ -133,14 +137,14 @@ bool Game::EnqueueKilled(unit* d)
 	return KilledList.enqueue(d);
 }
 
-EarthArmy Game::GetEArmy()
+EarthArmy& Game::GetEArmy()
 {
-	return E;
+	return &E;
 }
 
 AlienArmy Game::GetAArmy()
 {
-	return A;
+	return &A;
 }
 
 int Game::GetTS()

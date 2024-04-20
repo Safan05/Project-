@@ -4,7 +4,7 @@ AMonster::AMonster(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool AMonster::attack(Game* GPtr)
+bool AMonster::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	LinkedListStack<unit*> Ttemp;

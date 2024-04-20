@@ -8,6 +8,6 @@ class ASoldier : public unit
 {		
 public:
 	ASoldier(double H, int P, int AC, int T);
-	bool attack(Game* GPtr);
+	bool attack(Game* const & GPtr);
 	void printShots();
 };

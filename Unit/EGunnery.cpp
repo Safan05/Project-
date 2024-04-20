@@ -4,7 +4,7 @@ EGunnery::EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool EGunnery::attack(Game* GPtr)
+bool EGunnery::attack(Game* const & GPtr)
 {
     int EGshots = 0;
     LinkedQueue<unit*>templist; int gp;

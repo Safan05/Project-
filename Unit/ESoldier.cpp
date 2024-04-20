@@ -4,7 +4,7 @@ ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool ESoldier::attack(Game* GPtr)
+bool ESoldier::attack(Game* const & GPtr)
 {
 	LinkedQueue<unit*> templist;
 	unit* enemy = nullptr;

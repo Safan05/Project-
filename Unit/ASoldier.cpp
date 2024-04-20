@@ -4,7 +4,7 @@ ASoldier::ASoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool ASoldier::attack(Game* GPtr)
+bool ASoldier::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	unit* enemy = NULL;

@@ -21,7 +21,7 @@ public:
 	unit(double H, int P, int AC, int T);
 	bool is_killed();
 	bool operator>(const unit& a) const;
-	virtual bool attack(Game* GPtr) = 0;
+	virtual bool attack(Game* const & GPtr) = 0;
 	int GetType();
 	void SetId(int I);
 	int GetId();

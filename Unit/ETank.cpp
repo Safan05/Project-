@@ -5,7 +5,7 @@ ETank::ETank(double H, int P, int AC, int T) :unit(H, P, AC, T)
     ESbelow80 = false;
 }
 
-bool ETank::attack(Game* Gptr)
+bool ETank::attack(Game* const & Gptr)
 {
 
 	LinkedListStack<unit*> templist;           //any DS for templist of monsters is valid  
