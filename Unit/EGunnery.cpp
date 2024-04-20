@@ -15,12 +15,13 @@ bool EGunnery::attack(Game* const & GPtr)
         {
             double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
             enemy->DecHealth(damage);
+            GetattackedIDs().enqueue(enemy->GetId());
             if (!enemy->Wasattacked())
             {
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
             }
-            if (enemy->GetHealth() < 0)
+            if (enemy->GetHealth() <= 0)
                 GPtr->EnqueueKilled(enemy);   //add to killed list
             else
                 templist.enqueue(enemy);
