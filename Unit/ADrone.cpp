@@ -4,7 +4,7 @@ ADrone::ADrone(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool ADrone::attack(Game* GPtr)
+bool ADrone::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	unit* enemy = NULL;
@@ -16,7 +16,7 @@ void ADrone::printShots()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
-	while (attacked_IDs.dequeue(i))
+	while (GetattackedIDs().dequeue(i))
 		cout << i << " ";
 	cout << "]\n";
 }

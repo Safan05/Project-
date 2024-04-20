@@ -4,7 +4,7 @@ AMonster::AMonster(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool AMonster::attack(Game* GPtr)
+bool AMonster::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	LinkedListStack<unit*> Ttemp;
@@ -21,7 +21,7 @@ bool AMonster::attack(Game* GPtr)
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			enemy->SetTa(GPtr->GetTS());
-			attacked_IDs.enqueue(enemy->GetId());
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else Ttemp.push(enemy);
@@ -40,7 +40,7 @@ bool AMonster::attack(Game* GPtr)
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			enemy->SetTa(GPtr->GetTS());
-			attacked_IDs.enqueue(enemy->GetId());
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else Stemp.enqueue(enemy);
@@ -56,7 +56,7 @@ void AMonster::printShots()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
-	while (attacked_IDs.dequeue(i))
+	while (GetattackedIDs().dequeue(i))
 		cout << i << " ";
 	cout << "]\n";
 }

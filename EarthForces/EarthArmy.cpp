@@ -2,7 +2,7 @@
 #include<iostream>
 using namespace std;
 
-EarthArmy::EarthArmy(Game* g) //null ptr for now
+EarthArmy::EarthArmy(Game* g) //should be deleted??
 {
 	Gptr = g;
 	id = 0;

@@ -5,6 +5,6 @@ class ESoldier : public unit
 {
 public:
 	ESoldier(double H, int P, int AC, int T);
-	bool attack(Game* GPtr);
-	
+	bool attack(Game* const & GPtr);
+	void PrintAttacked();
 };

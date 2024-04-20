@@ -4,7 +4,7 @@ EGunnery::EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool EGunnery::attack(Game* GPtr)
+bool EGunnery::attack(Game* const & GPtr)
 {
     int EGshots = 0;
     LinkedQueue<unit*>templist; int gp;
@@ -30,4 +30,20 @@ bool EGunnery::attack(Game* GPtr)
         GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
     //attack drones
     return true;
+}
+
+void EGunnery::PrintAttacked()
+{
+    if (!GetattackedIDs().isEmpty())
+    {
+        int id;
+        cout << "EG " << GetId() << " shots [";
+        while (GetattackedIDs().dequeue(id))
+        {
+            cout << id;
+            if (!GetattackedIDs().isEmpty())
+                cout << ", ";
+        }
+        cout << "] IDs of all Alien units shot by EG" << GetId() << endl;
+    }
 }

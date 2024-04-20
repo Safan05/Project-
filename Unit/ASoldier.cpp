@@ -4,7 +4,7 @@ ASoldier::ASoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool ASoldier::attack(Game* GPtr)
+bool ASoldier::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	unit* enemy = NULL;
@@ -18,7 +18,7 @@ bool ASoldier::attack(Game* GPtr)
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			enemy->SetTa(GPtr->GetTS());
-			attacked_IDs.enqueue(enemy->GetId());
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else temp.enqueue(enemy);
@@ -33,7 +33,7 @@ void ASoldier::printShots()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
-	while (attacked_IDs.dequeue(i))
+	while (GetattackedIDs().dequeue(i))
 		cout << i << " ";
 	cout << "]\n";
 }

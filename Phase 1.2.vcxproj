@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Try.txt" />
+    <Text Include="War Report.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
