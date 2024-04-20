@@ -31,12 +31,13 @@ Game::Game()
 			}
 		}
 		//TestCode();
-		unit* EU = nullptr,*AU;
+		unit* EU = nullptr, * AU = nullptr;
 		E.GetES().peek(EU);
 		if (EU)
+		{
 			EU->attack(this);
-		//A.getAS().peek(AU);
-		//AU->attack(this);
+			EU->PrintAttacked();
+		}
 		cout << "Current TimeStep : " << TS << endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
 		E.PrintArmy();
@@ -141,12 +142,12 @@ bool Game::EnqueueKilled(unit* d)
 	return KilledList.enqueue(d);
 }
 
-EarthArmy Game::GetEArmy()
+EarthArmy& Game::GetEArmy()
 {
 	return E;
 }
 
-AlienArmy Game::GetAArmy()
+AlienArmy& Game::GetAArmy()
 {
 	return A;
 }

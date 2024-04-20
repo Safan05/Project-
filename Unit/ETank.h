@@ -6,5 +6,6 @@ class ETank :public unit
 	bool ESbelow80;
 public:
 	ETank(double H, int P, int AC, int T);
-	bool attack(Game* Gptr);
+	bool attack(Game* const & Gptr);
+	void PrintAttacked();
 };

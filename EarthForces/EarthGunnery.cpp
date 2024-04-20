@@ -6,7 +6,6 @@ using namespace std;
 EarthGunnery::EarthGunnery()
 {
     Gcount = 0;
-    EGshots = 0;
 }
 
 bool EarthGunnery::enqueue(unit*& g)
@@ -27,16 +26,6 @@ bool EarthGunnery::dequeue(unit*& g)
     return false;
 }
 
-bool EarthGunnery::attack(Game* GPtr)
-{
-    int g;
-    if (head)
-    {
-        EGshots += head->getItem(g)->attack(GPtr);
-        return true;
-    }
-    return false;
-}
 
 int EarthGunnery::GetGcount()
 {

@@ -7,7 +7,7 @@
 class Game;
 class unit
 {
-protected:
+private:
 	int id;
 	int JoinTime;
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
@@ -21,7 +21,7 @@ public:
 	unit(double H, int P, int AC, int T);
 	bool is_killed();
 	bool operator>(const unit& a) const;
-	virtual bool attack(Game* GPtr) = 0;
+	virtual bool attack(Game* const & GPtr) = 0;
 	int GetType();
 	void SetId(int I);
 	int GetId();
@@ -37,5 +37,6 @@ public:
 	void SetTd(int t);
 	void DeathReport(std::ofstream& wr);
 	void PrintUnit();
+	virtual void PrintAttacked() = 0;
 };
 #endif
