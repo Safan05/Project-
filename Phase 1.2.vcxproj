@@ -152,7 +152,6 @@
     <ClInclude Include="Priority\QueueADT.h" />
     <ClInclude Include="Game\RandGen.h" />
     <ClInclude Include="Type.h" />
-    <ClInclude Include="unit.h" />
     <ClInclude Include="Unit\ADrone.h" />
     <ClInclude Include="Unit\AMonster.h" />
     <ClInclude Include="Unit\ASoldier.h" />

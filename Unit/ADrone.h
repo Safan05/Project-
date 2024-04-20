@@ -9,11 +9,11 @@ public:
 	}
 	bool attack(Game* GPtr)
 		{
-		//	if (count < 2 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetEG().isEmpty()))
-		//		return false;
-		//	unit* enemy;
-		//	unit* attacker1 = frontPtr->getItem(), * attacker2 = backPtr->getItem();
-		//	//to be contninued after better understanding of the logic
+	//		if (count < 2 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetEG().isEmpty()))
+	//			return false;
+	//		unit* enemy;
+	//		unit* attacker1 = frontPtr->getItem(), * attacker2 = backPtr->getItem();
+	//		//to be contninued after better understanding of the logic
 		return 0;
 
 		}

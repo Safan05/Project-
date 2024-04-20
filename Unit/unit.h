@@ -13,7 +13,7 @@ private:
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
 	double Health;
 	int Power;
-	double AttackCapacity;
+	int AttackCapacity;
 	int Type;
 	bool Isattacked;
 	LinkedQueue<int> attacked_IDs;
