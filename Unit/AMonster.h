@@ -7,7 +7,7 @@ public:
 	AMonster(double H, int P, int AC, int T) :unit(H, P, AC, T)
 	{
 	}
-	int attack(Game* GPtr)
+	bool attack(Game* GPtr)
 	{
 	//	if (count == 0 || (GPtr->GetEArmy().GetET().isEmpty() && GPtr->GetEArmy().GetES().isEmpty()))
 	//		return false;

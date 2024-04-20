@@ -108,6 +108,9 @@
     <ClInclude Include="Unit\unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EarthForces\UML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -144,6 +147,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Unit\unit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\UML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\ESoldier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\ETank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\EGunnery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
