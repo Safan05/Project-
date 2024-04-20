@@ -31,12 +31,16 @@ Game::Game()
 			}
 		}
 		//TestCode();
-		unit* EU = nullptr, * AU = nullptr;
+		unit* EU = nullptr, * ET = nullptr;
 		E.GetES().peek(EU);
-		if (EU)
-		{
+		if (EU){
 			EU->attack(this);
 			EU->PrintAttacked();
+		}
+		E.GetET().peek(ET);
+		if (ET) {
+			ET->attack(this);
+			ET->PrintAttacked();
 		}
 		cout << "Current TimeStep : " << TS << endl;
 		cout << "============= Earth Forces Alive Units =============" << endl;
