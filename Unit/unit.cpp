@@ -4,8 +4,6 @@
 using namespace std;
 unit::unit(double H, int P, int AC, int T)
 {
-	//id = I;
-	//JoinTime = JT;
 	Health = H;
 	Power = P;
 	AttackCapacity = AC;
