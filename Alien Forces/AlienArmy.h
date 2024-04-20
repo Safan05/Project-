@@ -20,6 +20,7 @@ public:
 	AlienMonsters& getAM();
 	AlienDrones& getAD();
 	int getAlienCount();
+	bool Alienattack(Game*);
 	void PrintArmy();
 };
 #endif

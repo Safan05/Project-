@@ -151,7 +151,6 @@
     <ClInclude Include="Priority\QueueADT.h" />
     <ClInclude Include="Game\RandGen.h" />
     <ClInclude Include="Type.h" />
-    <ClInclude Include="unit.h" />
     <ClInclude Include="Unit\ADrone.h" />
     <ClInclude Include="Unit\AMonster.h" />
     <ClInclude Include="Unit\ASoldier.h" />
@@ -172,7 +171,12 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
-    <ClCompile Include="unit.cpp" />
+    <ClCompile Include="Unit\ADrone.cpp" />
+    <ClCompile Include="Unit\AMonster.cpp" />
+    <ClCompile Include="Unit\ASoldier.cpp" />
+    <ClCompile Include="Unit\EGunnery.cpp" />
+    <ClCompile Include="Unit\ESoldier.cpp" />
+    <ClCompile Include="Unit\ETank.cpp" />
     <ClCompile Include="Unit\unit.cpp" />
   </ItemGroup>
   <ItemGroup>

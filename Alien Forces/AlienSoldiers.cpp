@@ -6,7 +6,6 @@
 AlienSoldiers::AlienSoldiers()
 {
 	count = 0;
-	shots = 0;
 }
 
 bool AlienSoldiers::enqueue(unit*& s)
@@ -37,6 +36,14 @@ void AlienSoldiers::PrintAS()
 }
 
 int AlienSoldiers::getCount() { return count; }
+
+bool AlienSoldiers::ASattack(Game* GPtr)
+{
+	if (isEmpty())
+		return false;
+	else
+		return (frontPtr->getItem()->attack(GPtr));
+}
 
 AlienSoldiers::~AlienSoldiers()
 {
