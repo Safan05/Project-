@@ -173,7 +173,6 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
-    <ClCompile Include="unit.cpp" />
     <ClCompile Include="Unit\EGunnery.cpp" />
     <ClCompile Include="Unit\ESoldier.cpp" />
     <ClCompile Include="Unit\ETank.cpp" />
@@ -181,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Try.txt" />
+    <Text Include="War Report.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -29,6 +29,7 @@ public:
 	int GetAC();
 	int GetPow();
 	int GetHealth();
+	LinkedQueue<int>& GetattackedIDs();
 	void DecHealth(double h);
 	void SetAttacked(bool a);
 	bool Wasattacked();

@@ -14,6 +14,7 @@ bool ESoldier::attack(Game* GPtr)
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);

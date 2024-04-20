@@ -54,6 +54,11 @@ int unit::GetHealth()
 	return Health;
 }
 
+LinkedQueue<int>& unit::GetattackedIDs()
+{
+	return attacked_IDs;
+}
+
 void unit::DecHealth(double h)
 {
 	Health -= h;

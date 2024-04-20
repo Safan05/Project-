@@ -26,9 +26,9 @@ bool ETank::attack(Game* Gptr)
 			else
 				templist.push(enemy);
 		}
-		while (templist.pop(enemy))
-			Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
 	}
+	while (templist.pop(enemy))
+		Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
 	bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30 / 100)) ? true : false;
 	if (AttackAS)
 		ESbelow80 = true;
