@@ -33,11 +33,14 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 
 void AlienMonsters::PrintAM()
 {
-	for (int i = 0; i < count; i++)
+	int i;
+	for (i = 0; i < count - 2; i++)
 	{
 		monsters[i]->PrintUnit();
-		std::cout << " ";
+		std::cout << ", ";
 	}
+	if (monsters[i])
+		monsters[i]->PrintUnit();
 }
 
 int AlienMonsters::getCount() { return count; }
