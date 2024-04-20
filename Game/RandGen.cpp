@@ -6,22 +6,8 @@
 #include"..\Unit\AMonster.h"
 #include"..\Unit\ADrone.h"
 #include <iostream>
-RandGen::RandGen(int n, int p, int Ep[], int Ap[], int ER[], int AR[], int TS, EarthArmy* E, AlienArmy* AL)
+RandGen::RandGen()
 {
-	A = drand(1, 100);
-	if (A < p)
-		for (int i = 0; i < n; i++) {
-			unit* U = GenEarth(Ep, ER);
-			U->SetJoin(TS);
-			E->AddUnit(U);
-		}
-	A = drand(1, 100);
-	if (A < p)
-		for (int i = 0; i < n; i++) {
-			unit* U = GenAliens(Ap, AR);
-			U->SetJoin(TS);
-			AL->AddUnit(U);
-		}
 
 }
 
@@ -29,13 +15,18 @@ double RandGen::drand(double M, double N)
 {
 	return M + (rand() / (RAND_MAX / (N - M)));
 }
-unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of Earmy unit
-	B = drand(1, 100);                            //and make unit* point to it
-	P = drand(ER[0], ER[1]);
-	H = drand(ER[2], ER[3]);
-	AC = drand(ER[4], ER[5]);
+bool RandGen::Probability(double prob)
+{
+	A = drand(1, 100);
+	return (A < prob);
+}
+unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one of E-army unit and make unit* point to it
+	B = drand(1, 100);                          // generating the type of the unit according to it's probability percentage
+	P = drand(ER[0], ER[1]);					// generating the power of the unit
+	H = drand(ER[2], ER[3]);					// generating the health of the unit
+	AC = drand(ER[4], ER[5]);					// generating the attack capacity if the unit
 	if (B <= Ep[0]) {
-		T = soldier;
+		T = earthsoldier;
 		unit* U = new ESoldier(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
@@ -50,11 +41,11 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 		return U;
 	}
 }
-unit* RandGen::GenAliens(int Ap[], int AR[]) {
-	B = drand(1, 100);                     //and make unit* point to it
-	P = drand(AR[0], AR[1]);
-	H = drand(AR[2], AR[3]);
-	AC = drand(AR[4], AR[5]);
+unit* RandGen::GenAliens(int Ap[], int AR[]) {	//instantiate an object of one of A-army unit and make unit* point to it
+	B = drand(1, 100);						    // generating the type of the unit according to it's probability percentage
+	P = drand(AR[0], AR[1]);					// generating the power of the unit
+	H = drand(AR[2], AR[3]);					// generating the health of the unit
+	AC = drand(AR[4], AR[5]);					// generating the attack capacity if the unit
 	if (B <= Ap[0]) {
 		T = aliensoldier;
 		unit* U = new ASoldier(H, P, AC, T);      //switch on type to make appropriate object

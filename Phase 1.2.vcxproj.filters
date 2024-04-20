@@ -108,6 +108,9 @@
     <ClInclude Include="Unit\unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EarthForces\UML.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

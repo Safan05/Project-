@@ -8,41 +8,24 @@ EarthArmy::EarthArmy(Game* g) //null ptr for now
 	id = 0;
 }
 
-bool EarthArmy::AddUnit(unit* u)
+bool EarthArmy::AddUnit(unit*& u)
 {
+	u->SetId(id++);
 	switch (u->GetType())
 	{
-	case soldier:
-		AddES(u);
+	case earthsoldier:
+		ES.enqueue(u);
 		break;
 	case tank:
-		AddET(u);
+		ET.push(u);
 		break;
 	case gunnery:
-		AddEG(u);
+		EG.enqueue(u);
 		break;
 	default:
 		break;
 	}
 	return true;
-}
-
-bool EarthArmy::AddES(unit* s)
-{
-	s->SetId(id++);
-	return ES.enqueue(s);
-}
-
-bool EarthArmy::AddET(unit* t)
-{
-	t->SetId(id++);
-	return ET.push(t);
-}
-
-bool EarthArmy::AddEG(unit* g)
-{
-	g->SetId(id++);
-	return EG.enqueue(g);
 }
 
 EarthSoldiers& EarthArmy::GetES()

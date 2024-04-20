@@ -6,7 +6,6 @@ ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 
 bool ESoldier::attack(Game* GPtr)
 {
-	int ESshots = 0;
 	LinkedQueue<unit*> templist;
 	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
@@ -15,7 +14,6 @@ bool ESoldier::attack(Game* GPtr)
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
-			ESshots++;
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);
@@ -29,5 +27,5 @@ bool ESoldier::attack(Game* GPtr)
 	}
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
-	return ESshots;
+	return true;
 }

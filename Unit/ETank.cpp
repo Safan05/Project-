@@ -2,12 +2,12 @@
 
 ETank::ETank(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
-	ESbelow80 = false;
+    ESbelow80 = false;
 }
 
 bool ETank::attack(Game* Gptr)
 {
-	int ETshots = 0;
+
 	LinkedListStack<unit*> templist;           //any DS for templist of monsters is valid  
 	unit* enemy = nullptr;                     //however stack is easier in pushing
 	for (int i = 0; i < unit::GetAC() / 2; i++)
@@ -16,7 +16,6 @@ bool ETank::attack(Game* Gptr)
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
-			ETshots++;
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);
@@ -43,7 +42,6 @@ bool ETank::attack(Game* Gptr)
 				{
 					double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 					enemy->DecHealth(damage);
-					ETshots++;
 					if (!enemy->Wasattacked())
 					{
 						enemy->SetAttacked(true);
@@ -58,5 +56,5 @@ bool ETank::attack(Game* Gptr)
 					Gptr->GetAArmy().getAS().enqueue(enemy);
 			}
 		}
-	return ETshots;
+	return true;
 }

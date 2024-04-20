@@ -14,7 +14,7 @@ bool EGunnery::attack(Game* GPtr)
         if (GPtr->GetAArmy().getAM().removeAlienMonster(enemy))
         {
             double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
-            enemy->DecHealth(damage); EGshots++;
+            enemy->DecHealth(damage);
             if (!enemy->Wasattacked())
             {
                 enemy->SetAttacked(true);     //mark as attacked
@@ -29,5 +29,5 @@ bool EGunnery::attack(Game* GPtr)
     while (templist.dequeue(enemy))       //return alive monsters back
         GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
     //attack drones
-    return EGshots;
+    return true;
 }

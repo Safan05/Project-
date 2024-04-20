@@ -1,5 +1,8 @@
 #pragma once
-#include"..\DS\LinkedQueue.h"
+#ifndef UNIT
+#define UNIT
+#include"unit.h"
+#include"../DS/LinkedQueue.h"
 #include<fstream>
 class Game;
 class unit
@@ -10,7 +13,7 @@ protected:
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
 	double Health;
 	int Power;
-	double AttackCapacity;
+	int AttackCapacity;
 	int Type;
 	bool Isattacked;
 	LinkedQueue<int> attacked_IDs;
@@ -34,3 +37,4 @@ public:
 	void DeathReport(std::ofstream& wr);
 	void PrintUnit();
 };
+#endif
