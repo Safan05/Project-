@@ -54,7 +54,8 @@ void AlienDrones::PrintAD()
 	while (H)
 	{
 		H->getItem()->PrintUnit();
-		std::cout << " ";
+		if (H->getNext())
+			std::cout << ", ";
 		H = H->getNext();
 	}
 }
@@ -78,7 +79,7 @@ AlienDrones::~AlienDrones()
 	unit* temp1 = NULL, *temp2 = NULL;
 	while (dequeue(temp1, temp2))
 	{
-		delete temp1;
-		delete temp2;
+		if(temp1) delete temp1;
+		if (temp2)delete temp2;
 	}
 }
