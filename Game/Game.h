@@ -9,7 +9,7 @@ private:
 	char Filename[50];
 	int N, Prob;
 	int EP[3], AP[3], ER[6], AR[6];
-	RandGen* G;
+	RandGen G;
 	EarthArmy E;
 	AlienArmy A;
 	LinkedQueue<unit*> KilledList;
