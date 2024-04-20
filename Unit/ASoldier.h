@@ -8,7 +8,14 @@ public:
 	{
 	}
 	int attack(Game* GPtr)
-	{/*
+	{
+		//Kindly check the Esoldier/Etank unit's health after attacking them
+		//if it lies within 0 < health < 20% ,Send it to UML using GPtr  
+		// ~Tasneem.A
+		
+		
+		
+		/*
 		if (!frontPtr || GPtr->GetEArmy().GetES().isEmpty())
 			return false;
 		unit* enemy = NULL;
