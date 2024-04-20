@@ -26,12 +26,13 @@ bool AlienSoldiers::dequeue(unit*& s)
 
 void AlienSoldiers::PrintAS()
 {
-	Node<unit*>* H = frontPtr;
-	while (H)
+	Node<unit*>* temp = frontPtr;
+	while (temp)
 	{
-		H->getItem()->PrintUnit();
-		std::cout << " ";
-		H = H->getNext();
+		temp->getItem()->PrintUnit();
+		if (temp->getNext())        //Printing style fix
+			cout << ", ";
+		temp = temp->getNext();
 	}
 }
 
@@ -47,7 +48,8 @@ bool AlienSoldiers::ASattack(Game* GPtr)
 
 AlienSoldiers::~AlienSoldiers()
 {
-	unit* temp = NULL;
-	while (dequeue(temp))
+	unit* temp = nullptr;
+	while (this->dequeue(temp))
 		delete temp;
+	temp = nullptr;
 }
