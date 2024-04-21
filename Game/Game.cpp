@@ -31,9 +31,15 @@ Game::Game()
 			}
 		}
 		//TestCode();
+		cout << "Current TimeStep : " << TS << endl;
+		cout << "============= Earth Forces Alive Units =============" << endl;
+		E.PrintArmy();
+		cout << "\n============= Alien Forces Alive Units =============" << endl;
+		A.PrintArmy();
+		cout << "\n============= Units fighting at current step =======" << endl;
 		unit* EU = nullptr, * ET = nullptr;
 		E.GetES().peek(EU);
-		if (EU){
+		if (EU) {
 			EU->attack(this);
 			EU->PrintAttacked();
 		}
@@ -42,12 +48,8 @@ Game::Game()
 			ET->attack(this);
 			ET->PrintAttacked();
 		}
-		cout << "Current TimeStep : " << TS << endl;
-		cout << "============= Earth Forces Alive Units =============" << endl;
-		E.PrintArmy();
-		cout << "============= Alien Forces Alive Units =============" << endl;
-		A.PrintArmy();
-		cout << "============= Killed/Destructed Units =============" << endl;
+		A.Alienattack(this);
+		cout << "\n============= Killed/Destructed Units =============" << endl;
 		this->PrintKList();
 		cout << endl << "Enter any key to move to next time step : ";
 		cin >> x;

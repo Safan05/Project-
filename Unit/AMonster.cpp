@@ -18,10 +18,13 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
-			enemy->SetTa(GPtr->GetTS());
 			GetattackedIDs().enqueue(enemy->GetId());
+			if (!Wasattacked())
+			{
+				SetAttacked(true);
+				SetTa(GPtr->GetTS());
+			}
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else Ttemp.push(enemy);
@@ -39,8 +42,12 @@ bool AMonster::attack(Game* const & GPtr)
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
-			enemy->SetTa(GPtr->GetTS());
 			GetattackedIDs().enqueue(enemy->GetId());
+			if (!Wasattacked())
+			{
+				SetAttacked(true);
+				SetTa(GPtr->GetTS());
+			}
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else Stemp.enqueue(enemy);
@@ -52,11 +59,15 @@ bool AMonster::attack(Game* const & GPtr)
 	return flag;
 }
 
-void AMonster::printShots()
+void AMonster::PrintAttacked()
 {
-	cout << "AS " << GetId() << " shots [";
+	cout << "AM " << GetId() << " shots [";
 	int i;
 	while (GetattackedIDs().dequeue(i))
-		cout << i << " ";
-	cout << "]\n";
+	{
+		cout << i;
+		if (!GetattackedIDs().isEmpty())
+			cout << ", ";
+	}
+	cout << "] IDs of all Earth units shot by AM" << GetId() << endl;
 }
