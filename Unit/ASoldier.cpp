@@ -15,10 +15,13 @@ bool ASoldier::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
-			enemy->SetTa(GPtr->GetTS());
 			GetattackedIDs().enqueue(enemy->GetId());
+			if (!Wasattacked())
+			{
+				SetAttacked(true);
+				SetTa(GPtr->GetTS());
+			}
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else temp.enqueue(enemy);
@@ -29,11 +32,15 @@ bool ASoldier::attack(Game* const & GPtr)
 	return flag;
 }
 
-void ASoldier::printShots()
+void ASoldier::PrintAttacked()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
 	while (GetattackedIDs().dequeue(i))
-		cout << i << " ";
-	cout << "]\n";
+	{
+		cout << i;
+		if (!GetattackedIDs().isEmpty())
+			cout << ", ";
+	}
+	cout << "] IDs of all Earth units shot by AS" << GetId() << endl;
 }

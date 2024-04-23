@@ -45,12 +45,17 @@ void AlienMonsters::PrintAM()
 
 int AlienMonsters::getCount() { return count; }
 
-bool AlienMonsters::AMattack(Game* GPtr)
+bool AlienMonsters::AMattack(Game* const& GPtr)
 {
 	if (count == 0)
 		return false;
 	else
-		return monsters[rand() % count]->attack(GPtr);
+	{
+		int i = rand() % count;
+		bool m = monsters[i]->attack(GPtr);
+		monsters[i]->PrintAttacked();
+		return m;
+	}
 }
 
 AlienMonsters::~AlienMonsters()

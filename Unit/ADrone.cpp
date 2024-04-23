@@ -7,16 +7,68 @@ ADrone::ADrone(double H, int P, int AC, int T) :unit(H, P, AC, T)
 bool ADrone::attack(Game* const & GPtr)
 {
 	bool flag = false;
+	int j;
+	LinkedListStack<unit*> Ttemp;
+	priQueue<unit*> Gtemp;
 	unit* enemy = NULL;
-	//to be contninued after better understanding of the logic
+
+	//Attacking tanks with half attack capacity
+	for (int i = 0; i < GetAC() / 2; i++)
+	{
+		if (GPtr->GetEArmy().GetET().pop(enemy))
+		{
+			flag = true;
+			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
+			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
+			if (!Wasattacked())
+			{
+				SetAttacked(true);
+				SetTa(GPtr->GetTS());
+			}
+			if (enemy->is_killed())
+				GPtr->EnqueueKilled(enemy);
+			else Ttemp.push(enemy);
+		}
+	}
+	while (Ttemp.pop(enemy))
+		GPtr->GetEArmy().GetET().push(enemy);
+
+	//Attacking Gunnery with half attack capacity
+	for (int i = GetAC() / 2; i < GetAC(); i++)
+	{
+		if (GPtr->GetEArmy().GetEG().dequeue(enemy))
+		{
+			flag = true;
+			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
+			enemy->SetAttacked(true);
+			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
+			if (!Wasattacked())
+			{
+				SetAttacked(true);
+				SetTa(GPtr->GetTS());
+			}
+			if (enemy->is_killed())
+				GPtr->EnqueueKilled(enemy);
+			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
+		}
+	}
+	while (Gtemp.dequeue(enemy,j))
+		GPtr->GetEArmy().GetES().enqueue(enemy);
+
 	return flag;
 }
 
-void ADrone::printShots()
+void ADrone::PrintAttacked()
 {
-	cout << "AS " << GetId() << " shots [";
+	cout << "AD " << GetId() << " shots [";
 	int i;
 	while (GetattackedIDs().dequeue(i))
-		cout << i << " ";
-	cout << "]\n";
+	{
+		cout << i;
+		if (!GetattackedIDs().isEmpty())
+			cout << ", ";
+	}
+	cout << "] IDs of all Earth units shot by AD" << GetId() << endl;
 }
