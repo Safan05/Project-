@@ -11,6 +11,6 @@ public:
 	bool dequeue(unit*& s);
 	void PrintAS();
 	int getCount();
-	bool ASattack(Game* GPtr);
+	bool ASattack(Game* const& GPtr);
 	~AlienSoldiers();
 };

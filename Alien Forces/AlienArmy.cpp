@@ -30,11 +30,11 @@ int AlienArmy::getAlienCount()
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
 
-bool AlienArmy::Alienattack(Game* g)
+bool AlienArmy::Alienattack(Game* const& GPtr)
 {
-	bool a1 = AS.ASattack(g);
-	bool a2 = AM.AMattack(g);
-	bool a3 = AD.ADattack(g);
+	bool a1 = AS.ASattack(GPtr);
+	bool a2 = AM.AMattack(GPtr);
+	bool a3 = AD.ADattack(GPtr);
 	return (a1 || a2 || a3);
 }
 

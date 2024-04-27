@@ -16,12 +16,13 @@ bool ETank::attack(Game* const & Gptr)
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
 			}
-			if (enemy->GetHealth() < 0)
+			if (enemy->GetHealth() <= 0)
 				Gptr->EnqueueKilled(enemy);
 			else
 				templist.push(enemy);
@@ -42,19 +43,20 @@ bool ETank::attack(Game* const & Gptr)
 				{
 					double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 					enemy->DecHealth(damage);
+					GetattackedIDs().enqueue(enemy->GetId());
 					if (!enemy->Wasattacked())
 					{
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
 					}
-					if (enemy->GetHealth() < 0)
+					if (enemy->GetHealth() <= 0)
 						Gptr->EnqueueKilled(enemy);
 					else
 						templist.enqueue(enemy);
 				}
-				while (templist.dequeue(enemy))
-					Gptr->GetAArmy().getAS().enqueue(enemy);
 			}
+			while (templist.dequeue(enemy))
+				Gptr->GetAArmy().getAS().enqueue(enemy);
 		}
 	return true;
 }

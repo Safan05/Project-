@@ -20,7 +20,7 @@ bool ESoldier::attack(Game* const & GPtr)
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 			}
-			if (enemy->GetHealth() < 0)
+			if (enemy->GetHealth() <= 0)
 				GPtr->EnqueueKilled(enemy);
 			else
 				templist.enqueue(enemy);
