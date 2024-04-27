@@ -18,7 +18,7 @@ bool ASoldier::attack(Game* const & GPtr)
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			enemy->SetTa(GPtr->GetTS());
-			attacked_IDs.enqueue(enemy->GetId());
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
 			else temp.enqueue(enemy);
@@ -33,7 +33,7 @@ void ASoldier::printShots()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
-	while (attacked_IDs.dequeue(i))
+	while (GetattackedIDs().dequeue(i))
 		cout << i << " ";
 	cout << "]\n";
 }

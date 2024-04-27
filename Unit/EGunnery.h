@@ -6,4 +6,5 @@ class EGunnery :public unit
 public:
     EGunnery(double H, int P, int AC, int T);
     bool attack(Game* const & GPtr);
+    void PrintAttacked();
 };

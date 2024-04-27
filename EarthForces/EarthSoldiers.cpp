@@ -3,7 +3,6 @@
 #include"..\Game\Game.h"
 EarthSoldiers::EarthSoldiers()
 {
-	ESshots = 0;
 	Scount = 0;
 }
 
@@ -25,20 +24,6 @@ bool EarthSoldiers::dequeue(unit*& s)
 int EarthSoldiers::GetScount()
 {
 	return Scount;
-}
-
-int EarthSoldiers::GetESshots()
-{
-	return ESshots;
-}
-bool EarthSoldiers::ESattack(Game* GPtr)
-{
-	if (frontPtr)
-	{
-		ESshots += frontPtr->getItem()->attack(GPtr);
-		return true;
-	}
-	return false;
 }
 //
 //bool EarthSoldiers::attack(Game* GPtr)

@@ -14,6 +14,7 @@ bool ESoldier::attack(Game* const & GPtr)
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
 				enemy->SetAttacked(true);
@@ -28,4 +29,20 @@ bool ESoldier::attack(Game* const & GPtr)
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
 	return true;
+}
+
+void ESoldier::PrintAttacked()
+{
+	if (!GetattackedIDs().isEmpty())
+	{
+		int id;
+		cout << "ES " << GetId() << " shots [";
+		while (GetattackedIDs().dequeue(id))
+		{
+			cout << id;
+			if (!GetattackedIDs().isEmpty())
+				cout << ", ";
+		}
+		cout << "] IDs of all Alien units shot by ES" << GetId() << endl;
+	}
 }

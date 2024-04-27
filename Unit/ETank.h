@@ -7,4 +7,5 @@ class ETank :public unit
 public:
 	ETank(double H, int P, int AC, int T);
 	bool attack(Game* const & Gptr);
+	void PrintAttacked();
 };

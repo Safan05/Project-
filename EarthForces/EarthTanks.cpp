@@ -2,7 +2,6 @@
 #include"../Game/Game.h"
 EarthTanks::EarthTanks()
 {
-	ETshots = 0;
 	Tcount = 0;
 	ESbelow80 = false;
 }
@@ -18,16 +17,6 @@ bool EarthTanks::pop(unit*& t)
 	if (LinkedListStack<unit*>::pop(t))
 	{
 		Tcount--; return true;
-	}
-	return false;
-}
-
-bool EarthTanks::ETattack(Game* Gptr)
-{
-	if (head)
-	{
-		ETshots += head->getItem()->attack(Gptr);
-		return true;
 	}
 	return false;
 }

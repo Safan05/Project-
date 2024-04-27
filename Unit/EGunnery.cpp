@@ -31,3 +31,19 @@ bool EGunnery::attack(Game* const & GPtr)
     //attack drones
     return true;
 }
+
+void EGunnery::PrintAttacked()
+{
+    if (!GetattackedIDs().isEmpty())
+    {
+        int id;
+        cout << "EG " << GetId() << " shots [";
+        while (GetattackedIDs().dequeue(id))
+        {
+            cout << id;
+            if (!GetattackedIDs().isEmpty())
+                cout << ", ";
+        }
+        cout << "] IDs of all Alien units shot by EG" << GetId() << endl;
+    }
+}

@@ -4,8 +4,6 @@
 using namespace std;
 unit::unit(double H, int P, int AC, int T)
 {
-	//id = I;
-	//JoinTime = JT;
 	Health = H;
 	Power = P;
 	AttackCapacity = AC;
@@ -52,6 +50,11 @@ int unit::GetPow()
 int unit::GetHealth()
 {
 	return Health;
+}
+
+LinkedQueue<int>& unit::GetattackedIDs()
+{
+	return attacked_IDs;
 }
 
 void unit::DecHealth(double h)

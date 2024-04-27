@@ -16,7 +16,7 @@ void ADrone::printShots()
 {
 	cout << "AS " << GetId() << " shots [";
 	int i;
-	while (attacked_IDs.dequeue(i))
+	while (GetattackedIDs().dequeue(i))
 		cout << i << " ";
 	cout << "]\n";
 }
