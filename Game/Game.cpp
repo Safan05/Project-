@@ -12,9 +12,9 @@ Game::Game()
 		char x;
 		cout << "Enter any key to start : ";
 		cin >> x;
-		cout << endl;
 		while (x != 'x') {
 			TS++;
+			//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 			if (G.Probability(Prob)) {
 				for (int i = 0; i < N; i++) {
 					unit* U = G.GenEarth(EP, ER);
@@ -29,30 +29,71 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
-			E.attack(this);
-			unit* EU = nullptr, * AU = nullptr;
-			E.GetES().peek(EU);
-			if (EU)
-			{
-				EU->attack(this);
-				EU->PrintAttacked();
-			}
+			//TestCode();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
-			cout << "============= Alien Forces Alive Units =============" << endl;
+			cout << "\n============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
-			cout << "============= Killed/Destructed Units =============" << endl;
+			cout << "\n============= Units fighting at current step =======" << endl;
+			unit* EU = nullptr, * ET = nullptr;
+			E.GetES().peek(EU);
+			if (EU) {
+				EU->attack(this);
+				EU->PrintAttacked();
+			}
+			E.GetET().peek(ET);
+			if (ET) {
+				ET->attack(this);
+				ET->PrintAttacked();
+			}
+			A.Alienattack(this);
+			cout << "\n============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
 			cin >> x;
 			cout << endl;
-			if (TS >= 50) {
-				cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
-				break;
+			while (x != 'x') {
+				TS++;
+				if (G.Probability(Prob)) {
+					for (int i = 0; i < N; i++) {
+						unit* U = G.GenEarth(EP, ER);
+						U->SetJoin(TS);
+						E.AddUnit(U);
+					}
+				}
+				if (G.Probability(Prob)) {
+					for (int i = 0; i < N; i++) {
+						unit* U = G.GenAliens(AP, AR);
+						U->SetJoin(TS);
+						A.AddUnit(U);
+					}
+				}
+				E.attack(this);
+				unit* EU = nullptr, * AU = nullptr;
+				E.GetES().peek(EU);
+				if (EU)
+				{
+					EU->attack(this);
+					EU->PrintAttacked();
+				}
+				cout << "Current TimeStep : " << TS << endl;
+				cout << "============= Earth Forces Alive Units =============" << endl;
+				E.PrintArmy();
+				cout << "============= Alien Forces Alive Units =============" << endl;
+				A.PrintArmy();
+				cout << "============= Killed/Destructed Units =============" << endl;
+				this->PrintKList();
+				cout << endl << "Enter any key to move to next time step : ";
+				cin >> x;
+				cout << endl;
+				if (TS >= 50) {
+					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
+					break;
+				}
 			}
+			this->GenerateWarReport();
 		}
-		this->GenerateWarReport();
 	}
 	else if (mode == 2) {
 		char L[34] = "Loading Your file is in progress";

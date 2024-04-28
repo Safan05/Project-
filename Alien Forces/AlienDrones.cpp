@@ -62,14 +62,16 @@ void AlienDrones::PrintAD()
 
 int AlienDrones::getCount() { return count; }
 
-bool AlienDrones::ADattack(Game* GPtr)
+bool AlienDrones::ADattack(Game* const& GPtr)
 {
 	if (count < 2)
 		return false;
-	else 
+	else
 	{
 		bool a1 = frontPtr->getItem()->attack(GPtr);
 		bool a2 = backPtr->getItem()->attack(GPtr);
+		frontPtr->getItem()->PrintAttacked();
+		backPtr->getItem()->PrintAttacked();
 		return (a1 || a2);
 	}
 }
