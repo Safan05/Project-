@@ -9,7 +9,10 @@ void UML::AddUnit()
 {
 
 }
-
+bool UML::RemoveUnit(unit*& h) {
+	int z;
+	return dequeue(h, z);
+}
 UML::~UML()
 {
 	unit* temp; int z;

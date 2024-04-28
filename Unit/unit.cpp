@@ -10,6 +10,7 @@ unit::unit(double H, int P, int AC, int T)
 	Type = T;
 	Isattacked = false;
 	id = -1;
+	InitialHealth = H;
 }
 int unit::GetId() {
 	return id;
@@ -25,6 +26,11 @@ bool unit::is_killed()
 bool unit::operator>(const unit& a) const
 {
 	return Power > a.Power;
+}
+
+double unit::GetHPercent()
+{
+	return(Health / InitialHealth) * 100;
 }
 
 int unit::GetType() {
@@ -60,6 +66,11 @@ LinkedQueue<int>& unit::GetattackedIDs()
 void unit::DecHealth(double h)
 {
 	Health -= h;
+}
+
+void unit::IncHealth(double h)
+{
+Health += h;
 }
 
 void unit::SetAttacked(bool a)

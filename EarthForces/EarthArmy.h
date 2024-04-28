@@ -3,6 +3,8 @@
 #include"EarthSoldiers.h"
 #include"EarthTanks.h"
 #include"EarthGunnery.h"
+#include"UML.h"
+#include"HealUnits.h"
 #include"..\Unit\unit.h"
 #include"..\Type.h"
 class Game;
@@ -12,6 +14,8 @@ class EarthArmy
 	EarthSoldiers ES;
 	EarthGunnery EG;
 	EarthTanks ET;
+	UML UL;
+	HealUnits HU;
 	int id;
 public:
 	EarthArmy(Game* g = nullptr);
@@ -19,6 +23,8 @@ public:
 	EarthSoldiers& GetES();
 	EarthGunnery& GetEG();
 	EarthTanks& GetET();
+	UML& GetUL();
 	void PrintArmy();
+	void attack(Game* const& Gptr);
 };
 #endif

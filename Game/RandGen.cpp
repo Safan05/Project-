@@ -5,6 +5,7 @@
 #include"..\Unit\ASoldier.h"
 #include"..\Unit\AMonster.h"
 #include"..\Unit\ADrone.h"
+#include"..\Unit\HUnit.h"
 #include <iostream>
 RandGen::RandGen()
 {
@@ -35,9 +36,14 @@ unit* RandGen::GenEarth(int Ep[], int ER[]) {   //instantiate an object of one o
 		unit* U = new ETank(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
-	else {
+	else if(B<=Ep[0]+Ep[1]+Ep[2]) {
 		T = gunnery;
 		unit* U = new EGunnery(H, P, AC, T);      //switch on type to make appropriate object
+		return U;
+	}
+	else {
+		T = HealUnit;
+		unit* U = new HUnit(H, P, AC, T);      //switch on type to make appropriate object
 		return U;
 	}
 }

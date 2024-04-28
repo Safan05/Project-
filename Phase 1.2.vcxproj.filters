@@ -111,6 +111,12 @@
     <ClInclude Include="EarthForces\UML.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Unit\HUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EarthForces\HealUnits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -167,8 +173,18 @@
     <ClCompile Include="Unit\ETank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EarthForces\UML.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\HUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EarthForces\HealUnits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Try.txt" />
+    <Text Include="War Report.txt" />
   </ItemGroup>
 </Project>
