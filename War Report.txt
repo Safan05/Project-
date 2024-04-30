@@ -1,5 +1,6 @@
 	Earth VS Aliens War Report
 Td	ID	Tj	Df	Dd	Db
+
 3	20	3	0	3	3
 6	47	6	0	6	6
 7	63	7	0	7	7
@@ -35,5 +36,13 @@ Td	ID	Tj	Df	Dd	Db
 
 Battle Result : 
 ES count : 155	ET count : 254	EG count : 85
+
+7	2000	2	2	5	7
+7	2003	2	2	5	7
+16	2005	2	2	14	16
+
+Battle Result : 
+ES count : 78	ET count : 157	EG count : 53
+
 ES_Destructed/ ES_Total = 0	ET_Destructed/ ET_Total = 0	EG_Destructed/ EG_Total = 0
 Total_Destructed/ Total units 0
