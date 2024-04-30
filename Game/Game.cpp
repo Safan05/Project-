@@ -1,64 +1,100 @@
 #include "Game.h"
 #include <fstream>
+#include <Windows.h>
 #include <iostream>
 using namespace std;
 Game::Game()
 {
-
 	TS = 0;
-	std::cout << "Enter The file name to load" << endl;
-	std::cin >> Filename;
+	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
-	char x;
-	cout << "Enter any key to start : ";
-	cin >> x;
-	cout << endl;
-	while (x != 'x') {
-		TS++;
-		//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
-		if (G.Probability(Prob)) {
-			for (int i = 0; i < N; i++) {
-				unit* U = G.GenEarth(EP, ER);
-				U->SetJoin(TS);
-				E.AddUnit(U);
-			}
-		}
-		if (G.Probability(Prob)) {
-			for (int i = 0; i < N; i++) {
-				unit* U = G.GenAliens(AP, AR);
-				U->SetJoin(TS);
-				A.AddUnit(U);
-			}
-		}
-		//TestCode();
-		cout << "Current TimeStep : " << TS << endl;
-		cout << "============= Earth Forces Alive Units =============" << endl;
-		E.PrintArmy();
-		cout << "\n============= Alien Forces Alive Units =============" << endl;
-		A.PrintArmy();
-		cout << "\n============= Units fighting at current step =======" << endl;
-		unit* EU = nullptr, * ET = nullptr;
-		E.GetES().peek(EU);
-		if (EU) {
-			EU->attack(this);
-			EU->PrintAttacked();
-		}
-		E.GetET().peek(ET);
-		if (ET) {
-			ET->attack(this);
-			ET->PrintAttacked();
-		}
-		A.Alienattack(this);
-		cout << "\n============= Killed/Destructed Units =============" << endl;
-		this->PrintKList();
-		cout << endl << "Enter any key to move to next time step : ";
+	cout << "\n";
+	if (mode == 1) {
+		char x;
+		cout << "Enter any key to start : ";
 		cin >> x;
 		cout << endl;
-		if (TS >= 50) {
-			cout << "You have reached the limit of generating more units!";
-			break;
+		while (x != 'x') {
+			TS++;
+			//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+			if (G.Probability(Prob)) {
+				for (int i = 0; i < N; i++) {
+					unit* U = G.GenEarth(EP, ER);
+					U->SetJoin(TS);
+					E.AddUnit(U);
+				}
+			}
+			if (G.Probability(Prob)) {
+				for (int i = 0; i < N; i++) {
+					unit* U = G.GenAliens(AP, AR);
+					U->SetJoin(TS);
+					A.AddUnit(U);
+				}
+			}
+			//TestCode();
+			unit* EU = nullptr, * AU = nullptr;
+			E.GetES().peek(EU);
+			if (EU)
+			{
+				EU->attack(this);
+				EU->PrintAttacked();
+			}
+			cout << "Current TimeStep : " << TS << endl;
+			cout << "============= Earth Forces Alive Units =============" << endl;
+			E.PrintArmy();
+			cout << "============= Alien Forces Alive Units =============" << endl;
+			A.PrintArmy();
+			cout << "============= Killed/Destructed Units =============" << endl;
+			this->PrintKList();
+			cout << endl << "Enter any key to move to next time step : ";
+			cin >> x;
+			cout << endl;
+			if (TS >= 50) {
+				cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
+				break;
+			}
 		}
+		this->GenerateWarReport();
 	}
+	else if (mode == 2) {
+		char L[34] = "Loading Your file is in progress";
+		for (int i = 0; i < 34; i++) {
+			cout << L[i];
+			Sleep(20);
+		}
+		cout << "\n";
+		for (int i = 0; i < 34; i++) {
+			cout << "\033[32m"<<char(219)<<"\033[0m";
+			Sleep(20);
+		}
+		while (TS <= 50) {
+			TS++;
+			//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+			if (G.Probability(Prob)) {
+				for (int i = 0; i < N; i++) {
+					unit* U = G.GenEarth(EP, ER);
+					U->SetJoin(TS);
+					E.AddUnit(U);
+				}
+			}
+			if (G.Probability(Prob)) {
+				for (int i = 0; i < N; i++) {
+					unit* U = G.GenAliens(AP, AR);
+					U->SetJoin(TS);
+					A.AddUnit(U);
+				}
+			}
+			//TestCode();
+			unit* EU = nullptr, * AU = nullptr;
+			E.GetES().peek(EU);
+			if (EU)
+			{
+				EU->attack(this);
+			}
+		}
+		this->GenerateWarReport();
+	}
+	//char cr[]=
 }
 
 
@@ -66,21 +102,50 @@ void Game::LoadParameters(char FileName[])
 {
 	ifstream In;
 	In.open(FileName, ios::in);
-	In >> N;
-	for (int i = 0; i < 3; i++)
-		In >> EP[i];
-	for (int i = 0; i < 3; i++)
-		In >> AP[i];
-	In >> Prob;
-	for (int i = 0; i < 6; i++) {
-		In >> ER[i];
-		if (ER[i] < 0)
-			ER[i] *= -1;
+	if (In.is_open()) {
+		In >> N;
+		int sum = 0;
+		for (int i = 0; i < 3; i++) {
+			In >> EP[i];
+			if (EP[i] < 0)	//validation that the probability is not negative
+				EP[i] = 0;
+			sum += EP[i];
+		}
+		if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
+			EP[0] = 30;
+			EP[1] = 30;
+			EP[2] = 40;
+		}
+		sum = 0;
+		for (int i = 0; i < 3; i++) {
+			In >> AP[i];
+			if (EP[i] < 0)	//validation that the probability is not negative
+				EP[i] = 0;
+			sum += EP[i];
+		}
+		if (sum != 100) {	//Validation that the sum of probabilities to generate alien army units of them doesn't exceed 100
+			AP[0] = 30;
+			AP[1] = 30;
+			AP[2] = 40;
+		}
+		In >> Prob;
+		if (Prob > 100 || Prob < 0)	// validation that the probability to generate the army isn't negative or exceeds 100
+			Prob = 100;
+		for (int i = 0; i < 6; i++) {
+			In >> ER[i];
+			if (ER[i] < 0)
+				ER[i] *= -1;		// for the hyphen in the input file and also for validation
+		}
+		for (int i = 0; i < 6; i++) {
+			In >> AR[i];
+			if (AR[i] < 0)
+				AR[i] *= -1;	   // for the hyphen in the input file and also for validation
+		}
 	}
-	for (int i = 0; i < 6; i++) {
-		In >> AR[i];
-		if (AR[i] < 0)
-			AR[i] *= -1;
+	else {
+		cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
+		cin >> Filename;
+		LoadParameters(Filename);
 	}
 }
 void Game::TestCode() {
@@ -140,6 +205,29 @@ void Game::TestCode() {
 			}
 		}
 	}
+}
+void Game::Interface()
+{
+	char H[56] = "\033[1;31mHello, Welcome to Supernova's war simulator\033[0m";
+	for (int i = 0; i < 56; i++) {
+		cout << H[i];
+		Sleep(20);
+	}
+	cout << "\n";
+	char Q[55] = "Enter 1 for interactive mode and 2 for silent mode : ";
+	for (int i = 0; i < 55; i++) {
+		cout << Q[i];
+		Sleep(20);
+	}
+	cin >> mode;
+	cout << "\n";
+	char M[29] = "Enter The file name to load";
+	for (int i = 0; i < 29; i++) {
+		cout << M[i];
+		Sleep(20);
+	}
+	cout << "\n";
+	std::cin >> Filename;
 }
 bool Game::EnqueueKilled(unit* d)
 {

@@ -7,7 +7,7 @@ class Game
 private:
 	int TS;
 	char Filename[50];
-	int N, Prob;
+	int N, Prob,mode;
 	int EP[3], AP[3], ER[6], AR[6];
 	RandGen G;
 	EarthArmy E;
@@ -26,6 +26,7 @@ public:             //to be deleted
 	void PrintKList();
 	void GenerateWarReport();
 	void TestCode();
+	void Interface();
 	~Game();
 };
 
