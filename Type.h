@@ -3,6 +3,7 @@
 		earthsoldier,
 		tank,
 		gunnery,
+		HealUnit,
 		aliensoldier,
 		monster,
 		drone

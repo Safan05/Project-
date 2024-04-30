@@ -146,6 +146,8 @@
     <ClInclude Include="EarthForces\EarthTanks.h" />
     <ClInclude Include="EarthForces\UML.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="EarthForces\HealUnits.h" />
+    <ClInclude Include="Unit\HUnit.h" />
     <ClInclude Include="Priority\LinkedQueue.h" />
     <ClInclude Include="Priority\NodeP.h" />
     <ClInclude Include="Priority\PriorityQueue.h" />
@@ -171,6 +173,8 @@
     <ClCompile Include="EarthForces\EarthTanks.cpp" />
     <ClCompile Include="EarthForces\UML.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="EarthForces\HealUnits.cpp" />
+    <ClCompile Include="Unit\HUnit.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Game\RandGen.cpp" />
     <ClCompile Include="Unit\ADrone.cpp" />

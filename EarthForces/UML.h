@@ -6,5 +6,6 @@ class UML : public priQueue<unit*>
 public:
 	UML();
 	void AddUnit();
+	bool RemoveUnit(unit*&);
 	~UML();
 };

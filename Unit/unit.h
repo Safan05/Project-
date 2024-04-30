@@ -12,6 +12,7 @@ private:
 	int JoinTime;
 	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
 	double Health;
+	double InitialHealth;
 	int Power;
 	int AttackCapacity;
 	int Type;
@@ -21,6 +22,7 @@ public:
 	unit(double H, int P, int AC, int T);
 	bool is_killed();
 	bool operator>(const unit& a) const;
+	double GetHPercent();
 	virtual bool attack(Game* const & GPtr) = 0;
 	int GetType();
 	void SetId(int I);
@@ -31,6 +33,7 @@ public:
 	int GetHealth();
 	LinkedQueue<int>& GetattackedIDs();
 	void DecHealth(double h);
+	void IncHealth(double h);
 	void SetAttacked(bool a);
 	bool Wasattacked();
 	void SetTa(int t);

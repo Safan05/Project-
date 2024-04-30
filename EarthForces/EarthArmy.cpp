@@ -1,5 +1,6 @@
 #include "EarthArmy.h"
 #include<iostream>
+#include"../Game/Game.h"
 using namespace std;
 
 EarthArmy::EarthArmy(Game* g) //should be deleted??
@@ -22,6 +23,9 @@ bool EarthArmy::AddUnit(unit*& u)
 	case gunnery:
 		EG.enqueue(u);
 		break;
+	case HealUnit:
+		HU.push(u);
+		break;
 	default:
 		break;
 	}
@@ -41,6 +45,11 @@ EarthGunnery& EarthArmy::GetEG()
 EarthTanks& EarthArmy::GetET()
 {
 	return ET;
+}
+
+UML& EarthArmy::GetUL()
+{
+	return UL;
 }
 
 void EarthArmy::PrintArmy()
@@ -63,4 +72,22 @@ void EarthArmy::PrintArmy()
 	ET.PrintET();
 	cout << "]";
 	cout << endl;
+	///////////////Printing HU List/////////////////
+
+	cout << HU.GetHUcount() << " HU [";
+	HU.PrintHU();
+	cout << "]";
+	cout << endl;
+}
+
+void EarthArmy::attack(Game* const& g)
+{
+	// add your attack logic for army units
+
+	// healing logic
+	unit* H;
+	if (HU.pop(H)) {
+		H->attack(g);
+		g->EnqueueKilled(H);
+	}
 }

@@ -8,6 +8,7 @@ Game::Game()
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
+
 	cout << "\n";
 	if (mode == 1) {
 		char x;
@@ -32,6 +33,18 @@ Game::Game()
 				}
 			}
 			//TestCode();
+
+			cout << "Current TimeStep : " << TS << endl;
+			cout << "============= Earth Forces Alive Units =============" << endl;
+			E.PrintArmy();
+			cout << "\n============= Alien Forces Alive Units =============" << endl;
+			A.PrintArmy();
+			cout << "\n============= Units fighting at current step =======" << endl;
+			unit* EU = nullptr, * ET = nullptr;
+			E.GetES().peek(EU);
+			if (EU) {
+				EU->attack(this);
+				EU->PrintAttacked();
 			unit* EU = nullptr, * AU = nullptr;
 			E.GetES().peek(EU);
 			if (EU)
@@ -53,6 +66,57 @@ Game::Game()
 				cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
 				break;
 			}
+			E.GetET().peek(ET);
+			if (ET) {
+				ET->attack(this);
+				ET->PrintAttacked();
+			}
+			A.Alienattack(this);
+			cout << "\n============= Killed/Destructed Units =============" << endl;
+			this->PrintKList();
+			cout << endl << "Enter any key to move to next time step : ";
+			cin >> x;
+			cout << endl;
+			while (x != 'x') {
+				TS++;
+				if (G.Probability(Prob)) {
+					for (int i = 0; i < N; i++) {
+						unit* U = G.GenEarth(EP, ER);
+						U->SetJoin(TS);
+						E.AddUnit(U);
+					}
+				}
+				if (G.Probability(Prob)) {
+					for (int i = 0; i < N; i++) {
+						unit* U = G.GenAliens(AP, AR);
+						U->SetJoin(TS);
+						A.AddUnit(U);
+					}
+				}
+				E.attack(this);
+				unit* EU = nullptr, * AU = nullptr;
+				E.GetES().peek(EU);
+				if (EU)
+				{
+					EU->attack(this);
+					EU->PrintAttacked();
+				}
+				cout << "Current TimeStep : " << TS << endl;
+				cout << "============= Earth Forces Alive Units =============" << endl;
+				E.PrintArmy();
+				cout << "============= Alien Forces Alive Units =============" << endl;
+				A.PrintArmy();
+				cout << "============= Killed/Destructed Units =============" << endl;
+				this->PrintKList();
+				cout << endl << "Enter any key to move to next time step : ";
+				cin >> x;
+				cout << endl;
+				if (TS >= 50) {
+					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
+					break;
+				}
+			}
+			this->GenerateWarReport();
 		}
 		this->GenerateWarReport();
 	}
@@ -84,6 +148,8 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
+
+			E.attack(this);
 			//TestCode();
 			unit* EU = nullptr, * AU = nullptr;
 			E.GetES().peek(EU);
@@ -105,12 +171,23 @@ void Game::LoadParameters(char FileName[])
 	if (In.is_open()) {
 		In >> N;
 		int sum = 0;
-		for (int i = 0; i < 3; i++) {
+
+		for (int i = 0; i < 4; i++) {
 			In >> EP[i];
 			if (EP[i] < 0)	//validation that the probability is not negative
 				EP[i] = 0;
 			sum += EP[i];
 		}
+
+		if (EP[3] > 5) {
+			sum -= EP[3] - 5;
+			EP[3] = 5;
+		}
+		if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
+			EP[0] = 30;
+			EP[1] = 30;
+			EP[2] = 35;
+			EP[3] = 5;
 		if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
 			EP[0] = 30;
 			EP[1] = 30;
@@ -220,7 +297,16 @@ void Game::Interface()
 		Sleep(20);
 	}
 	cin >> mode;
-	cout << "\n";
+
+	while (mode != 1 && mode != 2) {
+		char Q[100] = "\033[1;31mThis is not a valid mode please enter 1 for interactive mode and 2 for silent mode\033[0m \n";
+		for (int i = 0; i < 100; i++) {
+			cout << Q[i];
+			Sleep(20);
+		}
+		cin >> mode;
+	}
+//	cout << "\n";
 	char M[29] = "Enter The file name to load";
 	for (int i = 0; i < 29; i++) {
 		cout << M[i];
@@ -229,7 +315,8 @@ void Game::Interface()
 	cout << "\n";
 	std::cin >> Filename;
 }
-bool Game::EnqueueKilled(unit* d)
+
+bool Game::EnqueueKilled(unit*& d)
 {
 	d->SetTd(TS);
 	Kcount++;
