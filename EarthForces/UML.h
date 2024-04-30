@@ -1,10 +1,12 @@
 #pragma once
-#include"../DS/priQueue.h"
+#include"../DS/LinkedQueue.h"
 #include"../Unit/unit.h"
-class UML : public priQueue<unit*>
+#include"../Unit/ESoldier.h"
+#include"../Unit/ETank.h"
+class UML : public LinkedQueue<unit*>
 {
 public:
 	UML();
-	void AddUnit();
+	void AddUnit(unit*& u);
 	~UML();
 };
