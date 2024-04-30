@@ -41,6 +41,10 @@ void UML::AddUnit(unit*& u)
 	}
 }
 
+bool UML::RemoveUnit(unit*& h) {
+	int z;
+	return dequeue(h);
+}
 
 UML::~UML()
 {

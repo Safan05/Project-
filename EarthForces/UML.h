@@ -8,5 +8,7 @@ class UML : public LinkedQueue<unit*>
 public:
 	UML();
 	void AddUnit(unit*& u);
+	void AddUnit();
+	bool RemoveUnit(unit*&);
 	~UML();
 };
