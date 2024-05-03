@@ -35,7 +35,8 @@ void AlienArmy::Alienattack(Game* const& GPtr)
 	unit* attacker = NULL, * attacker2 = NULL;
 	if (AS.peek(attacker))
 		attacker->attack(GPtr);
-	if (AM.pick(attacker))
+	AM.pick(attacker);
+	if(attacker)
 	{
 		AM.setattacker(attacker);
 		attacker->attack(GPtr);

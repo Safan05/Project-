@@ -32,7 +32,7 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
-			//Battle();
+			Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
