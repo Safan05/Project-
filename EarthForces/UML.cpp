@@ -1,5 +1,7 @@
 #include "UML.h"
-
+#include "..\Game\Game.h"
+#include"../Unit/ESoldier.h"
+#include"../Unit/ETank.h"
 UML::UML()
 {
 	
@@ -30,7 +32,7 @@ void UML::AddUnit(unit*& u)
 			}
 			else
 			{
-				Node<unit*>* ptr;
+				Node<unit*>* ptr = nullptr;
 				while (ptr->getNext() && ptr->getNext()->getItem()->GetHealth() < u->GetHealth())
 					ptr = ptr->getNext();
 				nptr->setNext(ptr->getNext());
