@@ -195,6 +195,8 @@ void Game::Battle()
 
 void Game::PrintAttacked()
 {
+	E.PrintAttack();
+	//A.PrintAttack();
 }
 
 int Game::GetTS()

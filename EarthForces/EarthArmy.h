@@ -25,6 +25,7 @@ public:
 	EarthTanks& GetET();
 	UML& GetUL();
 	void PrintArmy();
+	void PrintAttack();
 	void EarthAttack(Game* const& Gptr);
 };
 #endif
