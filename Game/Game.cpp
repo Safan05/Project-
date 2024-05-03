@@ -39,7 +39,7 @@ Game::Game()
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
-			
+			A.Alienattack(this);
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -81,14 +81,6 @@ Game::Game()
 						U->SetJoin(TS);
 						A.AddUnit(U);
 					}
-				}
-
-				E.attack(this);
-				unit* EU = nullptr, * AU = nullptr;
-				E.GetES().peek(EU);
-				if (EU)
-				{
-					EU->attack(this);
 				}
 			}
 			this->GenerateWarReport();
@@ -197,10 +189,13 @@ AlienArmy& Game::GetAArmy()
 
 void Game::Battle()
 {
-	E.attack(this);
+	E.EarthAttack(this);
 	A.Alienattack(this);
 }
 
+void Game::PrintAttacked()
+{
+}
 
 int Game::GetTS()
 {

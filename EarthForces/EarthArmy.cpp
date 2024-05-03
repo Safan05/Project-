@@ -80,14 +80,22 @@ void EarthArmy::PrintArmy()
 	cout << endl;
 }
 
-void EarthArmy::attack(Game* const& g)
-{
-	// add your attack logic for army units
 
+void EarthArmy::EarthAttack(Game* const& Gptr)
+{
+	unit* u = nullptr;
+	if (ES.peek(u))
+		u->attack(Gptr);
+	if(ET.peek(u))
+		u->attack(Gptr);
+	int g;
+	if(EG.peek(u, g))
+		u->attack(Gptr);
+	
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {
-		H->attack(g);
-		g->EnqueueKilled(H);
+		H->attack(Gptr);
+		Gptr->EnqueueKilled(H);
 	}
 }

@@ -23,6 +23,7 @@ public:             //to be deleted
 	EarthArmy& GetEArmy();
 	AlienArmy& GetAArmy();
 	void Battle();
+	void PrintAttacked();
 	int GetTS();
 	void PrintKList();
 	void GenerateWarReport();
