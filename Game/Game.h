@@ -22,6 +22,7 @@ public:             //to be deleted
 	bool EnqueueKilled(unit*& d);
 	EarthArmy& GetEArmy();
 	AlienArmy& GetAArmy();
+	bool Battle();
 	int GetTS();
 	void PrintKList();
 	void GenerateWarReport();
