@@ -80,6 +80,17 @@ void EarthArmy::PrintArmy()
 	cout << endl;
 }
 
+void EarthArmy::PrintAttack()
+{
+	unit* u = nullptr; int g;
+	if (ES.peek(u))
+		u->PrintAttacked();
+	if (ET.peek(u))
+		u->PrintAttacked();
+	if (EG.peek(u, g))
+		u->PrintAttacked();
+}
+
 
 void EarthArmy::EarthAttack(Game* const& Gptr)
 {
