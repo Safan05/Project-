@@ -273,10 +273,19 @@ void Game::GenerateWarReport()
 	WR << "\nBattle Result : \n";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
-	WR << "ES_Destructed/ ES_Total = " << es / E.GetES().GetScount() << "\tET_Destructed/ ET_Total = " << et / E.GetET().GetTcount()
-		<< "\tEG_Destructed/ EG_Total = " << eg / E.GetEG().GetGcount();
+	WR << "ES_Destructed/ ES_Total = ";
+	if (es)
+		cout << es / E.GetES().GetScount(); else cout << "0\n";
+	cout << "\tET_Destructed/ ET_Total = ";
+	if (et) cout << et / E.GetET().GetTcount(); else cout << "0\n";
+	cout << "\tEG_Destructed/ EG_Total = ";
+	if (eg)
+		cout << eg / E.GetEG().GetGcount(); else cout << "0\n";
 	int TotalU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
-	WR << "\nTotal_Destructed/ Total units " << (es + et + eg + as + am + ad) / TotalU;
+	WR << "\nTotal_Destructed/ Total units ";
+	if (TotalU)
+		cout << (es + et + eg + as + am + ad) / TotalU;
+	else cout << "0\n";
 }
 Game::~Game() {
 	unit* temp = nullptr;
