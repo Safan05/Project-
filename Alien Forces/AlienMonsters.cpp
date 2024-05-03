@@ -11,6 +11,21 @@ AlienMonsters::AlienMonsters()
 		monsters[i] = nullptr;
 }
 
+bool AlienMonsters::pick(unit* mon)
+{
+	if (count == 0)
+	{
+		mon = NULL;
+		return false;
+	}
+	else
+	{
+		int i = rand() % count;
+		mon = monsters[i];
+		return true;
+	}
+}
+
 bool AlienMonsters::AddAlienMonster(unit* m)
 {
 	if (count == 1000) return false;
@@ -31,6 +46,10 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 	return true;
 }
 
+unit* AlienMonsters::getAttacker() { return attacker; }
+
+void AlienMonsters::setattacker(unit* mon) { attacker = mon; }
+
 void AlienMonsters::PrintAM()
 {
 	int i;
@@ -44,19 +63,6 @@ void AlienMonsters::PrintAM()
 }
 
 int AlienMonsters::getCount() { return count; }
-
-bool AlienMonsters::AMattack(Game* const& GPtr)
-{
-	if (count == 0)
-		return false;
-	else
-	{
-		int i = rand() % count;
-		bool m = monsters[i]->attack(GPtr);
-		monsters[i]->PrintAttacked();
-		return m;
-	}
-}
 
 AlienMonsters::~AlienMonsters()
 {

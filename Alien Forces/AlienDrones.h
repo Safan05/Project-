@@ -9,8 +9,8 @@ public:
 	AlienDrones();
 	bool enqueue(unit*& front, unit*& back);
 	bool dequeue(unit*&, unit*&);
+	bool peek(unit*&, unit*&);
 	void PrintAD();
 	int getCount();
-	bool ADattack(Game* const& GPtr);
 	~AlienDrones();
 };

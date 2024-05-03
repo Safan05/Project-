@@ -31,14 +31,15 @@ Game::Game()
 					U->SetJoin(TS);
 					A.AddUnit(U);
 				}
-			}	
+			}
+			//Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
-		
+			A.Alienattack(this);
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
