@@ -51,6 +51,18 @@ Game::Game()
 			E.PrintArmy();
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
+			cout << "\n============= Units fighting at current step =======" << endl;
+			E.GetES().peek(EU);
+			if (EU) {
+				EU->attack(this);
+				EU->PrintAttacked();
+			}
+			E.GetET().peek(ET);
+			if (ET) {
+				ET->attack(this);
+				ET->PrintAttacked();
+			}
+			A.Alienattack(this);
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -61,7 +73,7 @@ Game::Game()
 					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
 					break;
 			}					
-			//this->GenerateWarReport();
+			this->GenerateWarReport();
 		}
 	}
 	else
@@ -107,8 +119,6 @@ Game::Game()
 }
 
 	
-
-
 	void Game::LoadParameters(char FileName[])
 	{
 		ifstream In;
@@ -116,59 +126,47 @@ Game::Game()
 		if (In.is_open()) {
 			In >> N;
 			int sum = 0;
-
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 3; i++) {
 				In >> EP[i];
-				if (EP[i] < 0)	//validation that the probability is not negative
+				if (EP[i] < 0)	//validation that the probablity is not negative
 					EP[i] = 0;
 				sum += EP[i];
 			}
-
-			if (EP[3] > 5) {
-				sum -= EP[3] - 5;
-				EP[3] = 5;
-			}
-			if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
+			if (sum != 100) {	//Validation that the sum of probabilites to generate earth army units of them doesn't exceed 100
 				EP[0] = 30;
 				EP[1] = 30;
-				EP[2] = 35;
-				EP[3] = 5;
-				if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
-					EP[0] = 30;
-					EP[1] = 30;
-					EP[2] = 40;
-				}
-				sum = 0;
-				for (int i = 0; i < 3; i++) {
-					In >> AP[i];
-					if (EP[i] < 0)	//validation that the probability is not negative
-						EP[i] = 0;
-					sum += EP[i];
-				}
-				if (sum != 100) {	//Validation that the sum of probabilities to generate alien army units of them doesn't exceed 100
-					AP[0] = 30;
-					AP[1] = 30;
-					AP[2] = 40;
-				}
-				In >> Prob;
-				if (Prob > 100 || Prob < 0)	// validation that the probability to generate the army isn't negative or exceeds 100
-					Prob = 100;
-				for (int i = 0; i < 6; i++) {
-					In >> ER[i];
-					if (ER[i] < 0)
-						ER[i] *= -1;		// for the hyphen in the input file and also for validation
-				}
-				for (int i = 0; i < 6; i++) {
-					In >> AR[i];
-					if (AR[i] < 0)
-						AR[i] *= -1;	   // for the hyphen in the input file and also for validation
-				}
+				EP[2] = 40;
 			}
-			else {
-				cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
-				cin >> Filename;
-				LoadParameters(Filename);
+			sum = 0;
+			for (int i = 0; i < 3; i++) {
+				In >> AP[i];
+				if (EP[i] < 0)	//validation that the probablity is not negative
+					EP[i] = 0;
+				sum += EP[i];
 			}
+			if (sum != 100) {	//Validation that the sum of probabilites to generate alien army units of them doesn't exceed 100
+				EP[0] = 30;
+				EP[1] = 30;
+				EP[2] = 40;
+			}
+			In >> Prob;
+			if (Prob > 100 || Prob < 0)	// validation that the probability to generate the army isn't negative or exceeds 100
+				Prob = 100;
+			for (int i = 0; i < 6; i++) {
+				In >> ER[i];
+				if (ER[i] < 0)
+					ER[i] *= -1;
+			}
+			for (int i = 0; i < 6; i++) {
+				In >> AR[i];
+				if (AR[i] < 0)
+					AR[i] *= -1;
+			}
+		}
+		else {
+			cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
+			cin >> Filename;
+			LoadParameters(Filename);
 		}
 	}
 void Game::Interface()
@@ -194,7 +192,6 @@ void Game::Interface()
 		}
 		cin >> mode;
 	}
-//	cout << "\n";
 	char M[29] = "Enter The file name to load";
 	for (int i = 0; i < 29; i++) {
 		cout << M[i];
@@ -219,6 +216,13 @@ EarthArmy& Game::GetEArmy()
 AlienArmy& Game::GetAArmy()
 {
 	return A;
+}
+
+bool Game::Battle()
+{
+
+
+	return false;
 }
 
 int Game::GetTS()
@@ -275,17 +279,17 @@ void Game::GenerateWarReport()
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
 	WR << "ES_Destructed/ ES_Total = ";
 	if (es)
-		cout << es / E.GetES().GetScount(); else cout << "0\n";
-	cout << "\tET_Destructed/ ET_Total = ";
-	if (et) cout << et / E.GetET().GetTcount(); else cout << "0\n";
-	cout << "\tEG_Destructed/ EG_Total = ";
+		WR << es / E.GetES().GetScount(); else WR << "0\n";
+	WR << "\tET_Destructed/ ET_Total = ";
+	if (et) WR << et / E.GetET().GetTcount(); else WR << "0\n";
+	WR << "\tEG_Destructed/ EG_Total = ";
 	if (eg)
-		cout << eg / E.GetEG().GetGcount(); else cout << "0\n";
+		WR << eg / E.GetEG().GetGcount(); else WR << "0\n";
 	int TotalU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
 	WR << "\nTotal_Destructed/ Total units ";
 	if (TotalU)
-		cout << (es + et + eg + as + am + ad) / TotalU;
-	else cout << "0\n";
+		WR << (es + et + eg + as + am + ad) / TotalU;
+	else WR << "0\n";
 }
 Game::~Game() {
 	unit* temp = nullptr;
