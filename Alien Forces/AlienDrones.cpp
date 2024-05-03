@@ -47,6 +47,19 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 	return true;
 }
 
+bool AlienDrones::peek(unit*& beg, unit*& end)
+{
+	if (isEmpty()) return false;
+	DoubleQueue<unit*>::peek(beg);
+	if (!isEmpty())
+	{
+		end = backPtr->getItem();
+		return true;
+	}
+	else end = NULL;
+	return false;
+}
+
 
 void AlienDrones::PrintAD()
 {
@@ -61,20 +74,6 @@ void AlienDrones::PrintAD()
 }
 
 int AlienDrones::getCount() { return count; }
-
-bool AlienDrones::ADattack(Game* const& GPtr)
-{
-	if (count < 2)
-		return false;
-	else
-	{
-		bool a1 = frontPtr->getItem()->attack(GPtr);
-		bool a2 = backPtr->getItem()->attack(GPtr);
-		frontPtr->getItem()->PrintAttacked();
-		backPtr->getItem()->PrintAttacked();
-		return (a1 || a2);
-	}
-}
 
 AlienDrones::~AlienDrones()
 {
