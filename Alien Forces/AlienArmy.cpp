@@ -30,12 +30,21 @@ int AlienArmy::getAlienCount()
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
 
-bool AlienArmy::Alienattack(Game* const& GPtr)
+void AlienArmy::Alienattack(Game* const& GPtr)
 {
-	bool a1 = AS.ASattack(GPtr);
-	bool a2 = AM.AMattack(GPtr);
-	bool a3 = AD.ADattack(GPtr);
-	return (a1 || a2 || a3);
+	unit* attacker = NULL, * attacker2 = NULL;
+	if (AS.peek(attacker))
+		attacker->attack(GPtr);
+	if (AM.pick(attacker))
+	{
+		AM.setattacker(attacker);
+		attacker->attack(GPtr);
+	}
+	if (AD.peek(attacker, attacker2))
+	{
+		attacker->attack(GPtr);
+		attacker2->attack(GPtr);
+	}
 }
 
 AlienSoldiers& AlienArmy::getAS() { return AS; }
