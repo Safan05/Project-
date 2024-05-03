@@ -10,7 +10,7 @@ private:
 	int N, Prob,mode;
 	int EP[4], AP[3], ER[6], AR[6];
 	RandGen G;
-	EarthArmy E ;
+	EarthArmy E;
 	AlienArmy A;
 	LinkedQueue<unit*> KilledList;
 	LinkedQueue<unit*> TempList;
@@ -25,7 +25,6 @@ public:             //to be deleted
 	int GetTS();
 	void PrintKList();
 	void GenerateWarReport();
-	void TestCode();
 	void Interface();
 	~Game();
 };
