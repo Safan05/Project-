@@ -24,6 +24,8 @@ bool ASoldier::attack(Game* const & GPtr)
 			}
 			if (enemy->is_killed())
 				GPtr->EnqueueKilled(enemy);
+			else if (enemy->GetHPercent() <= 20)
+				GPtr->GetEArmy().GetUL().AddUnit(enemy);
 			else temp.enqueue(enemy);
 		}
 	}

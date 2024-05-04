@@ -45,18 +45,7 @@ Game::Game()
 			if (EU) {
 				EU->attack(this);
 				EU->PrintAttacked();
-			unit* EU = nullptr, * AU = nullptr;
-			E.GetES().peek(EU);
-			if (EU)
-			{
-				EU->attack(this);
-				EU->PrintAttacked();
 			}
-			cout << "Current TimeStep : " << TS << endl;
-			cout << "============= Earth Forces Alive Units =============" << endl;
-			E.PrintArmy();
-			cout << "============= Alien Forces Alive Units =============" << endl;
-			A.PrintArmy();
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -66,104 +55,49 @@ Game::Game()
 				cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
 				break;
 			}
-			E.GetET().peek(ET);
-			if (ET) {
-				ET->attack(this);
-				ET->PrintAttacked();
+		}
+	}
+		else if (mode == 2) {
+			char L[34] = "Loading Your file is in progress";
+			for (int i = 0; i < 34; i++) {
+				cout << L[i];
+				Sleep(20);
 			}
-			A.Alienattack(this);
-			cout << "\n============= Killed/Destructed Units =============" << endl;
-			this->PrintKList();
-			cout << endl << "Enter any key to move to next time step : ";
-			cin >> x;
-			cout << endl;
-			while (x != 'x') {
-				TS++;
-				if (G.Probability(Prob)) {
-					for (int i = 0; i < N; i++) {
-						unit* U = G.GenEarth(EP, ER);
-						U->SetJoin(TS);
-						E.AddUnit(U);
+			cout << "\n";
+			for (int i = 0; i < 34; i++) {
+				cout << "\033[32m" << char(219) << "\033[0m";
+				Sleep(20);
+				}
+				while (TS <= 50) {
+					TS++;
+					//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
+					if (G.Probability(Prob)) {
+						for (int i = 0; i < N; i++) {
+							unit* U = G.GenEarth(EP, ER);
+							U->SetJoin(TS);
+							E.AddUnit(U);
+						}
+					}
+					if (G.Probability(Prob)) {
+						for (int i = 0; i < N; i++) {
+							unit* U = G.GenAliens(AP, AR);
+							U->SetJoin(TS);
+							A.AddUnit(U);
+						}
+					}
+
+					E.attack(this);
+					//TestCode();
+					unit* EU = nullptr, * AU = nullptr;
+					E.GetES().peek(EU);
+					if (EU)
+					{
+						EU->attack(this);
 					}
 				}
-				if (G.Probability(Prob)) {
-					for (int i = 0; i < N; i++) {
-						unit* U = G.GenAliens(AP, AR);
-						U->SetJoin(TS);
-						A.AddUnit(U);
-					}
-				}
-				E.attack(this);
-				unit* EU = nullptr, * AU = nullptr;
-				E.GetES().peek(EU);
-				if (EU)
-				{
-					EU->attack(this);
-					EU->PrintAttacked();
-				}
-				cout << "Current TimeStep : " << TS << endl;
-				cout << "============= Earth Forces Alive Units =============" << endl;
-				E.PrintArmy();
-				cout << "============= Alien Forces Alive Units =============" << endl;
-				A.PrintArmy();
-				cout << "============= Killed/Destructed Units =============" << endl;
-				this->PrintKList();
-				cout << endl << "Enter any key to move to next time step : ";
-				cin >> x;
-				cout << endl;
-				if (TS >= 50) {
-					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
-					break;
-				}
+				this->GenerateWarReport();
 			}
-			this->GenerateWarReport();
-		}
-		this->GenerateWarReport();
 	}
-	else if (mode == 2) {
-		char L[34] = "Loading Your file is in progress";
-		for (int i = 0; i < 34; i++) {
-			cout << L[i];
-			Sleep(20);
-		}
-		cout << "\n";
-		for (int i = 0; i < 34; i++) {
-			cout << "\033[32m"<<char(219)<<"\033[0m";
-			Sleep(20);
-		}
-		while (TS <= 50) {
-			TS++;
-			//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
-			if (G.Probability(Prob)) {
-				for (int i = 0; i < N; i++) {
-					unit* U = G.GenEarth(EP, ER);
-					U->SetJoin(TS);
-					E.AddUnit(U);
-				}
-			}
-			if (G.Probability(Prob)) {
-				for (int i = 0; i < N; i++) {
-					unit* U = G.GenAliens(AP, AR);
-					U->SetJoin(TS);
-					A.AddUnit(U);
-				}
-			}
-
-			E.attack(this);
-			//TestCode();
-			unit* EU = nullptr, * AU = nullptr;
-			E.GetES().peek(EU);
-			if (EU)
-			{
-				EU->attack(this);
-			}
-		}
-		this->GenerateWarReport();
-	}
-	//char cr[]=
-}
-
-
 void Game::LoadParameters(char FileName[])
 {
 	ifstream In;
@@ -188,10 +122,6 @@ void Game::LoadParameters(char FileName[])
 			EP[1] = 30;
 			EP[2] = 35;
 			EP[3] = 5;
-		if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
-			EP[0] = 30;
-			EP[1] = 30;
-			EP[2] = 40;
 		}
 		sum = 0;
 		for (int i = 0; i < 3; i++) {

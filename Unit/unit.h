@@ -1,7 +1,6 @@
 #pragma once
 #ifndef UNIT
 #define UNIT
-#include"unit.h"
 #include"../DS/LinkedQueue.h"
 #include<fstream>
 class Game;
