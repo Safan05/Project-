@@ -32,14 +32,14 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
-			//Battle();
+			Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
-			A.Alienattack(this);
+			PrintAttacked();
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->PrintKList();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -196,7 +196,7 @@ void Game::Battle()
 void Game::PrintAttacked()
 {
 	E.PrintAttack();
-	//A.PrintAttack();
+	A.PrintAttack();
 }
 
 int Game::GetTS()

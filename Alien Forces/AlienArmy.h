@@ -21,6 +21,7 @@ public:
 	AlienDrones& getAD();
 	int getAlienCount();
 	void Alienattack(Game* const& GPtr);
+	void PrintAttack();
 	void PrintArmy();
 };
 #endif
