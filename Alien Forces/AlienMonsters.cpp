@@ -11,19 +11,13 @@ AlienMonsters::AlienMonsters()
 		monsters[i] = nullptr;
 }
 
-bool AlienMonsters::pick(unit* mon)
+bool AlienMonsters::pick(unit*& mon)
 {
 	if (count < 1)
-	{
-		mon = NULL;
 		return false;
-	}
-	else
-	{
-		int i = rand() % count;
-		mon = monsters[i];
-		return true;
-	}
+	int i = rand() % count;
+	mon = monsters[i];
+	return true;
 }
 
 bool AlienMonsters::AddAlienMonster(unit* m)
@@ -39,10 +33,10 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 	if (count < 1) 
 		return false;
 	int i = rand() % count;
-	unit* temp = monsters[i];
-	monsters[i] = monsters[count - 1];
-	monsters[count - 1] = temp;
-	m = monsters[count - 1];
+	m = monsters[i];
+	unit* temp = monsters[count-1];
+	monsters[count-1] = monsters[i];
+	monsters[i] = temp;
 	monsters[count - 1] = NULL;
 	count--;
 	return true;
