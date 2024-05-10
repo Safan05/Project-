@@ -19,6 +19,7 @@ bool ASoldier::attack(Game* const & GPtr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
 			{
+				GPtr->GetEArmy().IncAttackCount();
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));

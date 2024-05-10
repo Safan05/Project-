@@ -17,6 +17,7 @@ class EarthArmy
 	UML UL;
 	HealUnits HU;
 	int id;
+	int AttackCount;
 public:
 	EarthArmy(Game* g = nullptr);
 	bool AddUnit(unit*&);
@@ -24,6 +25,8 @@ public:
 	EarthGunnery& GetEG();
 	EarthTanks& GetET();
 	UML& GetUL();
+	void IncAttackCount();
+	int GetAttackCount();
 	void PrintArmy();
 	void PrintAttack();
 	void EarthAttack(Game* const& Gptr);

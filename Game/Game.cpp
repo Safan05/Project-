@@ -275,9 +275,8 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	if (IsE)
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		double TotalE = aliveE + KilledE;
-		if (TotalE)
-			WR << (AvgDs[0] / TotalE) << ", ";
+		if (E.GetAttackCount())
+			WR << (AvgDs[0] / E.GetAttackCount()) << ", ";
 		else WR << "0, ";
 		if (KilledE)
 		{
@@ -289,9 +288,8 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	else
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		double TotalA = AliveA + KilledA;
-		if (TotalA)
-			WR << (AvgDs[3] / TotalA) << ", ";
+		if (A.GetAttackCount())
+			WR << (AvgDs[3] / A.GetAttackCount()) << ", ";
 		else WR << "0, ";
 		if (KilledA)
 		{

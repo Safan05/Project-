@@ -19,6 +19,7 @@ bool ETank::attack(Game* const & Gptr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
+				Gptr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
 				Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
@@ -50,6 +51,7 @@ bool ETank::attack(Game* const & Gptr)
 					GetattackedIDs().enqueue(enemy->GetId());
 					if (!enemy->Wasattacked())
 					{
+						Gptr->GetAArmy().IncAttackCount();
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
 						Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));

@@ -7,6 +7,7 @@ EarthArmy::EarthArmy(Game* g) //should be deleted??
 {
 	Gptr = g;
 	id = 1;
+	AttackCount = 0;
 }
 
 bool EarthArmy::AddUnit(unit*& u)
@@ -54,6 +55,16 @@ EarthTanks& EarthArmy::GetET()
 UML& EarthArmy::GetUL()
 {
 	return UL;
+}
+
+void EarthArmy::IncAttackCount()
+{
+	AttackCount++;
+}
+
+int EarthArmy::GetAttackCount()
+{
+	return AttackCount;
 }
 
 void EarthArmy::PrintArmy()
