@@ -13,6 +13,7 @@ class AlienArmy
 	AlienDrones AD;			  //Alien Drones
 	AlienMonsters AM;         //Alien Monsters 
 	int id;
+	int AttackCount;
 public:
 	AlienArmy(Game* g = nullptr);
 	bool AddUnit(unit*);
@@ -20,6 +21,8 @@ public:
 	AlienMonsters& getAM();
 	AlienDrones& getAD();
 	int getAlienCount();
+	void IncAttackCount();
+	int GetAttackCount();
 	void Alienattack(Game* const& GPtr);
 	void PrintAttack();
 	void PrintArmy();

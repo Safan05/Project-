@@ -18,6 +18,7 @@ bool EGunnery::attack(Game* const & GPtr)
             GetattackedIDs().enqueue(enemy->GetId());
             if (!enemy->Wasattacked())
             {
+                GPtr->GetAArmy().IncAttackCount();
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
                 GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
@@ -48,6 +49,7 @@ bool EGunnery::attack(Game* const & GPtr)
                 GetattackedIDs().enqueue(enemy->GetId());
                 if (!enemy->Wasattacked())
                 {
+                    GPtr->GetAArmy().IncAttackCount();
                     enemy->SetAttacked(true);     //mark as attacked
                     enemy->SetTa(GPtr->GetTS());  //document time of fist attack
                     GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));

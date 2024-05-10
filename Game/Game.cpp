@@ -170,24 +170,6 @@ void Game::Interface()
 	std::cin >> Filename;
 }
 
-//bool Game::EnqueueKilled(unit*& d)
-//{
-//	d->SetTd(TS);
-//	int id = d->GetId();
-//	if (id <= 999 && id >= 1) {
-//		//AvgDs[0] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-//		AvgDs[1] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-//		AvgDs[2] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
-//	}
-//	else {
-//		//AvgDs[3] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-//		AvgDs[4] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-//		AvgDs[5] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
-//	}
-//	Kcount++;
-//	return KilledList.enqueue(d);
-//}
-
 EarthArmy& Game::GetEArmy()
 {
 	return E;
@@ -235,54 +217,16 @@ bool Game::AddKilled(unit*& d)
 	}
 	return K.AddKilled(d);
 }
-//
-//void Game::PrintKList()
-//{
-//	unit* temp;
-//	LinkedQueue<unit*> Ktemp;
-//	cout << Kcount << " units [";
-//	for (int i = 0; i < Kcount; i++)
-//	{
-//		KilledList.dequeue(temp);
-//		temp->PrintUnit();
-//		if (i != Kcount - 1)
-//			cout << ", ";
-//		Ktemp.enqueue(temp);
-//	}
-//	cout << "]";
-//	while (Ktemp.dequeue(temp))
-//		KilledList.enqueue(temp);
-//
-//}
 
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
 	WR << "\tEarth VS Aliens War Report\n\n";
 	WR << "Td\tID\t\tTj\tDf\tDd\tDb\n";
-	//LinkedQueue<unit*> TempK;
-	//unit* kunit; int es = 0, et =0, eg = 0, as = 0, ad = 0, am = 0;
-	//while (KilledList.dequeue(kunit))
-	//{                              //Note:killed-list is ascend.sorted already 
-	//	kunit->DeathReport(WR);    //as it's queue implemented
-	//	switch (kunit->GetType())
-	//	{
-	//	case earthsoldier: es++; break;
-	//	case tank: et++; break;
-	//	case gunnery: eg++; break;
-	//	case aliensoldier: as++; break;
-	//	case drone: ad++; break;
-	//	case monster: am++; break;
-	//	default:
-	//		break;
-	//	}
-	//	TempK.enqueue(kunit);
-	//}
-	//while (TempK.dequeue(kunit))
-	//	KilledList.enqueue(kunit);
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
 	//===============================Earth Forces Stats=====================================
+
 	WR << "\n\t\t\tEarth Forces\n ";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
@@ -331,9 +275,8 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	if (IsE)
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		double TotalE = aliveE + KilledE;
-		if (TotalE)
-			WR << (AvgDs[0] / TotalE) << ", ";
+		if (E.GetAttackCount())
+			WR << (AvgDs[0] / E.GetAttackCount()) << ", ";
 		else WR << "0, ";
 		if (KilledE)
 		{
@@ -345,9 +288,8 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	else
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		double TotalA = AliveA + KilledA;
-		if (TotalA)
-			WR << (AvgDs[3] / TotalA) << ", ";
+		if (A.GetAttackCount())
+			WR << (AvgDs[3] / A.GetAttackCount()) << ", ";
 		else WR << "0, ";
 		if (KilledA)
 		{
@@ -375,9 +317,6 @@ void Game::SetADb(int d)
 }
 Game::~Game() {
 	unit* temp = nullptr;
-	/*while (KilledList.dequeue(temp))
-		delete temp;
-	temp = nullptr;*/
 	while (TempList.dequeue(temp))
 		delete temp;
 }
