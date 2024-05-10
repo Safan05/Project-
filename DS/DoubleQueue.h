@@ -62,7 +62,10 @@ bool DoubleQueue<T>::enqueue(const T& newEntry)
 	DoubleNode<T>* newDoubleNodePtr = new DoubleNode<T>(newEntry);
 	// Insert the new DoubleNode
 	if (isEmpty())	//special case if this is the first DoubleNode to insert
+	{
 		frontPtr = newDoubleNodePtr; // The queue is empty
+		backPtr = newDoubleNodePtr;
+	}
 	else
 	{
 		backPtr->setNext(newDoubleNodePtr); // The queue was not empty

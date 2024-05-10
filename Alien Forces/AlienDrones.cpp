@@ -20,7 +20,11 @@ bool AlienDrones::enqueue(unit*& front, unit*& back)
 			frontPtr->setPrevious(newNode);
 			frontPtr = frontPtr->getNext();
 		}
-		else frontPtr = newNode;
+		else
+		{
+	 		frontPtr = newNode;
+			backPtr = newNode;
+		}
 	}
 	if (back)
 	{
