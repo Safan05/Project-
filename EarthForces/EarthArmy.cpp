@@ -1,4 +1,5 @@
 #include "EarthArmy.h"
+#include"../Unit/ESoldier.h"
 #include<iostream>
 #include"../Game/Game.h"
 using namespace std;
@@ -111,7 +112,20 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 {
 	unit* u = nullptr;
 	if (ES.peek(u))
-		u->attack(Gptr);
+	{
+		ESoldier* eunit = dynamic_cast<ESoldier*>(u);
+		if (eunit)
+		{
+			if (eunit->IsInfected())
+			{
+				ES.InfEnqueue(u);
+				u->attack(Gptr);
+			}
+			else
+				u->attack(Gptr);
+		
+		}
+	}
 	if(ET.peek(u))
 		u->attack(Gptr);
 	int g;
@@ -122,7 +136,6 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* H;
 	if (HU.pop(H)) {
 		H->attack(Gptr);
-		//Gptr->EnqueueKilled(H);
 		Gptr->GetKList().AddKilled(H);
 	}
 }

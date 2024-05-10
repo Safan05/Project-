@@ -2,6 +2,7 @@
 
 ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
+	Infected = false;
 }
 
 bool ESoldier::attack(Game* const & GPtr)
@@ -10,6 +11,7 @@ bool ESoldier::attack(Game* const & GPtr)
 	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
+		if(!Infected)
 		if (GPtr->GetAArmy().getAS().dequeue(enemy))
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -30,10 +32,56 @@ bool ESoldier::attack(Game* const & GPtr)
 			else
 				templist.enqueue(enemy);
 		}
+		else
+		{
+			if (GPtr->GetEArmy().GetES().dequeue(enemy))
+			{
+				double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
+				enemy->DecHealth(damage);
+				GetattackedIDs().enqueue(enemy->GetId());
+				if (!enemy->Wasattacked())
+				{
+					GPtr->GetEArmy().IncAttackCount();
+					enemy->SetAttacked(true);
+					enemy->SetTa(GPtr->GetTS());
+					GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				}
+				if (enemy->GetHealth() <= 0)
+				{
+					enemy->SetTd(GPtr->GetTS());
+					GPtr->GetKList().AddKilled(enemy);
+				}
+				else
+					templist.enqueue(enemy);
+			}
+		}
 	}
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
 	return true;
+}
+
+void ESoldier::SetInfected(bool v)
+{
+	Infected = v;
+}
+
+bool ESoldier::IsInfected()
+{
+	return Infected;
+}
+
+void ESoldier::SpreadInfection(Game* const& GPtr)
+{
+	if (this->IsInfected())
+	{
+		//to be implemented later
+		bool notinfected = true;
+		while (notinfected)
+		{
+			int c = rand() % GPtr->GetEArmy().GetES().GetScount();
+		}
+	}
 }
 
 void ESoldier::PrintAttacked()
