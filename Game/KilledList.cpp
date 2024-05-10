@@ -18,18 +18,6 @@ bool KilledList::AddKilled(unit*& d)
 {
 	if (LinkedQueue<unit*>::enqueue(d))
 	{
-		//d->SetTd(GPtr->GetTS());
-		//int id = d->GetId();
-		//if (id <= 999 && id >= 1) {
-		//	GPtr->SetEDf(*(d->GetImpTime() + 1) - *(d->GetImpTime()));
-		////		AvgDs[1] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-		//	GPtr->SetEDb(*(d->GetImpTime() + 2) - *(d->GetImpTime()));
-	 //   }
-		//else {
-		//	GPtr->SetADf(*(d->GetImpTime() + 1) - *(d->GetImpTime()));
-		////		AvgDs[4] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-		//	GPtr->SetADb(*(d->GetImpTime() + 2) - *(d->GetImpTime()));
-		//}
 		count++;
 		switch (d->GetType())
 		{
@@ -95,7 +83,5 @@ KilledList::~KilledList()
 {
 	unit* temp = nullptr;
 	while (this->dequeue(temp))
-	{
 		delete temp;
-	}
 }
