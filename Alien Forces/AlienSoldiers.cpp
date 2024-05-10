@@ -38,18 +38,6 @@ void AlienSoldiers::PrintAS()
 
 int AlienSoldiers::getCount() { return count; }
 
-bool AlienSoldiers::ASattack(Game* const& GPtr)
-{
-	if (isEmpty())
-		return false;
-	else
-	{
-		bool s = frontPtr->getItem()->attack(GPtr);
-		frontPtr->getItem()->PrintAttacked();
-		return s;
-	}
-}
-
 AlienSoldiers::~AlienSoldiers()
 {
 	unit* temp = nullptr;

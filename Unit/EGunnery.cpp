@@ -1,5 +1,5 @@
 #include "EGunnery.h"
-
+#include"../Alien Forces/AlienDrones.h"
 EGunnery::EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
@@ -29,7 +29,46 @@ bool EGunnery::attack(Game* const & GPtr)
     }
     while (templist.dequeue(enemy))       //return alive monsters back
         GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
-    //attack drones
+    unit* denemy;
+    unit* dummy = nullptr;
+    AlienDrones ADtemp;
+    for (int i = unit::GetAC() / 2; i < unit::GetAC(); i++)
+    {
+        
+        if (GPtr->GetAArmy().getAD().dequeue(enemy,denemy))
+        {
+            if (enemy)
+            {
+                double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
+                enemy->DecHealth(damage);
+                GetattackedIDs().enqueue(enemy->GetId());
+                if (!enemy->Wasattacked())
+                {
+                    enemy->SetAttacked(true);     //mark as attacked
+                    enemy->SetTa(GPtr->GetTS());  //document time of fist attack
+                }
+                if (enemy->GetHealth() <= 0)
+                    GPtr->EnqueueKilled(enemy);   //add to killed list
+                else
+                    ADtemp.enqueue(enemy, dummy);
+            }
+            if (denemy)
+            {
+                double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(denemy->GetHealth());
+                denemy->DecHealth(damage);
+                GetattackedIDs().enqueue(denemy->GetId());
+                if (!denemy->Wasattacked())
+                {
+                    denemy->SetAttacked(true);     //mark as attacked
+                    denemy->SetTa(GPtr->GetTS());  //document time of fist attack
+                }
+                if (denemy->GetHealth() <= 0)
+                    GPtr->EnqueueKilled(denemy);   //add to killed list
+                else
+                    ADtemp.enqueue(dummy, denemy);
+            }
+        }
+    }
     return true;
 }
 

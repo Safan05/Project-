@@ -22,11 +22,13 @@ public:             //to be deleted
 	bool EnqueueKilled(unit*& d);
 	EarthArmy& GetEArmy();
 	AlienArmy& GetAArmy();
+	void Battle();
+	void PrintAttacked();
 	int GetTS();
 	void PrintKList();
 	void GenerateWarReport();
-	void TestCode();
 	void Interface();
+	void PrintOP();
 	~Game();
 };
 

@@ -10,51 +10,41 @@ Game::Game()
 	LoadParameters(Filename);
 
 	cout << "\n";
-	if (mode == 1) {
+	if (mode == 1)
+	{
 		char x;
 		cout << "Enter any key to start : ";
 		cin >> x;
 		cout << endl;
 		while (x != 'x') {
 			TS++;
-			//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 			if (G.Probability(Prob)) {
 				for (int i = 0; i < N; i++) {
 					unit* U = G.GenEarth(EP, ER);
 					U->SetJoin(TS);
-					E.AddUnit(U);
+					if (!E.AddUnit(U))
+						cout << "No more available IDs";
 				}
 			}
 			if (G.Probability(Prob)) {
 				for (int i = 0; i < N; i++) {
 					unit* U = G.GenAliens(AP, AR);
 					U->SetJoin(TS);
-					A.AddUnit(U);
+					if (!A.AddUnit(U))
+						cout << "No more available IDs";
 				}
-			}
-			//TestCode();
 
-			cout << "Current TimeStep : " << TS << endl;
-			cout << "============= Earth Forces Alive Units =============" << endl;
-			E.PrintArmy();
-			cout << "\n============= Alien Forces Alive Units =============" << endl;
-			A.PrintArmy();
-			cout << "\n============= Units fighting at current step =======" << endl;
-			unit* EU = nullptr, * ET = nullptr;
-			E.GetES().peek(EU);
-			if (EU) {
-				EU->attack(this);
-				EU->PrintAttacked();
 			}
-			cout << "============= Killed/Destructed Units =============" << endl;
-			this->PrintKList();
-			cout << endl << "Enter any key to move to next time step : ";
+			this->PrintOP();
+			A.Alienattack(this);
 			cin >> x;
 			cout << endl;
-			if (TS >= 50) {
-				cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
-				break;
-			}
+			if (TS >= 50) 
+			{
+					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
+					break;
+			}					
+			this->GenerateWarReport();
 		}
 	}
 		else if (mode == 2) {
@@ -70,7 +60,6 @@ Game::Game()
 				}
 				while (TS <= 50) {
 					TS++;
-					//G = new RandGen(N, Prob, EP, AP, ER, AR, TS, &E, &A);
 					if (G.Probability(Prob)) {
 						for (int i = 0; i < N; i++) {
 							unit* U = G.GenEarth(EP, ER);
@@ -86,8 +75,6 @@ Game::Game()
 						}
 					}
 
-					E.attack(this);
-					//TestCode();
 					unit* EU = nullptr, * AU = nullptr;
 					E.GetES().peek(EU);
 					if (EU)
@@ -155,64 +142,6 @@ void Game::LoadParameters(char FileName[])
 		LoadParameters(Filename);
 	}
 }
-void Game::TestCode() {
-	double x = G.drand(1, 100);
-	if (x < 10)
-	{ 	//pick ES and insert again
-		unit* u = nullptr;
-		if (E.GetES().dequeue(u))
-			E.GetES().enqueue(u);
-	}
-	else if (x < 20) {	//pick ET and insert in Killed list
-
-		unit* u = nullptr;
-		if (E.GetET().pop(u))
-			EnqueueKilled(u);
-	}
-	else if (x < 30) {	//pick EG , decrement it's length to half and insert again
-		unit* u = nullptr;
-		if (E.GetEG().dequeue(u))
-		{
-			u->DecHealth(u->GetHealth() / 2);
-			E.GetEG().enqueue(u);
-		}
-	}
-	else if (x < 40) {	//pick 5 AS from their list,decrement their health, put them in temp list then insert again to original length
-		for (int i = 0; i < 5; i++) {
-			unit* u = nullptr;
-			if (A.getAS().dequeue(u))
-			{
-				u->DecHealth(u->GetHealth() / (G.drand(2, 10)));
-				TempList.enqueue(u);
-			}
-		}
-		for (int i = 0; i < 5; i++) {
-			unit* u = nullptr;
-			if (TempList.dequeue(u))
-				A.getAS().enqueue(u);
-
-		}
-	}
-	else if (x < 50) { 	//pick 5 monsters from their list and insert them again
-
-		for (int i = 0; i < 5; i++) {
-			unit* u = nullptr;
-			if (A.getAM().removeAlienMonster(u))
-				A.getAM().AddAlienMonster(u);
-		}
-	}
-	else if (x < 60) { 	//pick 6 drones from their list and insert them in killed list
-
-		for (int i = 0; i < 3; i++) {
-			unit* u1 = nullptr, * u2 = nullptr;
-			if (A.getAD().dequeue(u1, u2)) {
-				EnqueueKilled(u1);
-				if (u2)
-					EnqueueKilled(u2);
-			}
-		}
-	}
-}
 void Game::Interface()
 {
 	char H[56] = "\033[1;31mHello, Welcome to Supernova's war simulator\033[0m";
@@ -236,7 +165,6 @@ void Game::Interface()
 		}
 		cin >> mode;
 	}
-//	cout << "\n";
 	char M[29] = "Enter The file name to load";
 	for (int i = 0; i < 29; i++) {
 		cout << M[i];
@@ -244,6 +172,19 @@ void Game::Interface()
 	}
 	cout << "\n";
 	std::cin >> Filename;
+}
+
+void Game::PrintOP()
+{
+	cout << "Current TimeStep : " << TS << endl;
+	cout << "============= Earth Forces Alive Units =============" << endl;
+	E.PrintArmy();
+	cout << "============= Alien Forces Alive Units =============" << endl;
+	A.PrintArmy();
+	cout << "\n============= Units fighting at current step =======" << endl;
+	cout << "============= Killed/Destructed Units =============" << endl;
+	this->PrintKList();
+	cout << endl << "Enter any key to move to next time step : ";
 }
 
 bool Game::EnqueueKilled(unit*& d)
@@ -261,6 +202,18 @@ EarthArmy& Game::GetEArmy()
 AlienArmy& Game::GetAArmy()
 {
 	return A;
+}
+
+void Game::Battle()
+{
+	E.EarthAttack(this);
+	A.Alienattack(this);
+}
+
+void Game::PrintAttacked()
+{
+	E.PrintAttack();
+	//A.PrintAttack();
 }
 
 int Game::GetTS()
@@ -315,10 +268,19 @@ void Game::GenerateWarReport()
 	WR << "\nBattle Result : \n";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
-	WR << "ES_Destructed/ ES_Total = " << es / E.GetES().GetScount() << "\tET_Destructed/ ET_Total = " << et / E.GetET().GetTcount()
-		<< "\tEG_Destructed/ EG_Total = " << eg / E.GetEG().GetGcount();
+	WR << "ES_Destructed/ ES_Total = ";
+	if (es)
+		WR << es / E.GetES().GetScount(); else WR << "0\n";
+	WR << "\tET_Destructed/ ET_Total = ";
+	if (et) WR << et / E.GetET().GetTcount(); else WR << "0\n";
+	WR << "\tEG_Destructed/ EG_Total = ";
+	if (eg)
+		WR << eg / E.GetEG().GetGcount(); else WR << "0\n";
 	int TotalU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
-	WR << "\nTotal_Destructed/ Total units " << (es + et + eg + as + am + ad) / TotalU;
+	WR << "\nTotal_Destructed/ Total units ";
+	if (TotalU)
+		WR << (es + et + eg + as + am + ad) / TotalU;
+	else WR << "0\n";
 }
 Game::~Game() {
 	unit* temp = nullptr;

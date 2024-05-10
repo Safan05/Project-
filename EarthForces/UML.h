@@ -1,10 +1,11 @@
 #pragma once
 #ifndef UMLL
 #define UMLL
+#include"../Unit/unit.h"
 #include"../DS/LinkedQueue.h"
 class ETank;
 class ESoldier;
-class unit;
+class Game;
 class UML : public LinkedQueue<unit*>
 {
 public:
