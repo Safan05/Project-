@@ -5,6 +5,7 @@ AlienArmy::AlienArmy(Game* g)
 {
 	Gptr = g;
 	id = 2000;
+	AttackCount = 0;
 }
 
 bool AlienArmy::AddUnit(unit* u)
@@ -28,6 +29,16 @@ bool AlienArmy::AddUnit(unit* u)
 int AlienArmy::getAlienCount()
 {
 	return AS.getCount() + AM.getCount() + AD.getCount();
+}
+
+void AlienArmy::IncAttackCount()
+{
+	AttackCount++;
+}
+
+int AlienArmy::GetAttackCount()
+{
+	return AttackCount;
 }
 
 void AlienArmy::Alienattack(Game* const& GPtr)
