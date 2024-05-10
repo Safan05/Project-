@@ -15,13 +15,13 @@ class AlienArmy
 	int id;
 public:
 	AlienArmy(Game* g = nullptr);
-	bool AddUnit(unit*);
-	AlienSoldiers& getAS();
+	bool AddUnit(unit*);      //Add new unit to the correct list 
+	AlienSoldiers& getAS();   
 	AlienMonsters& getAM();
 	AlienDrones& getAD();
-	int getAlienCount();
+	int getAlienCount();     //returns the total count of all alien units
 	void Alienattack(Game* const& GPtr);
-	void PrintAttack();
-	void PrintArmy();
+	void PrintAttack();     //print earth units attacked by alien units
+	void PrintArmy();       
 };
 #endif

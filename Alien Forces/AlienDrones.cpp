@@ -10,17 +10,17 @@ AlienDrones::AlienDrones()
 
 bool AlienDrones::enqueue(unit*& front, unit*& back)
 {
-	if (front)
+	if (front)       //not to enqueue null pointers     
 	{
 		count++;
 		DoubleNode<unit*>* newNode = new DoubleNode<unit*>(front);
-		if (frontPtr)
+		if (frontPtr)   
 		{
 			newNode->setNext(frontPtr);
 			frontPtr->setPrevious(newNode);
 			frontPtr = frontPtr->getNext();
 		}
-		else frontPtr = newNode;
+		else frontPtr = newNode;  //special case: the list was empty
 	}
 	if (back)
 	{
@@ -32,16 +32,18 @@ bool AlienDrones::enqueue(unit*& front, unit*& back)
 
 bool AlienDrones::dequeue(unit*& beg, unit*& end)
 {
-	if (isEmpty()) return false;
-	DoubleQueue<unit*>::dequeue(beg);
+	if (isEmpty()) 
+		return false;
+	DoubleQueue<unit*>::dequeue(beg);   //dequeue the front pointer
 	count--;
-	if (!isEmpty())
+	if (!isEmpty())  //dequeue the back pointer if it exists  
 	{
 		end = backPtr->getItem();
 		if (backPtr == frontPtr)
 			frontPtr = NULL;       //special case if only one node exists 
 		backPtr = backPtr->getPrevious();
-		if (backPtr) {
+		if (backPtr)
+		{
 			delete backPtr->getNext();
 			backPtr->setNext(NULL);
 		}
@@ -53,7 +55,8 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 
 bool AlienDrones::peek(unit*& beg, unit*& end)
 {
-	if (count < 2) return false;
+	if (count < 2)
+		return false;
 	DoubleQueue<unit*>::peek(beg);
 	end = backPtr->getItem();
 	return true;

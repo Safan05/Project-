@@ -8,12 +8,12 @@ class AlienMonsters
 	unit* monsters[1000];
 public:
 	AlienMonsters();
-	bool pick(unit*&);
-	bool AddAlienMonster(unit*);
-	bool removeAlienMonster(unit*&);
-	unit* getAttacker();
-	void setattacker(unit*);
-	void PrintAM();
+	bool pick(unit*&);         //picks a random monster from the array
+	void setattacker(unit*);   //to keep the monster which made the attack (to print the attacked list )
+	unit* getAttacker();       //to get the monster which made the attack 
+	bool AddAlienMonster(unit*);       //add a monster to the array
+	bool removeAlienMonster(unit*&);   //remove a random monster from the array
+	void PrintAM();    
 	int getCount();
 	~AlienMonsters();
 };
