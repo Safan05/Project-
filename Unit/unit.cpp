@@ -93,6 +93,11 @@ void unit::SetTd(int t)
 	ImpTime[2] = t;
 }
 
+int* unit::GetImpTime()
+{
+	return ImpTime;
+}
+
 void unit::DeathReport(std::ofstream& wr)
 {
 	wr << ImpTime[2] << "\t" << id << "\t"

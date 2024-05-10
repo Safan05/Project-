@@ -21,9 +21,13 @@ bool ETank::attack(Game* const & Gptr)
 			{
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
+				Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->GetHealth() <= 0)
-				Gptr->EnqueueKilled(enemy);
+			{
+				enemy->SetTd(Gptr->GetTS());
+				Gptr->GetKList().AddKilled(enemy);
+			}
 			else
 				templist.push(enemy);
 		}
@@ -48,9 +52,13 @@ bool ETank::attack(Game* const & Gptr)
 					{
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
+						Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
 					}
 					if (enemy->GetHealth() <= 0)
-						Gptr->EnqueueKilled(enemy);
+					{
+						Gptr->GetKList().AddKilled(enemy);
+						enemy->SetTd(Gptr->GetTS());
+					}
 					else
 						templist.enqueue(enemy);
 				}

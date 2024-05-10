@@ -25,9 +25,13 @@ bool ADrone::attack(Game* const & GPtr)
 			{
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-				GPtr->EnqueueKilled(enemy);
+			{
+				enemy->SetTd(GPtr->GetTS());
+				GPtr->GetKList().AddKilled(enemy);
+			}
 			else Ttemp.push(enemy);
 		}
 	}
@@ -48,9 +52,13 @@ bool ADrone::attack(Game* const & GPtr)
 			{
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-				GPtr->EnqueueKilled(enemy);
+			{
+				enemy->SetTd(GPtr->GetTS());
+				GPtr->GetKList().AddKilled(enemy);
+			}
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}
 	}

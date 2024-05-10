@@ -6,30 +6,34 @@ using namespace std;
 EarthArmy::EarthArmy(Game* g) //should be deleted??
 {
 	Gptr = g;
-	id = 0;
+	id = 1;
 }
 
 bool EarthArmy::AddUnit(unit*& u)
 {
-	u->SetId(id++);
-	switch (u->GetType())
+	if (id <= 999)
 	{
-	case earthsoldier:
-		ES.enqueue(u);
-		break;
-	case tank:
-		ET.push(u);
-		break;
-	case gunnery:
-		EG.enqueue(u);
-		break;
-	case HealUnit:
-		HU.push(u);
-		break;
-	default:
-		break;
+		u->SetId(id++);
+		switch (u->GetType())
+		{
+		case earthsoldier:
+			ES.enqueue(u);
+			break;
+		case tank:
+			ET.push(u);
+			break;
+		case gunnery:
+			EG.enqueue(u);
+			break;
+		case HealUnit:
+			HU.push(u);
+			break;
+		default:
+			break;
+		}
+		return true;
 	}
-	return true;
+	return false;
 }
 
 EarthSoldiers& EarthArmy::GetES()
@@ -107,6 +111,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* H;
 	if (HU.pop(H)) {
 		H->attack(Gptr);
-		Gptr->EnqueueKilled(H);
+		//Gptr->EnqueueKilled(H);
+		Gptr->GetKList().AddKilled(H);
 	}
 }
