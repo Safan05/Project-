@@ -20,9 +20,13 @@ bool EGunnery::attack(Game* const & GPtr)
             {
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
+                GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
             }
             if (enemy->GetHealth() <= 0)
-                GPtr->EnqueueKilled(enemy);   //add to killed list
+            {
+                enemy->SetTd(GPtr->GetTS());
+                GPtr->GetKList().AddKilled(enemy);
+            }                                      //add to killed list
             else
                 templist.enqueue(enemy);
         }
@@ -46,9 +50,13 @@ bool EGunnery::attack(Game* const & GPtr)
                 {
                     enemy->SetAttacked(true);     //mark as attacked
                     enemy->SetTa(GPtr->GetTS());  //document time of fist attack
+                    GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
                 }
                 if (enemy->GetHealth() <= 0)
-                    GPtr->EnqueueKilled(enemy);   //add to killed list
+                {
+                    enemy->SetTd(GPtr->GetTS());
+                    GPtr->GetKList().AddKilled(enemy);
+                }
                 else
                     ADtemp.enqueue(enemy, dummy);
             }
@@ -61,9 +69,13 @@ bool EGunnery::attack(Game* const & GPtr)
                 {
                     denemy->SetAttacked(true);     //mark as attacked
                     denemy->SetTa(GPtr->GetTS());  //document time of fist attack
+                    GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
                 }
                 if (denemy->GetHealth() <= 0)
-                    GPtr->EnqueueKilled(denemy);   //add to killed list
+                {
+                    denemy->SetTd(GPtr->GetTS());
+                    GPtr->GetKList().AddKilled(denemy);
+                }
                 else
                     ADtemp.enqueue(dummy, denemy);
             }
