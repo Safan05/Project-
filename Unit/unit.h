@@ -37,6 +37,7 @@ public:
 	bool Wasattacked();
 	void SetTa(int t);
 	void SetTd(int t);
+	int* GetImpTime();
 	void DeathReport(std::ofstream& wr);
 	void PrintUnit();
 	virtual void PrintAttacked() = 0;

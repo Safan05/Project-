@@ -8,7 +8,7 @@ class AlienMonsters
 	unit* monsters[1000];
 public:
 	AlienMonsters();
-	bool pick(unit*);
+	bool pick(unit*&);
 	bool AddAlienMonster(unit*);
 	bool removeAlienMonster(unit*&);
 	unit* getAttacker();

@@ -4,7 +4,7 @@ ASoldier::ASoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 }
 
-bool ASoldier::attack(Game* const & GPtr)
+bool ASoldier::attack(Game* const& GPtr)
 {
 	bool flag = false;
 	unit* enemy = NULL;
@@ -21,17 +21,22 @@ bool ASoldier::attack(Game* const & GPtr)
 			{
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				if (enemy->is_killed())
+				{
+					enemy->SetTd(GPtr->GetTS());
+					GPtr->GetKList().AddKilled(enemy);
+				}
+				else if (enemy->GetHPercent() <= 20)
+					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+
+				else temp.enqueue(enemy);
 			}
-			if (enemy->is_killed())
-				GPtr->EnqueueKilled(enemy);
-			else if (enemy->GetHPercent() <= 20)
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			else temp.enqueue(enemy);
 		}
+		while (temp.dequeue(enemy))
+			GPtr->GetEArmy().GetES().enqueue(enemy);
+		return flag;
 	}
-	while (temp.dequeue(enemy))
-		GPtr->GetEArmy().GetES().enqueue(enemy);
-	return flag;
 }
 
 void ASoldier::PrintAttacked()

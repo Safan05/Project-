@@ -24,9 +24,13 @@ bool AMonster::attack(Game* const & GPtr)
 			{
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-				GPtr->EnqueueKilled(enemy);
+			{
+				enemy->SetTd(GPtr->GetTS());
+				GPtr->GetKList().AddKilled(enemy);
+			}
 			else Ttemp.push(enemy);
 		}
 	}
@@ -47,9 +51,13 @@ bool AMonster::attack(Game* const & GPtr)
 			{
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-				GPtr->EnqueueKilled(enemy);
+			{
+				enemy->SetTd(GPtr->GetTS());
+				GPtr->GetKList().AddKilled(enemy);
+			}
 			else Stemp.enqueue(enemy);
 		}
 	}

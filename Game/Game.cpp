@@ -8,7 +8,7 @@ Game::Game()
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
-
+	for (int i = 0; i < 3; i++) AvgDs[i] = 0;
 	cout << "\n";
 	if (mode == 1)
 	{
@@ -36,7 +36,7 @@ Game::Game()
 
 			}
 			this->PrintOP();
-			A.Alienattack(this);
+			Battle();
 			cin >> x;
 			cout << endl;
 			if (TS >= 50) 
@@ -182,17 +182,12 @@ void Game::PrintOP()
 	cout << "============= Alien Forces Alive Units =============" << endl;
 	A.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
+	PrintAttacked();
 	cout << "============= Killed/Destructed Units =============" << endl;
-	this->PrintKList();
+	this->GetKList().PrintKillled();
 	cout << endl << "Enter any key to move to next time step : ";
 }
 
-bool Game::EnqueueKilled(unit*& d)
-{
-	d->SetTd(TS);
-	Kcount++;
-	return KilledList.enqueue(d);
-}
 
 EarthArmy& Game::GetEArmy()
 {
@@ -204,6 +199,11 @@ AlienArmy& Game::GetAArmy()
 	return A;
 }
 
+KilledList& Game::GetKList()
+{
+	return K;
+}
+
 void Game::Battle()
 {
 	E.EarthAttack(this);
@@ -213,80 +213,172 @@ void Game::Battle()
 void Game::PrintAttacked()
 {
 	E.PrintAttack();
-	//A.PrintAttack();
+	A.PrintAttack();
 }
 
 int Game::GetTS()
 {
 	return TS;
 }
-
-void Game::PrintKList()
+bool Game::AddKilled(unit*& d)
 {
-	unit* temp;
-	LinkedQueue<unit*> Ktemp;
-	cout << Kcount << " units [";
-	for (int i = 0; i < Kcount; i++)
-	{
-		KilledList.dequeue(temp);
-		temp->PrintUnit();
-		if (i != Kcount - 1)
-			cout << ", ";
-		Ktemp.enqueue(temp);
+	d->SetTd(TS);
+	int id = d->GetId();
+	if (id <= 999 && id >= 1) {
+		AvgDs[0] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
+		AvgDs[1] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
+		AvgDs[2] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
 	}
-	cout << "]";
-	while (Ktemp.dequeue(temp))
-		KilledList.enqueue(temp);
-
+	else {
+		AvgDs[3] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
+		AvgDs[4] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
+		AvgDs[5] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
+	}
+	return K.AddKilled(d);
 }
+//
+//void Game::PrintKList()
+//{
+//	unit* temp;
+//	LinkedQueue<unit*> Ktemp;
+//	cout << Kcount << " units [";
+//	for (int i = 0; i < Kcount; i++)
+//	{
+//		KilledList.dequeue(temp);
+//		temp->PrintUnit();
+//		if (i != Kcount - 1)
+//			cout << ", ";
+//		Ktemp.enqueue(temp);
+//	}
+//	cout << "]";
+//	while (Ktemp.dequeue(temp))
+//		KilledList.enqueue(temp);
+//
+//}
 
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\tEarth VS Aliens War Report\n";
-	WR << "Td\tID\tTj\tDf\tDd\tDb\n";
-	LinkedQueue<unit*> TempK;
-	unit* kunit; int es = 0, et =0, eg = 0, as = 0, ad = 0, am = 0;
-	while (KilledList.dequeue(kunit))
-	{                              //Note:killed-list is ascend.sorted already 
-		kunit->DeathReport(WR);    //as it's queue implemented
-		switch (kunit->GetType())
-		{
-		case earthsoldier: es++; break;
-		case tank: et++; break;
-		case gunnery: eg++; break;
-		case aliensoldier: as++; break;
-		case drone: ad++; break;
-		case monster: am++; break;
-		default:
-			break;
-		}
-		TempK.enqueue(kunit);
-	}
-	while (TempK.dequeue(kunit))
-		KilledList.enqueue(kunit);
-	WR << "\nBattle Result : \n";
+	WR << "\tEarth VS Aliens War Report\n\n";
+	WR << "Td\tID\t\tTj\tDf\tDd\tDb\n";
+	//LinkedQueue<unit*> TempK;
+	//unit* kunit; int es = 0, et =0, eg = 0, as = 0, ad = 0, am = 0;
+	//while (KilledList.dequeue(kunit))
+	//{                              //Note:killed-list is ascend.sorted already 
+	//	kunit->DeathReport(WR);    //as it's queue implemented
+	//	switch (kunit->GetType())
+	//	{
+	//	case earthsoldier: es++; break;
+	//	case tank: et++; break;
+	//	case gunnery: eg++; break;
+	//	case aliensoldier: as++; break;
+	//	case drone: ad++; break;
+	//	case monster: am++; break;
+	//	default:
+	//		break;
+	//	}
+	//	TempK.enqueue(kunit);
+	//}
+	//while (TempK.dequeue(kunit))
+	//	KilledList.enqueue(kunit);
+	K.PrintReports(WR);
+	WR << "\nBattle Result : ";
+	//===============================Earth Forces Stats=====================================
+	WR << "\n\t\t\tEarth Forces\n ";
 	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
 		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
-	WR << "ES_Destructed/ ES_Total = ";
-	if (es)
-		WR << es / E.GetES().GetScount(); else WR << "0\n";
+	WR << "\tES_Destructed/ ES_Total = ";
+	double TotalES = E.GetES().GetScount() + *(K.GetEcount());
+	double TotalET = E.GetET().GetTcount() + *(K.GetEcount() + 1);
+	double TotalEG = E.GetEG().GetGcount() + *(K.GetEcount() + 2);
+	if (TotalES)
+		WR << (*K.GetEcount() / TotalES) * 100;                     else WR << "0\n";
 	WR << "\tET_Destructed/ ET_Total = ";
-	if (et) WR << et / E.GetET().GetTcount(); else WR << "0\n";
+	if (TotalET) WR << (*(K.GetEcount() + 1) / TotalET) * 100;      else WR << "0\n";
 	WR << "\tEG_Destructed/ EG_Total = ";
-	if (eg)
-		WR << eg / E.GetEG().GetGcount(); else WR << "0\n";
-	int TotalU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
-	WR << "\nTotal_Destructed/ Total units ";
-	if (TotalU)
-		WR << (es + et + eg + as + am + ad) / TotalU;
-	else WR << "0\n";
+	if (TotalEG)
+		WR << (*(K.GetEcount() + 2) / TotalEG) * 100;               else WR << "0\n";
+	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	WR << "\nTotal_Destructed/ Total units = ";
+	if (TotalEU)
+		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100;    	else WR << "0";
+	PrintAverageResults(WR, 1, TotalEU, K.Ecount(), 0, 0);
+
+
+	//===============================Alien Forces Stats=====================================
+
+	WR << "\n\t\t\tAlien Forces\n ";
+	WR << "AS count : " << A.getAS().getCount() << "\tAD count : "
+		<< A.getAD().getCount() << "\tAM count : " << A.getAM().getCount() << endl;
+	double TotalAS = A.getAS().getCount() + *(K.GetAcount());
+	double TotalAD = A.getAD().getCount() + *(K.GetAcount() + 1);
+	double TotalAM = A.getAM().getCount() + *(K.GetAcount() + 2);
+	WR << "\tAS_Destructed/ AS_Total = ";
+	if (TotalAS)
+		WR << (*(K.GetAcount()) / TotalAS) * 100;               else WR << "0\n";
+	WR << "\tAD_Destructed/ AD_Total = ";
+	if (TotalAD) WR << (*(K.GetAcount() + 1) / TotalAD) * 100;  else WR << "0\n";
+	WR << "\tAM_Destructed/ AM_Total = ";
+	if (TotalAM)
+		WR << (*(K.GetAcount() + 2) / TotalAM) * 100;           else WR << "0\n";
+	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
+	WR << "\nTotal_Destructed/ Total units = ";
+	if (TotalAU)
+		WR << (K.Acount() / (TotalAU + K.Acount())) * 100;       else WR << "0";
+	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
+}
+void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
+{
+	if (IsE)
+	{
+		WR << "\n\tAverage Df, Dd, Db respectively = ";
+		double TotalE = aliveE + KilledE;
+		if (TotalE)
+			WR << (AvgDs[0] / TotalE) << ", ";
+		else WR << "0, ";
+		if (KilledE)
+		{
+			WR << (AvgDs[1] / KilledE) << ", ";
+			WR << (AvgDs[2] / KilledE) << "\n";
+		}
+		else WR << "0, 0, 0\n";
+	}
+	else
+	{
+		WR << "\n\tAverage Df, Dd, Db respectively = ";
+		double TotalA = AliveA + KilledA;
+		if (TotalA)
+			WR << (AvgDs[3] / TotalA) << ", ";
+		else WR << "0, ";
+		if (KilledA)
+		{
+			WR << (AvgDs[3] / KilledA) << ", ";
+			WR << (AvgDs[5] / KilledA) << "\n";
+		}
+		else WR << "0, 0, 0\n";
+	}
+}
+void Game::SetEDf(int f)
+{
+	AvgDs[0] += f;
+}
+void Game::SetADf(int f)
+{
+	AvgDs[3] += f;
+}
+void Game::SetEDb(int d)
+{
+	AvgDs[2] += d;
+}
+void Game::SetADb(int d)
+{
+	AvgDs[5] += d;
 }
 Game::~Game() {
 	unit* temp = nullptr;
-	while (KilledList.dequeue(temp))
+	/*while (KilledList.dequeue(temp))
 		delete temp;
-	temp = nullptr;
+	temp = nullptr;*/
 	while (TempList.dequeue(temp))
 		delete temp;
 }
