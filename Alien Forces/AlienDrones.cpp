@@ -14,9 +14,13 @@ bool AlienDrones::enqueue(unit*& front, unit*& back)
 	{
 		count++;
 		DoubleNode<unit*>* newNode = new DoubleNode<unit*>(front);
-		newNode->setNext(frontPtr);
-		frontPtr->setPrevious(newNode);
-		frontPtr = frontPtr->getNext();
+		if (frontPtr)
+		{
+			newNode->setNext(frontPtr);
+			frontPtr->setPrevious(newNode);
+			frontPtr = frontPtr->getNext();
+		}
+		else frontPtr = newNode;
 	}
 	if (back)
 	{
@@ -49,15 +53,10 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 
 bool AlienDrones::peek(unit*& beg, unit*& end)
 {
-	if (isEmpty()) return false;
+	if (count < 2) return false;
 	DoubleQueue<unit*>::peek(beg);
-	if (!isEmpty())
-	{
-		end = backPtr->getItem();
-		return true;
-	}
-	else end = NULL;
-	return false;
+	end = backPtr->getItem();
+	return true;
 }
 
 
