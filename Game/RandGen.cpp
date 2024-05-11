@@ -69,3 +69,11 @@ unit* RandGen::GenAliens(int Ap[], int AR[]) {	//instantiate an object of one of
 	}
 
 }
+
+unit* RandGen::GenAllies(int R[])
+{
+	P = drand(R[0], R[1]);					// generating the power of the unit
+	H = drand(R[2], R[3]);					// generating the health of the unit
+	AC = drand(R[4], R[5]);					// generating the attack capacity if the unit}
+	T = SaverUnit;
+}
