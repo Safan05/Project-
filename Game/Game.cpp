@@ -31,7 +31,7 @@ Game::Game()
 					U->SetJoin(TS);
 					A.AddUnit(U);
 				}
-      }
+			}
 
 			E.GetUL().RemoveOlderunits(this);
 			cout << "Current TimeStep : " << TS << endl;
