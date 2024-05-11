@@ -83,6 +83,8 @@ bool EGunnery::attack(Game* const & GPtr)
             }
         }
     }
+    while (ADtemp.dequeue(enemy, denemy))
+        GPtr->GetAArmy().getAD().enqueue(enemy, denemy);
     return true;
 }
 

@@ -32,7 +32,7 @@ bool ADrone::attack(Game* const & GPtr)
 			{
 				GPtr->GetEArmy().IncAttackCount();
 
-				SetAttacked(true);
+				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 			}
@@ -54,13 +54,12 @@ bool ADrone::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
-				SetAttacked(true);
+				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 			}
@@ -72,8 +71,8 @@ bool ADrone::attack(Game* const & GPtr)
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}
 	}
-	while (Gtemp.dequeue(enemy,j))
-		GPtr->GetEArmy().GetES().enqueue(enemy);
+	while (Gtemp.dequeue(enemy, j))
+		GPtr->GetEArmy().GetEG().enqueue(enemy);
 
 	return flag;
 }

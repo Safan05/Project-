@@ -33,7 +33,7 @@ Game::Game()
 				}
 			}
 
-			E.GetUL().RemoveOlderunits(this);
+			//E.GetUL().RemoveOlderunits(this);
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
