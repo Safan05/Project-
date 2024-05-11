@@ -19,37 +19,8 @@ Game::Game()
 		cout << endl;
 		while (x != 'x') {
 			TS++;
-			if (G.Probability(Prob)) {
-				for (int i = 0; i < N; i++) {
-					unit* U = G.GenEarth(EP, ER);
-					U->SetJoin(TS);
-					E.AddUnit(U);
-				}
-			}
-			if (G.Probability(Prob)) {
-				for (int i = 0; i < N; i++) {
-					unit* U = G.GenAliens(AP, AR);
-					U->SetJoin(TS);
-					A.AddUnit(U);
-				}
-			}
-			if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
-
-			}
-			E.GetUL().RemoveOlderunits(this);
-			cout << "Current TimeStep : " << TS << endl;
-			cout << "============= Earth Forces Alive Units =============" << endl;
-			E.PrintArmy();
-			cout << "\n============= Alien Forces Alive Units =============" << endl;
-			A.PrintArmy();
-			cout << "\n============= Units fighting at current step =======" << endl;
-			Battle();
-			cout << "\n============= Killed/Destructed Units =============" << endl;
-			//this->GetKList().PrintKillled();
-			K.PrintKillled();
-			cout << "\n============= UML Units =============" << endl;
-			E.GetUL().PrintUML();
-			cout << endl << "Enter any key to move to next time step : ";
+			this->Call_Generator();
+			this->InteractiveMode();
 			cin >> x;
 			cout << endl;
 			if (TS >= 50) 
@@ -75,20 +46,7 @@ Game::Game()
 			}
 			while (TS <= 50) {
 				TS++;
-				if (G.Probability(Prob)) {
-					for (int i = 0; i < N; i++) {
-						unit* U = G.GenEarth(EP, ER);
-						U->SetJoin(TS);
-						E.AddUnit(U);
-					}
-				}
-				if (G.Probability(Prob)) {
-					for (int i = 0; i < N; i++) {
-						unit* U = G.GenAliens(AP, AR);
-						U->SetJoin(TS);
-						A.AddUnit(U);
-					}
-				}
+				this->Call_Generator();
 				this->Battle();
 			}
 			this->GenerateWarReport();
@@ -141,6 +99,11 @@ Game::Game()
 			}
 			In >> infection_prob;
 			In >> SU_Threshold;
+			for (int i = 0; i < 6; i++) {
+				In >> SR[i];
+				if (SR[i] < 0)
+					SR[i] *= -1;
+			}
 		}
 		else {
 			cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
@@ -328,8 +291,54 @@ void Game::SetADb(int d)
 {
 	AvgDs[5] += d;
 }
-Game::~Game() {
+void Game::Call_Generator() // function to call the random generator
+{
+	if (G.Probability(Prob)) {
+		for (int i = 0; i < N; i++) {
+			unit* U = G.GenEarth(EP, ER);
+			U->SetJoin(TS);
+			if (!E.AddUnit(U))
+				cout << "No more available IDs";
+		}
+	}
+	if (G.Probability(Prob)) {
+		for (int i = 0; i < N; i++) {
+			unit* U = G.GenAliens(AP, AR);
+			U->SetJoin(TS);
+			if (!A.AddUnit(U))
+				cout << "No more available IDs";
+		}
+	}
+	if (E.GetES().GetScount() > 0)
+		if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
+			for (int i = 0; i < N; i++) {
+				unit* U = G.GenAllies(SR);
+				U->SetJoin(TS);
+				//if (!S.AddUnit(U))
+					//cout << "No more available IDs";
+			}
+		}
+	E.GetUL().RemoveOlderunits(this);
+}
+void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
+{
+	cout << "Current TimeStep : " << TS << endl;
+	cout << "============= Earth Forces Alive Units =============" << endl;
+	E.PrintArmy();
+	cout << "\n============= Alien Forces Alive Units =============" << endl;
+	A.PrintArmy();
+	cout << "\n============= Units fighting at current step =======" << endl;
+	Battle();
+	cout << "\n============= Killed/Destructed Units =============" << endl;
+	//this->GetKList().PrintKillled();
+	K.PrintKillled();
+	cout << "\n============= UML Units =============" << endl;
+	E.GetUL().PrintUML();
+	cout << endl << "Enter any key to move to next time step : ";
+}
+Game::~Game() { 
 	unit* temp = nullptr;
-	while (TempList.dequeue(temp))
+	while (TempList.dequeue(temp)) {
 		delete temp;
+	}
 }

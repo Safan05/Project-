@@ -6,6 +6,7 @@
 #include"..\Unit\AMonster.h"
 #include"..\Unit\ADrone.h"
 #include"..\Unit\HUnit.h"
+#include"..\Unit\SaverU.h"
 #include <iostream>
 RandGen::RandGen()
 {
@@ -76,4 +77,6 @@ unit* RandGen::GenAllies(int R[])
 	H = drand(R[2], R[3]);					// generating the health of the unit
 	AC = drand(R[4], R[5]);					// generating the attack capacity if the unit}
 	T = SaverUnit;
+	unit* U = new SaverU(H, P, AC, T);      //switch on type to make appropriate object
+	return U;
 }
