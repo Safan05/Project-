@@ -3,6 +3,7 @@
 ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 	Infected = false;
+	immune = false;
 }
 
 bool ESoldier::attack(Game* const & GPtr)
