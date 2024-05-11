@@ -10,7 +10,7 @@ bool HUnit::attack(Game* const& Gptr)
 	unit* ToHeal = nullptr;
 	for (int i = 0; i < this->GetAC(); i++)
 	{
-		if (Gptr->GetEArmy()->GetUL()->RemoveUnit(ToHeal))
+		if (Gptr->GetEArmy().GetUL().RemoveUnit(ToHeal))
 		{
 			double Healed = (this->GetPow() * (this->GetHealth() / 100)) / sqrt(ToHeal->GetHealth());
 			ToHeal->IncHealth(Healed);
@@ -18,17 +18,17 @@ bool HUnit::attack(Game* const& Gptr)
 				templist.enqueue(ToHeal);
 			else {
 				if (ToHeal->GetType() == earthsoldier)
-					Gptr->GetEArmy()->GetES()->enqueue(ToHeal);
+					Gptr->GetEArmy().GetES().enqueue(ToHeal);
 				else
-					Gptr->GetEArmy()->GetET()->push(ToHeal);
+					Gptr->GetEArmy().GetET().push(ToHeal);
 			}
 		}
 	}
 	while (templist.dequeue(ToHeal)) {
 		if (ToHeal->GetType() == earthsoldier)
-			Gptr->GetEArmy()->GetES()->enqueue(ToHeal);
+			Gptr->GetEArmy().GetES().enqueue(ToHeal);
 		else
-			Gptr->GetEArmy()->GetET()->push(ToHeal);
+			Gptr->GetEArmy().GetET().push(ToHeal);
 	}
 	this->DecHealth(this->GetHealth());
 	return true;

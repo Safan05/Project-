@@ -20,10 +20,10 @@ class EarthArmy
 public:
 	EarthArmy();
 	bool AddUnit(unit*&);
-	EarthSoldiers* GetES();
-	EarthGunnery* GetEG();
-	EarthTanks* GetET();
-	UML* GetUL();
+	EarthSoldiers& GetES();
+	EarthGunnery& GetEG();
+	EarthTanks& GetET();
+	UML& GetUL();
 	void IncAttackCount();
 	int GetAttackCount();
 	void PrintArmy();

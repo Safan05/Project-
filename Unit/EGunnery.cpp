@@ -11,14 +11,14 @@ bool EGunnery::attack(Game* const & GPtr)
     unit* enemy = nullptr;
     for (int i = 0; i < unit::GetAC() / 2; i++)
     {
-        if (GPtr->GetAArmy()->getAM().removeAlienMonster(enemy))
+        if (GPtr->GetAArmy().getAM().removeAlienMonster(enemy))
         {
             double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
             enemy->DecHealth(damage);
             GetattackedIDs().enqueue(enemy->GetId());
             if (!enemy->Wasattacked())
             {
-                GPtr->GetAArmy()->IncAttackCount();
+                GPtr->GetAArmy().IncAttackCount();
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
                 GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
@@ -33,14 +33,14 @@ bool EGunnery::attack(Game* const & GPtr)
         }
     }
     while (templist.dequeue(enemy))       //return alive monsters back
-        GPtr->GetAArmy()->getAM().AddAlienMonster(enemy);
+        GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
     unit* denemy;
     unit* dummy = nullptr;
     AlienDrones ADtemp;
     for (int i = unit::GetAC() / 2; i < unit::GetAC(); i++)
     {
         
-        if (GPtr->GetAArmy()->getAD().dequeue(enemy,denemy))
+        if (GPtr->GetAArmy().getAD().dequeue(enemy,denemy))
         {
             if (enemy)
             {
@@ -49,7 +49,7 @@ bool EGunnery::attack(Game* const & GPtr)
                 GetattackedIDs().enqueue(enemy->GetId());
                 if (!enemy->Wasattacked())
                 {
-                    GPtr->GetAArmy()->IncAttackCount();
+                    GPtr->GetAArmy().IncAttackCount();
                     enemy->SetAttacked(true);     //mark as attacked
                     enemy->SetTa(GPtr->GetTS());  //document time of fist attack
                     GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());

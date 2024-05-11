@@ -12,7 +12,7 @@ bool ASoldier::attack(Game* const & GPtr)
 	LinkedQueue<unit*> temp;
 	for (int i = 0; i < GetAC(); i++)
 	{
-		if (GPtr->GetEArmy()->GetES()->dequeue(enemy))
+		if (GPtr->GetEArmy().GetES().dequeue(enemy))
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -20,13 +20,13 @@ bool ASoldier::attack(Game* const & GPtr)
 			{
 				ESoldier* es = dynamic_cast<ESoldier*> (enemy);
 				es->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy()->GetUL()->AddUnit(enemy);
+				GPtr->GetEArmy().GetUL().AddUnit(enemy);
 			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetEArmy()->IncAttackCount();
+				GPtr->GetEArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
@@ -41,7 +41,7 @@ bool ASoldier::attack(Game* const & GPtr)
 		}
 	}
 	while (temp.dequeue(enemy))
-		GPtr->GetEArmy()->GetES()->enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return flag;
 }
 

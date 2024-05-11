@@ -14,14 +14,14 @@ bool ESoldier::attack(Game* const & GPtr)
 	{
 		if (!Infected)
 		{
-			if (GPtr->GetAArmy()->getAS().dequeue(enemy))
+			if (GPtr->GetAArmy().getAS().dequeue(enemy))
 			{
 				double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
 				GetattackedIDs().enqueue(enemy->GetId());
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetAArmy()->IncAttackCount();
+					GPtr->GetAArmy().IncAttackCount();
 					enemy->SetAttacked(true);
 					enemy->SetTa(GPtr->GetTS());
 					GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
@@ -37,14 +37,14 @@ bool ESoldier::attack(Game* const & GPtr)
 		}
 		else
 		{
-			if (GPtr->GetEArmy()->GetES()->dequeue(enemy))
+			if (GPtr->GetEArmy().GetES().dequeue(enemy))
 			{
 				double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
 				GetattackedIDs().enqueue(enemy->GetId());
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetEArmy()->IncAttackCount();
+					GPtr->GetEArmy().IncAttackCount();
 					enemy->SetAttacked(true);
 					enemy->SetTa(GPtr->GetTS());
 					GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
@@ -60,9 +60,9 @@ bool ESoldier::attack(Game* const & GPtr)
 		}
 	}
 	while (templist.dequeue(enemy))
-		GPtr->GetAArmy()->getAS().enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	while (Etemplist.dequeue(enemy))
-		GPtr->GetEArmy()->GetES()->enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return true;
 }
 
@@ -95,14 +95,14 @@ void ESoldier::SpreadInfection(Game* const& GPtr)
 		bool notinfected = true;
 		while (notinfected)
 		{
-			int c = rand() % GPtr->GetEArmy()->GetES()->GetScount();
+			int c = rand() % GPtr->GetEArmy().GetES().GetScount();
 		}
 	}
 }
 
 void ESoldier::setUmlJoinTime(int t)
 {
-	UmlJoinTime = t;
+	//UmlJoinTime = t;
 }
 
 int ESoldier::getUmlJoinTime()

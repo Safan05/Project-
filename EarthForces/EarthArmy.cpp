@@ -37,24 +37,24 @@ bool EarthArmy::AddUnit(unit*& u)
 	return false;
 }
 
-EarthSoldiers* EarthArmy::GetES()
+EarthSoldiers& EarthArmy::GetES()
 {
-	return &ES;
+	return ES;
 }
 
-EarthGunnery* EarthArmy::GetEG()
+EarthGunnery& EarthArmy::GetEG()
 {
-	return &EG;
+	return EG;
 }
 
-EarthTanks* EarthArmy::GetET()
+EarthTanks& EarthArmy::GetET()
 {
-	return &ET;
+	return ET;
 }
 
-UML* EarthArmy::GetUL()
+UML& EarthArmy::GetUL()
 {
-	return &UL;
+	return UL;
 }
 
 void EarthArmy::IncAttackCount()
