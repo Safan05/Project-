@@ -34,6 +34,7 @@ bool EGunnery::attack(Game* const & GPtr)
     }
     while (templist.dequeue(enemy))       //return alive monsters back
         GPtr->GetAArmy().getAM().AddAlienMonster(enemy);
+
     unit* denemy;
     unit* dummy = nullptr;
     AlienDrones ADtemp;
@@ -71,15 +72,15 @@ bool EGunnery::attack(Game* const & GPtr)
                 {
                     denemy->SetAttacked(true);     //mark as attacked
                     denemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                    GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
+                    GPtr->SetADf(GPtr->GetTS() - denemy->GetJoin());
                 }
                 if (denemy->is_killed())
                 {
                     denemy->SetTd(GPtr->GetTS());
-                    GPtr->AddKilled(enemy);
+                    GPtr->AddKilled(denemy);
                 }
                 else
-                    ADtemp.enqueue(dummy, denemy);
+                ADtemp.enqueue(dummy, denemy);
             }
         }
     }
