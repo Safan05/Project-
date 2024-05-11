@@ -31,16 +31,16 @@ Game::Game()
 					U->SetJoin(TS);
 					A.AddUnit(U);
 				}
-			}
+      }
+
 			E.GetUL().RemoveOlderunits(this);
-			Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
-			PrintAttacked();
+			Battle();
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->GetKList().PrintKillled();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -83,6 +83,7 @@ Game::Game()
 						A.AddUnit(U);
 					}
 				}
+				this->Battle();
 			}
 			this->GenerateWarReport();
 		}
@@ -96,7 +97,7 @@ Game::Game()
 		if (In.is_open()) {
 			In >> N;
 			int sum = 0;
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				In >> EP[i];
 				if (EP[i] < 0)	//validation that the probablity is not negative
 					EP[i] = 0;
@@ -110,14 +111,14 @@ Game::Game()
 			sum = 0;
 			for (int i = 0; i < 3; i++) {
 				In >> AP[i];
-				if (EP[i] < 0)	//validation that the probablity is not negative
-					EP[i] = 0;
-				sum += EP[i];
+				if (AP[i] < 0)	//validation that the probablity is not negative
+					AP[i] = 0;
+				sum += AP[i];
 			}
 			if (sum != 100) {	//Validation that the sum of probabilites to generate alien army units of them doesn't exceed 100
-				EP[0] = 30;
-				EP[1] = 30;
-				EP[2] = 40;
+				AP[0] = 30;
+				AP[1] = 30;
+				AP[2] = 40;
 			}
 			In >> Prob;
 			if (Prob > 100 || Prob < 0)	// validation that the probability to generate the army isn't negative or exceeds 100
@@ -132,6 +133,8 @@ Game::Game()
 				if (AR[i] < 0)
 					AR[i] *= -1;
 			}
+			In >> infection_prob;
+			In >> SU_Threshold;
 		}
 		else {
 			cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
@@ -192,12 +195,6 @@ void Game::Battle()
 	A.Alienattack(this);
 }
 
-void Game::PrintAttacked()
-{
-	E.PrintAttack();
-	A.PrintAttack();
-}
-
 int Game::GetTS()
 {
 	return TS;
@@ -207,14 +204,14 @@ bool Game::AddKilled(unit*& d)
 	d->SetTd(TS);
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
-		AvgDs[0] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[1] += (TS - *(d->GetImpTime() + 1));
-		AvgDs[2] += (TS - *(d->GetImpTime()));
+		AvgDs[0] += d->GetTa() - d->GetJoin();
+		AvgDs[1] += TS - d->GetTa();
+		AvgDs[2] += TS - d->GetJoin();
 	}
 	else {
-		AvgDs[3] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[4] += TS - *(d->GetImpTime() + 1);
-		AvgDs[5] += TS - *(d->GetImpTime());
+		AvgDs[3] += d->GetTa() - d->GetJoin();
+		AvgDs[4] += TS - d->GetTa();
+		AvgDs[5] += TS - d->GetJoin();
 	}
 	return K.AddKilled(d);
 }

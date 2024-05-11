@@ -21,12 +21,12 @@ bool EGunnery::attack(Game* const & GPtr)
                 GPtr->GetAArmy().IncAttackCount();
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
+                GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
             }
             if (enemy->GetHealth() <= 0)
             {
                 enemy->SetTd(GPtr->GetTS());
-                GPtr->GetKList().AddKilled(enemy);
+                GPtr->AddKilled(enemy);
             }                                      //add to killed list
             else
                 templist.enqueue(enemy);
@@ -52,12 +52,12 @@ bool EGunnery::attack(Game* const & GPtr)
                     GPtr->GetAArmy().IncAttackCount();
                     enemy->SetAttacked(true);     //mark as attacked
                     enemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                    GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
+                    GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
                 }
-                if (enemy->GetHealth() <= 0)
+                if (enemy->is_killed())
                 {
                     enemy->SetTd(GPtr->GetTS());
-                    GPtr->GetKList().AddKilled(enemy);
+                    GPtr->AddKilled(enemy);
                 }
                 else
                     ADtemp.enqueue(enemy, dummy);
@@ -71,12 +71,12 @@ bool EGunnery::attack(Game* const & GPtr)
                 {
                     denemy->SetAttacked(true);     //mark as attacked
                     denemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                    GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
+                    GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
                 }
-                if (denemy->GetHealth() <= 0)
+                if (denemy->is_killed())
                 {
                     denemy->SetTd(GPtr->GetTS());
-                    GPtr->GetKList().AddKilled(denemy);
+                    GPtr->AddKilled(enemy);
                 }
                 else
                     ADtemp.enqueue(dummy, denemy);

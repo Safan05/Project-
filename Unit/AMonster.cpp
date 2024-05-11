@@ -34,11 +34,12 @@ bool AMonster::attack(Game* const & GPtr)
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+
 			}
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else Ttemp.push(enemy);
 		}
@@ -72,12 +73,14 @@ bool AMonster::attack(Game* const & GPtr)
 				if (enemy->is_killed())
 				{
 					enemy->SetTd(GPtr->GetTS());
-					GPtr->GetKList().AddKilled(enemy);
+					GPtr->AddKilled(enemy);
 				}
 				else Stemp.enqueue(enemy);
+		
 			}
 			else
 			{
+
 				ESoldier* toInfect = dynamic_cast<ESoldier*>(enemy);
 				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
 				{

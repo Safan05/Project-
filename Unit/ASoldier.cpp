@@ -30,11 +30,12 @@ bool ASoldier::attack(Game* const & GPtr)
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+
 			}
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else temp.enqueue(enemy);
 		}

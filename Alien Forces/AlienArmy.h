@@ -24,7 +24,7 @@ public:
 	void IncAttackCount();
 	int GetAttackCount();
 	void Alienattack(Game* const& GPtr);
-	void PrintAttack();
 	void PrintArmy();
+	void PrintAttack();
 };
 #endif

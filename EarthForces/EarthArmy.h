@@ -28,7 +28,6 @@ public:
 	void IncAttackCount();
 	int GetAttackCount();
 	void PrintArmy();
-	void PrintAttack();
 	void EarthAttack(Game* const& Gptr);
 };
 #endif

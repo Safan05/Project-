@@ -96,18 +96,6 @@ void EarthArmy::PrintArmy()
 	cout << endl;
 }
 
-void EarthArmy::PrintAttack()
-{
-	unit* u = nullptr; int g;
-	if (ES.peek(u))
-		u->PrintAttacked();
-	if (ET.peek(u))
-		u->PrintAttacked();
-	if (EG.peek(u, g))
-		u->PrintAttacked();
-}
-
-
 void EarthArmy::EarthAttack(Game* const& Gptr)
 {
 	unit* u = nullptr;
@@ -119,19 +107,26 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 			if (eunit->IsInfected())
 			{
 				ES.InfEnqueue(u);
-				u->attack(Gptr);
+				if (u->attack(Gptr))
+					u->PrintAttacked();
 			}
-			else
-				u->attack(Gptr);
-		
+			else {
+				if (u->attack(Gptr))
+					u->PrintAttacked();
+			}
 		}
 	}
-	if(ET.peek(u))
-		u->attack(Gptr);
+	if (ET.peek(u))
+	{
+		if(u->attack(Gptr))
+			u->PrintAttacked();
+	}
 	int g;
-	if(EG.peek(u, g))
-		u->attack(Gptr);
-	
+	if (EG.peek(u, g))
+	{
+		if(u->attack(Gptr))
+			u->PrintAttacked();
+	}
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {
