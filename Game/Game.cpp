@@ -207,13 +207,13 @@ bool Game::AddKilled(unit*& d)
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
 		AvgDs[0] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[1] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-		AvgDs[2] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
+		AvgDs[1] += (TS - *(d->GetImpTime() + 1));
+		AvgDs[2] += (TS - *(d->GetImpTime()));
 	}
 	else {
 		AvgDs[3] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[4] += *(d->GetImpTime() + 2) - *(d->GetImpTime() + 1);
-		AvgDs[5] += *(d->GetImpTime() + 2) - *(d->GetImpTime());
+		AvgDs[4] += TS - *(d->GetImpTime() + 1);
+		AvgDs[5] += TS - *(d->GetImpTime());
 	}
 	return K.AddKilled(d);
 }
@@ -276,7 +276,7 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
 		if (E.GetAttackCount())
-			WR << (AvgDs[0] / E.GetAttackCount()) << ", ";
+			WR << (AvgDs[0] / double(E.GetAttackCount())) << ", ";
 		else WR << "0, ";
 		if (KilledE)
 		{
@@ -289,7 +289,7 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
 		if (A.GetAttackCount())
-			WR << (AvgDs[3] / A.GetAttackCount()) << ", ";
+			WR << (AvgDs[3] / double(A.GetAttackCount())) << ", ";
 		else WR << "0, ";
 		if (KilledA)
 		{

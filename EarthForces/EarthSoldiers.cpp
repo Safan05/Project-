@@ -21,6 +21,24 @@ bool EarthSoldiers::dequeue(unit*& s)
 	return false;
 }
 
+bool EarthSoldiers::InfEnqueue(unit*& v)
+{
+	if (InfectedES.enqueue(v))
+	{
+		InfCount++; return true;
+	}
+	return false;
+}
+
+bool EarthSoldiers::InfDequeue(unit*& v)
+{
+	if (InfectedES.dequeue(v))
+	{
+		InfCount--; return true;
+	}
+	return false;
+}
+
 int EarthSoldiers::GetScount()
 {
 	return Scount;
