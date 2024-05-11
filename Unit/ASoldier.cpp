@@ -24,7 +24,7 @@ bool ASoldier::attack(Game* const & GPtr)
 			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
-			if (!Wasattacked())
+			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
 				enemy->SetAttacked(true);

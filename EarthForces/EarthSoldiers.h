@@ -15,6 +15,7 @@ public:
 	bool InfEnqueue(unit*&);
 	bool InfDequeue(unit*&);
 	int GetScount();
+	LinkedQueue<unit*> GetInfected();
 	void PrintES();
 	~EarthSoldiers();
 };

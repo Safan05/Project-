@@ -10,9 +10,10 @@ bool ESoldier::attack(Game* const & GPtr)
 	LinkedQueue<unit*> templist;
 	LinkedQueue<unit*> Etemplist;
 	unit* enemy = nullptr;
-	for (int i = 0; i < unit::GetAC(); i++)
+	
+	if (!Infected)
 	{
-		if (!Infected)
+		for (int i = 0; i < unit::GetAC(); i++)
 		{
 			if (GPtr->GetAArmy().getAS().dequeue(enemy))
 			{
@@ -35,7 +36,12 @@ bool ESoldier::attack(Game* const & GPtr)
 					templist.enqueue(enemy);
 			}
 		}
-		/*else
+		while (Etemplist.dequeue(enemy))
+			GPtr->GetAArmy().getAS().enqueue(enemy);
+	}
+	else
+	{
+		for (int i = 0; i < unit::GetAC(); i++)
 		{
 			if (GPtr->GetEArmy().GetES().dequeue(enemy))
 			{
@@ -57,10 +63,11 @@ bool ESoldier::attack(Game* const & GPtr)
 				else
 					Etemplist.enqueue(enemy);
 			}
-		}*/
+		}
+		while (Etemplist.dequeue(enemy))
+			GPtr->GetEArmy().GetES().enqueue(enemy);
 	}
-	while (Etemplist.dequeue(enemy))
-		GPtr->GetAArmy().getAS().enqueue(enemy);
+	
 	return true;
 }
 
@@ -100,7 +107,7 @@ void ESoldier::SpreadInfection(Game* const& GPtr)
 
 void ESoldier::setUmlJoinTime(int t)
 {
-	//UmlJoinTime = t;
+	UmlJoinTime = t;
 }
 
 int ESoldier::getUmlJoinTime()
