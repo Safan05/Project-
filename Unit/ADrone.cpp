@@ -28,11 +28,11 @@ bool ADrone::attack(Game* const & GPtr)
 			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
-			if (!Wasattacked())
+			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
-				SetAttacked(true);
-				SetTa(GPtr->GetTS());
+				enemy->SetAttacked(true);
+				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
@@ -56,11 +56,11 @@ bool ADrone::attack(Game* const & GPtr)
 			enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
-			if (!Wasattacked())
+			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
-				SetAttacked(true);
-				SetTa(GPtr->GetTS());
+				enemy->SetAttacked(true);
+				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
