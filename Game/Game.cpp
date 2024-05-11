@@ -95,7 +95,7 @@ Game::Game()
 		if (In.is_open()) {
 			In >> N;
 			int sum = 0;
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				In >> EP[i];
 				if (EP[i] < 0)	//validation that the probablity is not negative
 					EP[i] = 0;
@@ -109,14 +109,14 @@ Game::Game()
 			sum = 0;
 			for (int i = 0; i < 3; i++) {
 				In >> AP[i];
-				if (EP[i] < 0)	//validation that the probablity is not negative
-					EP[i] = 0;
-				sum += EP[i];
+				if (AP[i] < 0)	//validation that the probablity is not negative
+					AP[i] = 0;
+				sum += AP[i];
 			}
 			if (sum != 100) {	//Validation that the sum of probabilites to generate alien army units of them doesn't exceed 100
-				EP[0] = 30;
-				EP[1] = 30;
-				EP[2] = 40;
+				AP[0] = 30;
+				AP[1] = 30;
+				AP[2] = 40;
 			}
 			In >> Prob;
 			if (Prob > 100 || Prob < 0)	// validation that the probability to generate the army isn't negative or exceeds 100
