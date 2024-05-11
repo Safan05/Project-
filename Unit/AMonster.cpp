@@ -45,7 +45,7 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
+			//enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
