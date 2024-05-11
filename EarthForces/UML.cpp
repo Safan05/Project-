@@ -32,8 +32,8 @@ void UML::AddUnit(unit*& u)
 			}
 			else
 			{
-				Node<unit*>* ptr = nullptr;
-				while (ptr->getNext() && ptr->getNext()->getItem()->GetHealth() < u->GetHealth())
+				Node<unit*>* ptr = frontPtr;
+				while (ptr->getNext() && (ptr->getNext()->getItem()->GetType() == 0) && ptr->getNext()->getItem()->GetHealth() < u->GetHealth())
 					ptr = ptr->getNext();
 				nptr->setNext(ptr->getNext());
 				ptr->setNext(nptr);
