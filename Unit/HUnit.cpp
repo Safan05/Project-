@@ -2,6 +2,7 @@
 #include "../Type.h"
 HUnit::HUnit(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
+	this->SetTa(0);
 }
 
 bool HUnit::attack(Game* const& Gptr)
@@ -14,7 +15,7 @@ bool HUnit::attack(Game* const& Gptr)
 		{
 			double Healed = (this->GetPow() * (this->GetHealth() / 100)) / sqrt(ToHeal->GetHealth());
 			ToHeal->IncHealth(Healed);
-			if (this->GetHPercent() < 20)
+			if (ToHeal->GetHPercent() < 20)
 				templist.enqueue(ToHeal);
 			else {
 				if (ToHeal->GetType() == earthsoldier)

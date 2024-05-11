@@ -4,9 +4,8 @@
 #include"../Game/Game.h"
 using namespace std;
 
-EarthArmy::EarthArmy(Game* g) //should be deleted??
+EarthArmy::EarthArmy() //should be deleted??
 {
-	Gptr = g;
 	id = 1;
 	AttackCount = 0;
 }
@@ -131,6 +130,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* H;
 	if (HU.pop(H)) {
 		H->attack(Gptr);
-		Gptr->GetKList().AddKilled(H);
+		H->SetTd(Gptr->GetTS());
+		Gptr->AddKilled(H);
 	}
 }

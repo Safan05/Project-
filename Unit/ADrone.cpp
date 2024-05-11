@@ -71,6 +71,7 @@ bool ADrone::attack(Game* const & GPtr)
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}
 	}
+
 	while (Gtemp.dequeue(enemy, j))
 		GPtr->GetEArmy().GetEG().enqueue(enemy);
 

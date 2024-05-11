@@ -10,7 +10,6 @@
 class Game;
 class EarthArmy
 {
-	Game* Gptr;
 	EarthSoldiers ES;
 	EarthGunnery EG;
 	EarthTanks ET;
@@ -19,7 +18,7 @@ class EarthArmy
 	int id;
 	int AttackCount;
 public:
-	EarthArmy(Game* g = nullptr);
+	EarthArmy();
 	bool AddUnit(unit*&);
 	EarthSoldiers& GetES();
 	EarthGunnery& GetEG();

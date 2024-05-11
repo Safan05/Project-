@@ -58,8 +58,8 @@ bool ETank::attack(Game* const & Gptr)
 					}
 					if (enemy->is_killed())
 					{
-						Gptr->AddKilled(enemy);
 						enemy->SetTd(Gptr->GetTS());
+						Gptr->AddKilled(enemy);
 					}
 					else
 						templist.enqueue(enemy);
@@ -89,12 +89,11 @@ void ETank::PrintAttacked()
 }
 void ETank::setUmlJoinTime(int t)
 {
-	//UmlJoinTime = t;
+	UmlJoinTime = t;
 }
 
 int ETank::getUmlJoinTime()
 {
-	return 0;
-	//return UmlJoinTime;
+	return UmlJoinTime;
 }
 

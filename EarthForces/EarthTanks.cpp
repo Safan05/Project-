@@ -14,6 +14,7 @@ bool EarthTanks::push(unit*& t)
 
 bool EarthTanks::pop(unit*& t)
 {
+	if (Tcount >= 0)
 	if (LinkedListStack<unit*>::pop(t))
 	{
 		Tcount--; return true;
