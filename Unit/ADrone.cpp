@@ -31,7 +31,7 @@ bool ADrone::attack(Game* const & GPtr)
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else Ttemp.push(enemy);
 		}
@@ -59,7 +59,7 @@ bool ADrone::attack(Game* const & GPtr)
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}

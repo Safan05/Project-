@@ -30,7 +30,7 @@ bool AMonster::attack(Game* const & GPtr)
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else Ttemp.push(enemy);
 		}
@@ -45,7 +45,7 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
+			//enemy->SetAttacked(true);
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
@@ -58,7 +58,7 @@ bool AMonster::attack(Game* const & GPtr)
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				GPtr->AddKilled(enemy);
 			}
 			else Stemp.enqueue(enemy);
 		}

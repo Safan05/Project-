@@ -26,7 +26,7 @@ bool EGunnery::attack(Game* const & GPtr)
             if (enemy->GetHealth() <= 0)
             {
                 enemy->SetTd(GPtr->GetTS());
-                GPtr->GetKList().AddKilled(enemy);
+                GPtr->AddKilled(enemy);
             }                                      //add to killed list
             else
                 templist.enqueue(enemy);

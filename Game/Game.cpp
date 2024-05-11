@@ -81,6 +81,7 @@ Game::Game()
 						A.AddUnit(U);
 					}
 				}
+				this->Battle();
 			}
 			this->GenerateWarReport();
 		}
@@ -130,6 +131,8 @@ Game::Game()
 				if (AR[i] < 0)
 					AR[i] *= -1;
 			}
+			In >> infection_prob;
+			In >> SU_Threshold;
 		}
 		else {
 			cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";

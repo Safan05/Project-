@@ -27,7 +27,7 @@ bool ETank::attack(Game* const & Gptr)
 			if (enemy->GetHealth() <= 0)
 			{
 				enemy->SetTd(Gptr->GetTS());
-				Gptr->GetKList().AddKilled(enemy);
+				Gptr->AddKilled(enemy);
 			}
 			else
 				templist.push(enemy);
@@ -58,7 +58,7 @@ bool ETank::attack(Game* const & Gptr)
 					}
 					if (enemy->GetHealth() <= 0)
 					{
-						Gptr->GetKList().AddKilled(enemy);
+						Gptr->AddKilled(enemy);
 						enemy->SetTd(Gptr->GetTS());
 					}
 					else
