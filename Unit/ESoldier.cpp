@@ -8,6 +8,7 @@ ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 bool ESoldier::attack(Game* const & GPtr)
 {
 	LinkedQueue<unit*> templist;
+	LinkedQueue<unit*> Etemplist;
 	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
@@ -52,12 +53,14 @@ bool ESoldier::attack(Game* const & GPtr)
 					GPtr->GetKList().AddKilled(enemy);
 				}
 				else
-					templist.enqueue(enemy);
+					Etemplist.enqueue(enemy);
 			}
 		}
 	}
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
+	while (Etemplist.dequeue(enemy))
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return true;
 }
 
@@ -69,6 +72,16 @@ void ESoldier::SetInfected(bool v)
 bool ESoldier::IsInfected()
 {
 	return Infected;
+}
+
+void ESoldier::setImuune(bool im)
+{
+	immune = im;
+}
+
+bool ESoldier::isImmune()
+{
+	return immune;
 }
 
 void ESoldier::SpreadInfection(Game* const& GPtr)
@@ -98,4 +111,14 @@ void ESoldier::PrintAttacked()
 		}
 		cout << "] IDs of all Alien units shot by ES" << GetId() << endl;
 	}
+}
+
+void ESoldier::setUmlJoinTime(int t)
+{
+	UmlJoinTime = t;
+}
+
+int ESoldier::getUmlJoinTime()
+{
+	return UmlJoinTime;
 }

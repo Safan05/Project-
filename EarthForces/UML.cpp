@@ -10,7 +10,8 @@ UML::UML()
 void UML::AddUnit(unit*& u)
 {
 	Node<unit*>* nptr = new Node<unit*>(u);
-	if (isEmpty()) {
+	if (isEmpty())
+	{
 		frontPtr = nptr;
 		backPtr = nptr;
 	}
@@ -32,7 +33,7 @@ void UML::AddUnit(unit*& u)
 			}
 			else
 			{
-				Node<unit*>* ptr = nullptr;
+				Node<unit*>* ptr = frontPtr;
 				while (ptr->getNext() && ptr->getNext()->getItem()->GetHealth() < u->GetHealth())
 					ptr = ptr->getNext();
 				nptr->setNext(ptr->getNext());
@@ -43,9 +44,35 @@ void UML::AddUnit(unit*& u)
 	}
 }
 
-bool UML::RemoveUnit(unit*& h) {
+bool UML::RemoveUnit(unit*& h) 
+{
 	int z;
 	return dequeue(h);
+}
+
+void UML::RemoveOlderunits(Game* const& GPtr)
+{
+	LinkedQueue<unit*> temp;
+	unit* u = NULL;
+	while (RemoveUnit(u))
+	{
+		ESoldier* es = dynamic_cast<ESoldier*>(u);
+		if (es)
+		{
+			if (GPtr->GetTS() - es->getUmlJoinTime() >= 10)
+				GPtr->GetKList().AddKilled(u);
+			else temp.enqueue(u);
+		}
+		else
+		{
+			ETank* et = dynamic_cast<ETank*>(u);
+			if (GPtr->GetTS()-et->getUmlJoinTime()>=10)
+				GPtr->GetKList().AddKilled(u);
+			else temp.enqueue(u);
+		}
+	}
+	while (temp.dequeue(u))
+		this->AddUnit(u);
 }
 
 UML::~UML()

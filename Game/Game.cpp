@@ -32,6 +32,7 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
+			E.GetUL().RemoveOlderunits(this);
 			Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
@@ -315,7 +316,8 @@ void Game::SetADb(int d)
 {
 	AvgDs[5] += d;
 }
-Game::~Game() {
+Game::~Game() 
+{
 	unit* temp = nullptr;
 	while (TempList.dequeue(temp))
 		delete temp;

@@ -1,4 +1,6 @@
 #include "AMonster.h"
+#include"ESoldier.h"
+#include"ETank.h"
 
 AMonster::AMonster(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
@@ -18,6 +20,12 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
+			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
+			{
+				ETank* et = dynamic_cast<ETank*> (enemy);
+				et->setUmlJoinTime(GPtr->GetTS());
+				GPtr->GetEArmy().GetUL().AddUnit(enemy);
+			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
@@ -44,23 +52,42 @@ bool AMonster::attack(Game* const & GPtr)
 		if (GPtr->GetEArmy().GetES().dequeue(enemy))
 		{
 			flag = true;
-			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->SetAttacked(true);
-			enemy->DecHealth(damage);
-			GetattackedIDs().enqueue(enemy->GetId());
-			if (!Wasattacked())
+			int InfProp = (rand() % 100) + 1;   //checks whether the enemy sould be attacked or infected
+			if (InfProp > 2)        //2% probability to infect the soldier
 			{
-				GPtr->GetEArmy().IncAttackCount();
-				SetAttacked(true);
-				SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
+				if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
+				{
+					ESoldier* es = dynamic_cast<ESoldier*> (enemy);
+					es->setUmlJoinTime(GPtr->GetTS());
+					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				}
+				enemy->SetAttacked(true);
+				enemy->DecHealth(damage);
+				GetattackedIDs().enqueue(enemy->GetId());
+				if (!Wasattacked())
+				{
+					GPtr->GetEArmy().IncAttackCount();
+					SetAttacked(true);
+					SetTa(GPtr->GetTS());
+					GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				}
+				if (enemy->is_killed())
+				{
+					enemy->SetTd(GPtr->GetTS());
+					GPtr->GetKList().AddKilled(enemy);
+				}
+				else Stemp.enqueue(enemy);
 			}
-			if (enemy->is_killed())
+			else
 			{
-				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
+				ESoldier* toInfect = dynamic_cast<ESoldier*>(enemy);
+				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
+				{
+					toInfect->SetInfected(true);
+					//toInfect->SpreadInfection(GPtr);
+				}
 			}
-			else Stemp.enqueue(enemy);
 		}
 	}
 	while (Stemp.dequeue(enemy))
@@ -71,13 +98,16 @@ bool AMonster::attack(Game* const & GPtr)
 
 void AMonster::PrintAttacked()
 {
-	cout << "AM " << GetId() << " shots [";
-	int i;
-	while (GetattackedIDs().dequeue(i))
+	int i = 0;
+	if (GetattackedIDs().peek(i))
 	{
-		cout << i;
-		if (!GetattackedIDs().isEmpty())
-			cout << ", ";
+		cout << "AM " << GetId() << " shots [";
+		while (GetattackedIDs().dequeue(i))
+		{
+			cout << i;
+			if (!GetattackedIDs().isEmpty())
+				cout << ", ";
+		}
+		cout << "] IDs of all Earth units shot by AM" << GetId() << endl;
 	}
-	cout << "] IDs of all Earth units shot by AM" << GetId() << endl;
 }
