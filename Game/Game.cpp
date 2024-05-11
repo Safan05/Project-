@@ -202,14 +202,14 @@ bool Game::AddKilled(unit*& d)
 	d->SetTd(TS);
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
-		AvgDs[0] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[1] += (TS - *(d->GetImpTime() + 1));
-		AvgDs[2] += (TS - *(d->GetImpTime()));
+		AvgDs[0] += d->GetTa() - d->GetJoin();
+		AvgDs[1] += TS - d->GetTa();
+		AvgDs[2] += TS - d->GetJoin();
 	}
 	else {
-		AvgDs[3] += *(d->GetImpTime() + 1) - *(d->GetImpTime());
-		AvgDs[4] += TS - *(d->GetImpTime() + 1);
-		AvgDs[5] += TS - *(d->GetImpTime());
+		AvgDs[3] += d->GetTa() - d->GetJoin();
+		AvgDs[4] += TS - d->GetTa();
+		AvgDs[5] += TS - d->GetJoin();
 	}
 	return K.AddKilled(d);
 }

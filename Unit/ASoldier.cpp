@@ -22,7 +22,7 @@ bool ASoldier::attack(Game* const & GPtr)
 				GPtr->GetEArmy().IncAttackCount();
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 			}
 			if (enemy->is_killed())
 			{
