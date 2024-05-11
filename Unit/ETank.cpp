@@ -87,3 +87,13 @@ void ETank::PrintAttacked()
 		cout << "] IDs of all Alien units shot by ET" << GetId() << endl;
 	}
 }
+void ETank::setUmlJoinTime(int t)
+{
+	UmlJoinTime = t;
+}
+
+int ETank::getUmlJoinTime()
+{
+	return UmlJoinTime;
+}
+
