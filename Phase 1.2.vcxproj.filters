@@ -117,7 +117,7 @@
     <ClInclude Include="EarthForces\HealUnits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\KilledList.h">
+    <ClInclude Include="Unit\SaverUnit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -185,7 +185,7 @@
     <ClCompile Include="EarthForces\HealUnits.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\KilledList.cpp">
+    <ClCompile Include="Unit\SaverUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

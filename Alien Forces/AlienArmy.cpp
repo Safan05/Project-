@@ -5,7 +5,6 @@ AlienArmy::AlienArmy(Game* g)
 {
 	Gptr = g;
 	id = 2000;
-	AttackCount = 0;
 }
 
 bool AlienArmy::AddUnit(unit* u)
@@ -13,14 +12,14 @@ bool AlienArmy::AddUnit(unit* u)
 	u->SetId(id++);
 	switch (u->GetType())
 	{
-	case aliensoldier:
+	case aliensoldier:          //if the new unit is Alien soldier ,add it to AS list
 		return AS.enqueue(u);
-	case monster:
+	case monster:              //if the new unit is Alien monster ,add it to AM list
 		return AM.AddAlienMonster(u);
-	case drone:
+	case drone:                //if the new unit is Alien Drone ,add it to AD list
 	{ 
-		unit* ptr = NULL;
-		return AD.enqueue(ptr, u);
+		unit* ptr = NULL;     //a new drone is enqueued at the end of the list ,but during attack drones are enqueued at the front and the back
+		return AD.enqueue(ptr, u);  
 	}
 	default: return false;
 	}
@@ -31,26 +30,19 @@ int AlienArmy::getAlienCount()
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
 
-void AlienArmy::IncAttackCount()
-{
-	AttackCount++;
-}
-
-int AlienArmy::GetAttackCount()
-{
-	return AttackCount;
-}
-
 void AlienArmy::Alienattack(Game* const& GPtr)
 {
 	unit* attacker = NULL, * attacker2 = NULL;
+	//Alien soldiers attack
 	if (AS.peek(attacker))
-		attacker->attack(GPtr);
-	if (AM.pick(attacker))
+		attacker->attack(GPtr); 
+	//Alien monsters attack
+	if (AM.pick(attacker))  
 	{
-		AM.setattacker(attacker);
+		AM.setattacker(attacker);   //since monsters attack randomly ,we need to know which monster made the attack 
 		attacker->attack(GPtr);
 	}
+	//Alien drones attack
 	if (AD.peek(attacker, attacker2))
 	{
 		attacker->attack(GPtr);
@@ -61,15 +53,18 @@ void AlienArmy::Alienattack(Game* const& GPtr)
 void AlienArmy::PrintAttack()
 {
 	unit* attacker = NULL, * attacker2 = NULL;
+	//printing units attack by alien soldier
 	if (AS.peek(attacker))
 		attacker->PrintAttacked();
-	attacker = AM.getAttacker();
+	//printing units attacked by alien monster
+	attacker = AM.getAttacker();   //since monsters attack randomly ,we need to get the monster which made the attack 
 	if (attacker)
 		attacker->PrintAttacked();
+	//printing units attacked by alien drones
 	if (AD.peek(attacker, attacker2))
 	{
-		attacker->PrintAttacked();
-		attacker2->PrintAttacked();
+		attacker->PrintAttacked();   //units attacked by the front drone
+		attacker2->PrintAttacked();  //units attacked by the back drone
 	}
 }
 

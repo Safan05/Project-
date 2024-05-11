@@ -1,5 +1,4 @@
 #include "EarthArmy.h"
-#include"../Unit/ESoldier.h"
 #include<iostream>
 #include"../Game/Game.h"
 using namespace std;
@@ -7,35 +6,30 @@ using namespace std;
 EarthArmy::EarthArmy(Game* g) //should be deleted??
 {
 	Gptr = g;
-	id = 1;
-	AttackCount = 0;
+	id = 0;
 }
 
 bool EarthArmy::AddUnit(unit*& u)
 {
-	if (id <= 999)
+	u->SetId(id++);
+	switch (u->GetType())
 	{
-		u->SetId(id++);
-		switch (u->GetType())
-		{
-		case earthsoldier:
-			ES.enqueue(u);
-			break;
-		case tank:
-			ET.push(u);
-			break;
-		case gunnery:
-			EG.enqueue(u);
-			break;
-		case HealUnit:
-			HU.push(u);
-			break;
-		default:
-			break;
-		}
-		return true;
+	case earthsoldier:
+		ES.enqueue(u);
+		break;
+	case tank:
+		ET.push(u);
+		break;
+	case gunnery:
+		EG.enqueue(u);
+		break;
+	case HealUnit:
+		HU.push(u);
+		break;
+	default:
+		break;
 	}
-	return false;
+	return true;
 }
 
 EarthSoldiers& EarthArmy::GetES()
@@ -56,16 +50,6 @@ EarthTanks& EarthArmy::GetET()
 UML& EarthArmy::GetUL()
 {
 	return UL;
-}
-
-void EarthArmy::IncAttackCount()
-{
-	AttackCount++;
-}
-
-int EarthArmy::GetAttackCount()
-{
-	return AttackCount;
 }
 
 void EarthArmy::PrintArmy()
@@ -112,20 +96,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 {
 	unit* u = nullptr;
 	if (ES.peek(u))
-	{
-		ESoldier* eunit = dynamic_cast<ESoldier*>(u);
-		if (eunit)
-		{
-			if (eunit->IsInfected())
-			{
-				ES.InfEnqueue(u);
-				u->attack(Gptr);
-			}
-			else
-				u->attack(Gptr);
-		
-		}
-	}
+		u->attack(Gptr);
 	if(ET.peek(u))
 		u->attack(Gptr);
 	int g;
@@ -136,6 +107,6 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* H;
 	if (HU.pop(H)) {
 		H->attack(Gptr);
-		Gptr->GetKList().AddKilled(H);
+		Gptr->EnqueueKilled(H);
 	}
 }

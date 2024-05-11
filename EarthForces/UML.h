@@ -10,6 +10,5 @@ public:
 	UML();
 	void AddUnit(unit*& u);
 	bool RemoveUnit(unit*&);
-	void RemoveOlderunits(Game* const& GPtr);
 	~UML();
 };

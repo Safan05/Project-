@@ -16,8 +16,7 @@ bool HUnit::attack(Game* const& Gptr)
 			ToHeal->IncHealth(Healed);
 			if (this->GetHPercent() < 20)
 				templist.enqueue(ToHeal);
-			else 
-			{
+			else {
 				if (this->GetType() == earthsoldier)
 					Gptr->GetEArmy().GetES().enqueue(ToHeal);
 				else

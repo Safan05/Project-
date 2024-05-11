@@ -2,17 +2,14 @@
 
 ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
-	Infected = false;
 }
 
 bool ESoldier::attack(Game* const & GPtr)
 {
 	LinkedQueue<unit*> templist;
-	LinkedQueue<unit*> Etemplist;
 	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
-		if(!Infected)
 		if (GPtr->GetAArmy().getAS().dequeue(enemy))
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -20,81 +17,18 @@ bool ESoldier::attack(Game* const & GPtr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
-				GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->GetHealth() <= 0)
-			{
-				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
-			}
+				GPtr->EnqueueKilled(enemy);
 			else
 				templist.enqueue(enemy);
-		}
-		else
-		{
-			if (GPtr->GetEArmy().GetES().dequeue(enemy))
-			{
-				double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
-				enemy->DecHealth(damage);
-				GetattackedIDs().enqueue(enemy->GetId());
-				if (!enemy->Wasattacked())
-				{
-					GPtr->GetEArmy().IncAttackCount();
-					enemy->SetAttacked(true);
-					enemy->SetTa(GPtr->GetTS());
-					GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
-				}
-				if (enemy->GetHealth() <= 0)
-				{
-					enemy->SetTd(GPtr->GetTS());
-					GPtr->GetKList().AddKilled(enemy);
-				}
-				else
-					Etemplist.enqueue(enemy);
-			}
 		}
 	}
 	while (templist.dequeue(enemy))
 		GPtr->GetAArmy().getAS().enqueue(enemy);
-	while (Etemplist.dequeue(enemy))
-		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return true;
-}
-
-void ESoldier::SetInfected(bool v)
-{
-	Infected = v;
-}
-
-bool ESoldier::IsInfected()
-{
-	return Infected;
-}
-
-void ESoldier::setImuune(bool im)
-{
-	immune = im;
-}
-
-bool ESoldier::isImmune()
-{
-	return immune;
-}
-
-void ESoldier::SpreadInfection(Game* const& GPtr)
-{
-	if (this->IsInfected())
-	{
-		//to be implemented later
-		bool notinfected = true;
-		while (notinfected)
-		{
-			int c = rand() % GPtr->GetEArmy().GetES().GetScount();
-		}
-	}
 }
 
 void ESoldier::PrintAttacked()
@@ -111,14 +45,4 @@ void ESoldier::PrintAttacked()
 		}
 		cout << "] IDs of all Alien units shot by ES" << GetId() << endl;
 	}
-}
-
-void ESoldier::setUmlJoinTime(int t)
-{
-	UmlJoinTime = t;
-}
-
-int ESoldier::getUmlJoinTime()
-{
-	return UmlJoinTime;
 }

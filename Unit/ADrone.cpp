@@ -1,5 +1,4 @@
 #include "ADrone.h"
-#include"ETank.h"
 
 ADrone::ADrone(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
@@ -20,26 +19,15 @@ bool ADrone::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
-			{
-				ETank* et = dynamic_cast<ETank*> (enemy);
-				et->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
 			{
-				GPtr->GetEArmy().IncAttackCount();
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-			{
-				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
-			}
+				GPtr->EnqueueKilled(enemy);
 			else Ttemp.push(enemy);
 		}
 	}
@@ -58,16 +46,11 @@ bool ADrone::attack(Game* const & GPtr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!Wasattacked())
 			{
-				GPtr->GetEArmy().IncAttackCount();
 				SetAttacked(true);
 				SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->is_killed())
-			{
-				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
-			}
+				GPtr->EnqueueKilled(enemy);
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}
 	}
@@ -79,16 +62,13 @@ bool ADrone::attack(Game* const & GPtr)
 
 void ADrone::PrintAttacked()
 {
+	cout << "AD " << GetId() << " shots [";
 	int i;
-	if (GetattackedIDs().peek(i))
+	while (GetattackedIDs().dequeue(i))
 	{
-		cout << "AD " << GetId() << " shots [";
-		while (GetattackedIDs().dequeue(i))
-		{
-			cout << i;
-			if (!GetattackedIDs().isEmpty())
-				cout << ", ";
-		}
-		cout << "] IDs of all Earth units shot by AD" << GetId() << endl;
+		cout << i;
+		if (!GetattackedIDs().isEmpty())
+			cout << ", ";
 	}
+	cout << "] IDs of all Earth units shot by AD" << GetId() << endl;
 }

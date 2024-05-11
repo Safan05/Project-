@@ -2,7 +2,6 @@
 #include "RandGen.h"
 #include"..\EarthForces\EarthArmy.h"
 #include"..\Alien Forces\AlienArmy.h"
-#include"..\Game\KilledList.h"
 class Game
 {
 private:
@@ -13,26 +12,21 @@ private:
 	RandGen G;
 	EarthArmy E;
 	AlienArmy A;
-	KilledList K;
+	LinkedQueue<unit*> KilledList;
 	LinkedQueue<unit*> TempList;
 	int Kcount;
-	int AvgDs[6]; //[0]Df, [1]Dd, [2]Db First three are for Earth,last three for alien    
-public:          //implementation in units folder is for Df,where as    
-	Game();      //the one inside Func.Enqueue Killed is for Dd and Db
+	int Shots[6];   //first 3 pos are shots fired by EarthForces
+public:             //to be deleted
+	Game();
 	void LoadParameters(char FileName[]);
+	bool EnqueueKilled(unit*& d);
 	EarthArmy& GetEArmy();
 	AlienArmy& GetAArmy();
-	KilledList& GetKList();
 	void Battle();
 	void PrintAttacked();
 	int GetTS();
-	bool AddKilled(unit*&);
+	void PrintKList();
 	void GenerateWarReport();
-	void PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA);
-	void SetEDf(int f);
-	void SetADf(int f);
-	void SetEDb(int d);
-	void SetADb(int d);
 	void Interface();
 	~Game();
 };

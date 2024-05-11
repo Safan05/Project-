@@ -19,16 +19,11 @@ bool ETank::attack(Game* const & Gptr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				Gptr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
-				Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
 			}
 			if (enemy->GetHealth() <= 0)
-			{
-				enemy->SetTd(Gptr->GetTS());
-				Gptr->GetKList().AddKilled(enemy);
-			}
+				Gptr->EnqueueKilled(enemy);
 			else
 				templist.push(enemy);
 		}
@@ -37,7 +32,7 @@ bool ETank::attack(Game* const & Gptr)
 		Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
 	bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30 / 100)) ? true : false;
 	if (AttackAS)
-		ESbelow80 = true;  //to continue attacking till > 80%
+		ESbelow80 = true;
 	if (!((Gptr->GetEArmy().GetES().GetScount()) >= (Gptr->GetAArmy().getAS().getCount() * 80 / 100)))
 		if (ESbelow80)
 		{
@@ -51,16 +46,11 @@ bool ETank::attack(Game* const & Gptr)
 					GetattackedIDs().enqueue(enemy->GetId());
 					if (!enemy->Wasattacked())
 					{
-						Gptr->GetAArmy().IncAttackCount();
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
-						Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
 					}
 					if (enemy->GetHealth() <= 0)
-					{
-						Gptr->GetKList().AddKilled(enemy);
-						enemy->SetTd(Gptr->GetTS());
-					}
+						Gptr->EnqueueKilled(enemy);
 					else
 						templist.enqueue(enemy);
 				}
@@ -68,7 +58,6 @@ bool ETank::attack(Game* const & Gptr)
 			while (templist.dequeue(enemy))
 				Gptr->GetAArmy().getAS().enqueue(enemy);
 		}
-		else ESbelow80 = false;  //reached 80% or more
 	return true;
 }
 
@@ -86,14 +75,4 @@ void ETank::PrintAttacked()
 		}
 		cout << "] IDs of all Alien units shot by ET" << GetId() << endl;
 	}
-}
-
-void ETank::setUmlJoinTime(int t)
-{
-	UmlJoinTime = t;
-}
-
-int ETank::getUmlJoinTime()
-{
-	return UmlJoinTime;
 }
