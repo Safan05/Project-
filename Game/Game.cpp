@@ -82,6 +82,7 @@ Game::Game()
 						A.AddUnit(U);
 					}
 				}
+				this->Battle();
 			}
 			this->GenerateWarReport();
 		}
