@@ -58,8 +58,8 @@ bool ETank::attack(Game* const & Gptr)
 					}
 					if (enemy->is_killed())
 					{
-						Gptr->AddKilled(enemy);
 						enemy->SetTd(Gptr->GetTS());
+						Gptr->AddKilled(enemy);
 					}
 					else
 						templist.enqueue(enemy);

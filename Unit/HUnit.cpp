@@ -2,6 +2,7 @@
 #include "../Type.h"
 HUnit::HUnit(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
+	this->SetTa(0);
 }
 
 bool HUnit::attack(Game* const& Gptr)
