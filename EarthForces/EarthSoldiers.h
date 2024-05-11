@@ -14,6 +14,7 @@ public:
 	bool dequeue(unit*&);
 	bool InfEnqueue(unit*&);
 	bool InfDequeue(unit*&);
+	bool Infect(int z);
 	int GetScount();
 	int GetInfCount();
 	LinkedQueue<unit*> GetInfected();
