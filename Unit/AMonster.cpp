@@ -18,17 +18,14 @@ bool AMonster::attack(Game* const & GPtr)
 	{
 		if (GPtr->GetEArmy().GetET().pop(enemy))
 		{
-			if (enemy->GetType() != 1) {
-				flag = false;
-			}
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			/*if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
+			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
 			{
 				ETank* et = dynamic_cast<ETank*> (enemy);
 				et->setUmlJoinTime(GPtr->GetTS());
 				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}*/
+			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
@@ -55,9 +52,6 @@ bool AMonster::attack(Game* const & GPtr)
 	{
 		if (GPtr->GetEArmy().GetES().dequeue(enemy))
 		{
-			if (enemy->GetType() != 0) {
-				flag = false;
-			}
 			flag = true;
 			int InfProp = (rand() % 100) + 1;   //checks whether the enemy sould be attacked or infected
 			if (InfProp > 2)        //2% probability to infect the soldier

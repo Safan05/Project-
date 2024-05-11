@@ -40,13 +40,15 @@ Game::Game()
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
-			cout << "============= Alien Forces Alive Units =============" << endl;
+			cout << "\n============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
 			Battle();
-			cout << "============= Killed/Destructed Units =============" << endl;
+			cout << "\n============= Killed/Destructed Units =============" << endl;
 			//this->GetKList().PrintKillled();
 			K.PrintKillled();
+			cout << "\n============= UML Units =============" << endl;
+			E.GetUL().PrintUML();
 			cout << endl << "Enter any key to move to next time step : ";
 			cin >> x;
 			cout << endl;

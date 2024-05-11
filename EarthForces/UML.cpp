@@ -4,11 +4,12 @@
 #include"../Unit/ETank.h"
 UML::UML()
 {
-	
+	count = 0;
 }
 
 void UML::AddUnit(unit*& u)
 {
+	count++;
 	Node<unit*>* nptr = new Node<unit*>(u);
 	if (isEmpty()) {
 		frontPtr = nptr;
@@ -73,6 +74,19 @@ void UML::RemoveOlderunits(Game* const& GPtr)
 		this->AddUnit(u);
 }
 
+void UML::PrintUML()
+{
+	Node<unit*>* temp = frontPtr;
+	cout << count << " units [";
+	while (temp)
+	{
+		temp->getItem()->PrintUnit();
+		if (temp->getNext())     //Printing style fix
+			cout << ", ";
+		temp = temp->getNext();
+	}
+	cout << "]";
+}
 
 UML::~UML()
 {

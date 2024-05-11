@@ -18,7 +18,7 @@ bool AlienDrones::enqueue(unit*& front, unit*& back)
 		{
 			newNode->setNext(frontPtr);
 			frontPtr->setPrevious(newNode);
-			frontPtr = frontPtr->getNext();
+			frontPtr = newNode;
 		}
 		else
 		{
@@ -45,7 +45,8 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 		if (backPtr == frontPtr)
 			frontPtr = NULL;       //special case if only one node exists 
 		backPtr = backPtr->getPrevious();
-		if (backPtr) {
+		if (backPtr) 
+		{
 			delete backPtr->getNext();
 			backPtr->setNext(NULL);
 		}
