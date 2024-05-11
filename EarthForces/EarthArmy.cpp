@@ -131,6 +131,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* H;
 	if (HU.pop(H)) {
 		H->attack(Gptr);
-		Gptr->GetKList().AddKilled(H);
+		H->SetTd(Gptr->GetTS());
+		Gptr->AddKilled(H);
 	}
 }
