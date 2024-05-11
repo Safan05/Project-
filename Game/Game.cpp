@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <fstream>
+#include"../Unit/HUnit.h"
 #include <Windows.h>
 #include <iostream>
 using namespace std;
@@ -206,11 +207,13 @@ int Game::GetTS()
 }
 bool Game::AddKilled(unit*& d)
 {
+	HUnit* h = dynamic_cast<HUnit*>(d);
 	d->SetTd(this->GetTS());
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
 		AvgDs[0] += d->GetTa() - d->GetJoin();
-		AvgDs[1] += TS - d->GetTa();
+		if(!h)       //Heal units heal already attacked units therefore their Ta,Df are already set
+			AvgDs[1] += TS - d->GetTa();
 		AvgDs[2] += TS - d->GetJoin();
 	}
 	else {
@@ -224,53 +227,60 @@ bool Game::AddKilled(unit*& d)
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\tEarth VS Aliens War Report\n\n";
-	WR << "Td\t\tID\t\tTj\t\tDf\t\tDd\t\tDb\n";
+	WR << "\t\t\tEarth VS Aliens War Report\n\n";
+	WR << "Td\t\t\tID\t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
 	//===============================Earth Forces Stats=====================================
 
 	WR << "\n\t\t\tEarth Forces\n ";
-	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
-		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
+	WR << "ES count : " << E.GetES().GetScount() << "\t\tET count : "
+		<< E.GetET().GetTcount() << "\t\tEG count : " << E.GetEG().GetGcount() << endl;
 	WR << "\tES_Destructed/ ES_Total = ";
 	double TotalES = E.GetES().GetScount() + *(K.GetEcount());
 	double TotalET = E.GetET().GetTcount() + *(K.GetEcount() + 1);
 	double TotalEG = E.GetEG().GetGcount() + *(K.GetEcount() + 2);
+	double TotalInfected_Healed = E.GetES().GetInfCount() + K.GetInf_HealCount();
 	if (TotalES)
-		WR << (*K.GetEcount() / TotalES) * 100;                     else WR << "0\n";
+		WR << (*K.GetEcount() / TotalES) * 100 << endl;                    else WR << "0\n";
 	WR << "\tET_Destructed/ ET_Total = ";
-	if (TotalET) WR << (*(K.GetEcount() + 1) / TotalET) * 100;      else WR << "0\n";
+	if (TotalET) 
+		WR << (*(K.GetEcount() + 1) / TotalET) * 100 << endl;              else WR << "0\n";
 	WR << "\tEG_Destructed/ EG_Total = ";
 	if (TotalEG)
-		WR << (*(K.GetEcount() + 2) / TotalEG) * 100;               else WR << "0\n";
+		WR << (*(K.GetEcount() + 2) / TotalEG) * 100 << endl;               else WR << "0\n";
 	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	WR << "\tES_Infected_Healed/ ES_Total = ";
+	if (TotalInfected_Healed)
+		WR << E.GetES().GetInfCount() / TotalInfected_Healed << endl;
+	                                                                else WR << "0\n";
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalEU)
-		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100;    	else WR << "0";
+		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100 << endl;    	else WR << "0";
 	PrintAverageResults(WR, 1, TotalEU, K.Ecount(), 0, 0);
 
 
 	//===============================Alien Forces Stats=====================================
 
 	WR << "\n\t\t\tAlien Forces\n ";
-	WR << "AS count : " << A.getAS().getCount() << "\tAD count : "
-		<< A.getAD().getCount() << "\tAM count : " << A.getAM().getCount() << endl;
+	WR << "AS count : " << A.getAS().getCount() << "\t\tAD count : "
+		<< A.getAD().getCount() << "\t\tAM count : " << A.getAM().getCount() << endl;
 	double TotalAS = A.getAS().getCount() + *(K.GetAcount());
 	double TotalAD = A.getAD().getCount() + *(K.GetAcount() + 1);
 	double TotalAM = A.getAM().getCount() + *(K.GetAcount() + 2);
 	WR << "\tAS_Destructed/ AS_Total = ";
 	if (TotalAS)
-		WR << (*(K.GetAcount()) / TotalAS) * 100;               else WR << "0\n";
+		WR << (*(K.GetAcount()) / TotalAS) * 100 << endl;               else WR << "0\n";
 	WR << "\tAD_Destructed/ AD_Total = ";
-	if (TotalAD) WR << (*(K.GetAcount() + 1) / TotalAD) * 100;  else WR << "0\n";
+	if (TotalAD) 
+		WR << (*(K.GetAcount() + 1) / TotalAD) * 100 << endl;           else WR << "0\n";
 	WR << "\tAM_Destructed/ AM_Total = ";
 	if (TotalAM)
-		WR << (*(K.GetAcount() + 2) / TotalAM) * 100;           else WR << "0\n";
+		WR << (*(K.GetAcount() + 2) / TotalAM) * 100 << endl;           else WR << "0\n";
 	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalAU)
-		WR << (K.Acount() / (TotalAU + K.Acount())) * 100;       else WR << "0";
+		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)

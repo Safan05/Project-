@@ -1,4 +1,5 @@
 #include "KilledList.h"
+#include"../Unit/ESoldier.h"
 #include<iostream>
 #include"Game.h"
 #include"../Unit/unit.h"
@@ -7,6 +8,7 @@ using namespace std;
 KilledList::KilledList()
 {
 	count = 0;
+	infect_healed_Count = 0;
 	for (int i = 0; i < 3; i++)
 	{
 		EForces[i] = 0;
@@ -21,7 +23,14 @@ bool KilledList::AddKilled(unit*& d)
 		count++;
 		switch (d->GetType())
 		{
-		case earthsoldier: EForces[0]++; break;
+		case earthsoldier: 
+		{
+			EForces[0]++;
+			ESoldier* e = dynamic_cast<ESoldier*>(d);
+			if (e && (e->IsInfected() || e->isImmune()))
+				infect_healed_Count++;
+		} 
+		break;
 		case tank: EForces[1]++; break;
 		case gunnery: EForces[2]++; break;
 		case aliensoldier: AForces[0]++; break;
@@ -77,6 +86,11 @@ int KilledList::Ecount()
 int KilledList::Acount()
 {
 	return AForces[0] + AForces[1] + AForces[2];
+}
+
+int KilledList::GetInf_HealCount()
+{
+	return infect_healed_Count;
 }
 
 KilledList::~KilledList()

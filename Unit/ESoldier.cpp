@@ -3,6 +3,7 @@
 ESoldier::ESoldier(double H, int P, int AC, int T) :unit(H, P, AC, T)
 {
 	Infected = false;
+	immune = false;
 }
 
 bool ESoldier::attack(Game* const & GPtr)
@@ -100,7 +101,12 @@ void ESoldier::SpreadInfection(Game* const& GPtr)
 		bool notinfected = true;
 		while (notinfected)
 		{
-			int c = rand() % GPtr->GetEArmy().GetES().GetScount();
+			int prob = rand() % 100 + 1;  //check if prob to infect is 2%
+			if (prob <= 2)
+			{
+				int c = rand() % GPtr->GetEArmy().GetES().GetScount();  //random num to traverse and infect
+
+			}
 		}
 	}
 }
