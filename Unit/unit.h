@@ -10,7 +10,8 @@ class unit
 private:
 	int id;
 	int JoinTime;
-	int ImpTime[3]; //[0] Tj,[1]Ta,[2],Td
+	int Ta;
+	int Td;
 	double Health;
 	double InitialHealth;
 	int Power;
@@ -28,6 +29,8 @@ public:
 	void SetId(int I);
 	int GetId();
 	void SetJoin(int J);
+	int GetJoin();
+	int GetTa();
 	int GetAC();
 	int GetPow();
 	int GetHealth();
@@ -38,7 +41,6 @@ public:
 	bool Wasattacked();
 	void SetTa(int t);
 	void SetTd(int t);
-	int* GetImpTime();
 	void DeathReport(std::ofstream& wr);
 	void PrintUnit();
 	virtual void PrintAttacked() = 0;

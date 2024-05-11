@@ -22,9 +22,9 @@ bool ETank::attack(Game* const & Gptr)
 				Gptr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
-				Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
+				Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
 			}
-			if (enemy->GetHealth() <= 0)
+			if (enemy->is_killed())
 			{
 				enemy->SetTd(Gptr->GetTS());
 				Gptr->AddKilled(enemy);
@@ -54,9 +54,9 @@ bool ETank::attack(Game* const & Gptr)
 						Gptr->GetAArmy().IncAttackCount();
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
-						Gptr->SetADf(Gptr->GetTS() - *(enemy->GetImpTime()));
+						Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
 					}
-					if (enemy->GetHealth() <= 0)
+					if (enemy->is_killed())
 					{
 						Gptr->AddKilled(enemy);
 						enemy->SetTd(Gptr->GetTS());

@@ -85,3 +85,18 @@ void AlienArmy::PrintArmy()
 	AD.PrintAD();
 	cout << "]\n";
 }
+
+void AlienArmy::PrintAttack()
+{
+	unit* attacker = NULL, * attacker2 = NULL;
+	if (AS.peek(attacker))
+		attacker->PrintAttacked();
+	attacker = AM.getAttacker();
+	if (attacker)
+		attacker->PrintAttacked();
+	if (AD.peek(attacker, attacker2))
+	{
+		attacker->PrintAttacked();
+		attacker2->PrintAttacked();
+	}
+}

@@ -11,6 +11,7 @@ unit::unit(double H, int P, int AC, int T)
 	Isattacked = false;
 	id = -1;
 	InitialHealth = H;
+	Ta = -1;
 }
 int unit::GetId() {
 	return id;
@@ -41,6 +42,11 @@ void unit::SetId(int I) {
 }
 void unit::SetJoin(int J) {
 	JoinTime = J;
+}
+
+int unit::GetJoin()
+{
+	return JoinTime;
 }
 
 int unit::GetAC()
@@ -85,24 +91,24 @@ bool unit::Wasattacked()
 
 void unit::SetTa(int t)
 {
-	ImpTime[1] = t;
+	Ta = t;
+}
+
+int unit::GetTa()
+{
+	return Ta;
 }
 
 void unit::SetTd(int t)
 {
-	ImpTime[2] = t;
-}
-
-int* unit::GetImpTime()
-{
-	return ImpTime;
+	Td = t;
 }
 
 void unit::DeathReport(std::ofstream& wr)
 {
-	wr << ImpTime[2] << "\t" << id << "\t"
-		<< JoinTime << "\t" << ImpTime[1] - ImpTime[0] << "\t"
-		<< ImpTime[2] - ImpTime[1] << "\t" << ImpTime[2] - ImpTime[0] << endl;
+	wr << Td << "\t\t" << id << "\t\t"
+		<< JoinTime << "\t\t" << Ta - JoinTime << "\t\t"
+		<< Td - Ta << "\t\t" << Td - JoinTime << endl;
 }
 
 
