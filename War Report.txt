@@ -1,23 +1,50 @@
 	Earth VS Aliens War Report
 
 Td	ID		Tj	Df	Dd	Db
-0	4	2	0	0	0
-0	92	40	0	0	0
-0	100	45	0	0	0
-0	99	45	0	0	0
-0	109	48	0	0	0
-0	119	49	0	0	0
+0		11		1		-2		1		-1
+0		47		5		-6		1		-5
+0		72		7		-8		1		-7
+0		129		11		-12		1		-11
+0		124		11		-12		1		-11
+0		150		13		-14		1		-13
+0		166		14		-15		1		-14
+0		172		15		-16		1		-15
+0		164		14		-15		1		-14
+0		145		13		-14		1		-13
+0		220		18		-19		1		-18
+19		2021		2		1		16		17
+0		234		19		-20		1		-19
+0		274		24		-25		1		-24
+0		309		26		-27		1		-26
+0		321		27		-28		1		-27
+0		333		28		-29		1		-28
+0		301		26		-27		1		-26
+0		357		30		-31		1		-30
+0		382		33		-34		1		-33
+0		415		35		-36		1		-35
+0		429		36		-37		1		-36
+0		417		36		-37		1		-36
+0		447		38		-39		1		-38
+0		468		39		-40		1		-39
+0		482		41		-42		1		-41
+0		502		42		-43		1		-42
+0		514		43		-44		1		-43
+0		531		44		-45		1		-44
+0		534		45		-46		1		-45
+0		569		49		-50		1		-49
+0		575		50		-51		1		-50
+0		590		51		-52		1		-51
 
 Battle Result : 
 			Earth Forces
- ES count : 119	ET count : 39	EG count : 3
+ ES count : 387	ET count : 230	EG count : 0
 	ES_Destructed/ ES_Total = 0	ET_Destructed/ ET_Total = 0	EG_Destructed/ EG_Total = 0
+
 Total_Destructed/ Total units = 0
-	Average Df, Dd, Db respectively = 27.5682, 0, 0, 0
+	Average Df, Dd, Db respectively = 3.61832, 0, 0, 0
 
 			Alien Forces
- AS count : 15	AD count : 0	AM count : 28
-	AS_Destructed/ AS_Total = 0	AD_Destructed/ AD_Total = 0
-	AM_Destructed/ AM_Total = 0
-Total_Destructed/ Total units = 0
-	Average Df, Dd, Db respectively = 32.0417, 0, 0, 0
+ AS count : 214	AD count : 34	AM count : 178
+	AS_Destructed/ AS_Total = 0	AD_Destructed/ AD_Total = 0	AM_Destructed/ AM_Total = 0.558659
+Total_Destructed/ Total units = 0.234192
+	Average Df, Dd, Db respectively = 21.4359, 1672, 17

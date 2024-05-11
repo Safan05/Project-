@@ -97,11 +97,11 @@ Game::Game()
 			int sum = 0;
 			for (int i = 0; i < 4; i++) {
 				In >> EP[i];
-				if (EP[i] < 0)	//validation that the probablity is not negative
+				if (EP[i] < 0)	//validation that the probability is not negative
 					EP[i] = 0;
 				sum += EP[i];
 			}
-			if (sum != 100) {	//Validation that the sum of probabilites to generate earth army units of them doesn't exceed 100
+			if (sum != 100) {	//Validation that the sum of probabilities to generate earth army units of them doesn't exceed 100
 				EP[0] = 30;
 				EP[1] = 30;
 				EP[2] = 40;
@@ -109,11 +109,11 @@ Game::Game()
 			sum = 0;
 			for (int i = 0; i < 3; i++) {
 				In >> AP[i];
-				if (AP[i] < 0)	//validation that the probablity is not negative
+				if (AP[i] < 0)	//validation that the probability is not negative
 					AP[i] = 0;
 				sum += AP[i];
 			}
-			if (sum != 100) {	//Validation that the sum of probabilites to generate alien army units of them doesn't exceed 100
+			if (sum != 100) {	//Validation that the sum of probabilities to generate alien army units of them doesn't exceed 100
 				AP[0] = 30;
 				AP[1] = 30;
 				AP[2] = 40;
@@ -199,7 +199,7 @@ int Game::GetTS()
 }
 bool Game::AddKilled(unit*& d)
 {
-	d->SetTd(TS);
+	d->SetTd(this->GetTS());
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
 		AvgDs[0] += d->GetTa() - d->GetJoin();
