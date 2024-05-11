@@ -131,6 +131,7 @@
     <ClInclude Include="Alien Forces\AlienDrones.h" />
     <ClInclude Include="Alien Forces\AlienMonsters.h" />
     <ClInclude Include="Alien Forces\AlienSoldiers.h" />
+    <ClInclude Include="Allied Forces\AlliedArmy.h" />
     <ClInclude Include="DS\DoubleNode.h" />
     <ClInclude Include="DS\DoubleQueue.h" />
     <ClInclude Include="DS\LinkedStack.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="EarthForces\HealUnits.h" />
     <ClInclude Include="Game\KilledList.h" />
+    <ClInclude Include="Allied Forces\SaverUnits.h" />
     <ClInclude Include="Unit\SaverU.h" />
     <ClInclude Include="Unit\HUnit.h" />
     <ClInclude Include="Priority\LinkedQueue.h" />
@@ -169,6 +171,8 @@
     <ClCompile Include="Alien Forces\AlienDrones.cpp" />
     <ClCompile Include="Alien Forces\AlienMonsters.cpp" />
     <ClCompile Include="Alien Forces\AlienSoldiers.cpp" />
+    <ClCompile Include="Allied Forces\AlliedArmy.cpp" />
+    <ClCompile Include="Allied Forces\SaverUnits.cpp" />
     <ClCompile Include="EarthForces\EarthArmy.cpp" />
     <ClCompile Include="EarthForces\EarthGunnery.cpp" />
     <ClCompile Include="EarthForces\EarthSoldiers.cpp" />

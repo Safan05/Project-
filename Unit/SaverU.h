@@ -1,6 +1,6 @@
 #pragma once
 #include"unit.h" 
-class SaverU:public unit
+class SaverU :public unit
 {
 public:
 	SaverU(double H, int P, int AC, int T);
