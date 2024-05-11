@@ -25,10 +25,7 @@ bool HUnit::attack(Game* const& Gptr)
 		}
 	}
 	while (templist.dequeue(ToHeal)) {
-		if (ToHeal->GetType() == earthsoldier)
-			Gptr->GetEArmy().GetES().enqueue(ToHeal);
-		else
-			Gptr->GetEArmy().GetET().push(ToHeal);
+		Gptr->GetEArmy().GetUL().AddUnit(ToHeal);
 	}
 	this->DecHealth(this->GetHealth());
 	return true;

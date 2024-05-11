@@ -23,12 +23,12 @@ bool AMonster::attack(Game* const & GPtr)
 			}
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
+			/*if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
 			{
 				ETank* et = dynamic_cast<ETank*> (enemy);
 				et->setUmlJoinTime(GPtr->GetTS());
 				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}
+			}*/
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
@@ -85,9 +85,7 @@ bool AMonster::attack(Game* const & GPtr)
 		
 			}
 			else
-			{
-
-				ESoldier* toInfect = dynamic_cast<ESoldier*>(enemy);
+			{	ESoldier* toInfect = dynamic_cast<ESoldier*>(enemy);
 				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
 				{
 					toInfect->SetInfected(true);
