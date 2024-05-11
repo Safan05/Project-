@@ -42,7 +42,8 @@ Game::Game()
 			cout << "\n============= Units fighting at current step =======" << endl;
 			Battle();
 			cout << "============= Killed/Destructed Units =============" << endl;
-			this->GetKList().PrintKillled();
+			//this->GetKList().PrintKillled();
+			K.PrintKillled();
 			cout << endl << "Enter any key to move to next time step : ";
 			cin >> x;
 			cout << endl;
@@ -220,7 +221,7 @@ void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
 	WR << "\tEarth VS Aliens War Report\n\n";
-	WR << "Td\tID\t\tTj\tDf\tDd\tDb\n";
+	WR << "Td\t\tID\t\tTj\t\tDf\t\tDd\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
 	//===============================Earth Forces Stats=====================================

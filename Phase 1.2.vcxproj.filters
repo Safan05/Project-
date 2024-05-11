@@ -192,5 +192,7 @@
   <ItemGroup>
     <Text Include="Try.txt" />
     <Text Include="War Report.txt" />
+    <Text Include="WE_MA.txt" />
+    <Text Include="WE_WA.txt" />
   </ItemGroup>
 </Project>

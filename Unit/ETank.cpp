@@ -89,11 +89,12 @@ void ETank::PrintAttacked()
 }
 void ETank::setUmlJoinTime(int t)
 {
-	UmlJoinTime = t;
+	//UmlJoinTime = t;
 }
 
 int ETank::getUmlJoinTime()
 {
-	return UmlJoinTime;
+	return 0;
+	//return UmlJoinTime;
 }
 
