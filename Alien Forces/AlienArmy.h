@@ -25,5 +25,6 @@ public:
 	int GetAttackCount();
 	void Alienattack(Game* const& GPtr);
 	void PrintArmy();
+	void PrintAttack();
 };
 #endif
