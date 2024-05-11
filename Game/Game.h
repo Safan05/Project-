@@ -24,7 +24,6 @@ public:          //implementation in units folder is for Df,where as
 	AlienArmy& GetAArmy();
 	KilledList& GetKList();
 	void Battle();
-	void PrintAttacked();
 	int GetTS();
 	bool AddKilled(unit*&);
 	void GenerateWarReport();
