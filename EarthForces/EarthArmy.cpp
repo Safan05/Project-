@@ -4,9 +4,8 @@
 #include"../Game/Game.h"
 using namespace std;
 
-EarthArmy::EarthArmy(Game* g) //should be deleted??
+EarthArmy::EarthArmy() //should be deleted??
 {
-	Gptr = g;
 	id = 1;
 	AttackCount = 0;
 }

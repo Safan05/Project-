@@ -1,9 +1,8 @@
 #include "AlienArmy.h"
 #include<iostream>
 using namespace std;
-AlienArmy::AlienArmy(Game* g)
+AlienArmy::AlienArmy()
 {
-	Gptr = g;
 	id = 2000;
 	AttackCount = 0;
 }

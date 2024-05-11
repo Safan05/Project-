@@ -8,14 +8,13 @@
 class Game;
 class AlienArmy
 {
-	Game* Gptr;               //pointer to the game class 
 	AlienSoldiers AS;         //Alien Soldiers
 	AlienDrones AD;			  //Alien Drones
 	AlienMonsters AM;         //Alien Monsters 
 	int id;
 	int AttackCount;
 public:
-	AlienArmy(Game* g = nullptr);
+	AlienArmy();
 	bool AddUnit(unit*);
 	AlienSoldiers& getAS();
 	AlienMonsters& getAM();

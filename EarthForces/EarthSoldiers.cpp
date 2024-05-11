@@ -14,9 +14,11 @@ bool EarthSoldiers::enqueue(unit*& s)
 
 bool EarthSoldiers::dequeue(unit*& s)
 {
-	if (LinkedQueue<unit*>::dequeue(s))
+	if(Scount>=0)
 	{
-		Scount--; return true;
+		LinkedQueue<unit*>::dequeue(s);
+		Scount--; 
+		return true;
 	}
 	return false;
 }
@@ -44,6 +46,10 @@ int EarthSoldiers::GetScount()
 	return Scount;
 }
 
+int EarthSoldiers::GetInfCount()
+{
+	return InfCount;
+}
 LinkedQueue<unit*> EarthSoldiers::GetInfected()
 {
 	return LinkedQueue<unit*>(InfectedES);
