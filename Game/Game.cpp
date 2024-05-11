@@ -294,7 +294,7 @@ string& Game::BattleResult()
 	eg = !E.GetEG().isEmpty();
 	as = !A.getAS().isEmpty();
 	ad = !A.getAD().isEmpty();
-	//am = !A.getAM().isEmpty();
+	am = !A.getAM().isEmpty();
 
 	if (TotalEU == 0 && TotalAU == 0)
 		result = "Drawn";
@@ -302,6 +302,9 @@ string& Game::BattleResult()
 		if (!eg && !et && es && !as && !am && ad)
 			result = "Drawn";
 		else
+			if (eg && am && !es && !et && !as && !ad)
+				result = "Win";
+			else
 	if (TotalEU > TotalAU)
 		result = "Win";
 	else if (TotalAU > TotalEU)
