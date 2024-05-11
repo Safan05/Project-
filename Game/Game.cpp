@@ -32,8 +32,10 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
+			if (E.GetES()->GetInfCount() / E.GetES()->GetScount() >= SU_Threshold) {
 
-			E.GetUL().RemoveOlderunits(this);
+			}
+			E.GetUL()->RemoveOlderunits(this);
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
@@ -174,14 +176,14 @@ void Game::Interface()
 	std::cin >> Filename;
 }
 
-EarthArmy& Game::GetEArmy()
+EarthArmy* Game::GetEArmy()
 {
-	return E;
+	return &E;
 }
 
-AlienArmy& Game::GetAArmy()
+AlienArmy* Game::GetAArmy()
 {
-	return A;
+	return &A;
 }
 
 KilledList& Game::GetKList()
@@ -226,12 +228,12 @@ void Game::GenerateWarReport()
 	//===============================Earth Forces Stats=====================================
 
 	WR << "\n\t\t\tEarth Forces\n ";
-	WR << "ES count : " << E.GetES().GetScount() << "\tET count : "
-		<< E.GetET().GetTcount() << "\tEG count : " << E.GetEG().GetGcount() << endl;
+	WR << "ES count : " << E.GetES()->GetScount() << "\tET count : "
+		<< E.GetET()->GetTcount() << "\tEG count : " << E.GetEG()->GetGcount() << endl;
 	WR << "\tES_Destructed/ ES_Total = ";
-	double TotalES = E.GetES().GetScount() + *(K.GetEcount());
-	double TotalET = E.GetET().GetTcount() + *(K.GetEcount() + 1);
-	double TotalEG = E.GetEG().GetGcount() + *(K.GetEcount() + 2);
+	double TotalES = E.GetES()->GetScount() + *(K.GetEcount());
+	double TotalET = E.GetET()->GetTcount() + *(K.GetEcount() + 1);
+	double TotalEG = E.GetEG()->GetGcount() + *(K.GetEcount() + 2);
 	if (TotalES)
 		WR << (*K.GetEcount() / TotalES) * 100;                     else WR << "0\n";
 	WR << "\tET_Destructed/ ET_Total = ";
@@ -239,7 +241,7 @@ void Game::GenerateWarReport()
 	WR << "\tEG_Destructed/ EG_Total = ";
 	if (TotalEG)
 		WR << (*(K.GetEcount() + 2) / TotalEG) * 100;               else WR << "0\n";
-	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	double TotalEU = E.GetEG()->GetGcount() + E.GetES()->GetScount() + E.GetET()->GetTcount();
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalEU)
 		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100;    	else WR << "0";

@@ -16,21 +16,24 @@ bool AMonster::attack(Game* const & GPtr)
 	//Attacking tanks with half attack capacity
 	for (int i = 0; i < GetAC() / 2; i++)
 	{
-		if (GPtr->GetEArmy().GetET().pop(enemy))
+		if (GPtr->GetEArmy()->GetET()->pop(enemy))
 		{
+			if (enemy->GetType() != 1) {
+				flag = false;
+			}
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
 			{
 				ETank* et = dynamic_cast<ETank*> (enemy);
 				et->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				GPtr->GetEArmy()->GetUL()->AddUnit(enemy);
 			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetEArmy().IncAttackCount();
+				GPtr->GetEArmy()->IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
@@ -45,13 +48,16 @@ bool AMonster::attack(Game* const & GPtr)
 		}
 	}
 	while (Ttemp.pop(enemy))
-		GPtr->GetEArmy().GetET().push(enemy);
+		GPtr->GetEArmy()->GetET()->push(enemy);
 
 	//Attacking soldiers with half attack capacity
 	for (int i = GetAC() / 2; i < GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetES().dequeue(enemy))
+		if (GPtr->GetEArmy()->GetES()->dequeue(enemy))
 		{
+			if (enemy->GetType() != 0) {
+				flag = false;
+			}
 			flag = true;
 			int InfProp = (rand() % 100) + 1;   //checks whether the enemy sould be attacked or infected
 			if (InfProp > 2)        //2% probability to infect the soldier
@@ -61,11 +67,11 @@ bool AMonster::attack(Game* const & GPtr)
 				{
 					ESoldier* es = dynamic_cast<ESoldier*> (enemy);
 					es->setUmlJoinTime(GPtr->GetTS());
-					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+					GPtr->GetEArmy()->GetUL()->AddUnit(enemy);
 				}
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetEArmy().IncAttackCount();
+					GPtr->GetEArmy()->IncAttackCount();
 					enemy->SetAttacked(true);
 					enemy->SetTa(GPtr->GetTS());
 					GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
@@ -91,7 +97,7 @@ bool AMonster::attack(Game* const & GPtr)
 		}
 	}
 	while (Stemp.dequeue(enemy))
-		GPtr->GetEArmy().GetES().enqueue(enemy);
+		GPtr->GetEArmy()->GetES()->enqueue(enemy);
 
 	return flag;
 }

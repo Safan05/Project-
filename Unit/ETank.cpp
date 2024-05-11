@@ -12,14 +12,14 @@ bool ETank::attack(Game* const & Gptr)
 	unit* enemy = nullptr;                     //however stack is easier in pushing
 	for (int i = 0; i < unit::GetAC() / 2; i++)
 	{
-		if (Gptr->GetAArmy().getAM().removeAlienMonster(enemy))
+		if (Gptr->GetAArmy()->getAM().removeAlienMonster(enemy))
 		{
 			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				Gptr->GetAArmy().IncAttackCount();
+				Gptr->GetAArmy()->IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
 				Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
@@ -34,24 +34,24 @@ bool ETank::attack(Game* const & Gptr)
 		}
 	}
 	while (templist.pop(enemy))
-		Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
-	bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30 / 100)) ? true : false;
+		Gptr->GetAArmy()->getAM().AddAlienMonster(enemy);
+	bool AttackAS = ((Gptr->GetEArmy()->GetES()->GetScount()) < (Gptr->GetAArmy()->getAS().getCount() * 30 / 100)) ? true : false;
 	if (AttackAS)
 		ESbelow80 = true;  //to continue attacking till > 80%
-	if (!((Gptr->GetEArmy().GetES().GetScount()) >= (Gptr->GetAArmy().getAS().getCount() * 80 / 100)))
+	if (!((Gptr->GetEArmy()->GetES()->GetScount()) >= (Gptr->GetAArmy()->getAS().getCount() * 80 / 100)))
 		if (ESbelow80)
 		{
 			LinkedQueue<unit*> templist;
 			for (int i = unit::GetAC() / 2; i < unit::GetAC(); i++)
 			{
-				if (Gptr->GetAArmy().getAS().dequeue(enemy))
+				if (Gptr->GetAArmy()->getAS().dequeue(enemy))
 				{
 					double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
 					enemy->DecHealth(damage);
 					GetattackedIDs().enqueue(enemy->GetId());
 					if (!enemy->Wasattacked())
 					{
-						Gptr->GetAArmy().IncAttackCount();
+						Gptr->GetAArmy()->IncAttackCount();
 						enemy->SetAttacked(true);
 						enemy->SetTa(Gptr->GetTS());
 						Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
@@ -66,7 +66,7 @@ bool ETank::attack(Game* const & Gptr)
 				}
 			}
 			while (templist.dequeue(enemy))
-				Gptr->GetAArmy().getAS().enqueue(enemy);
+				Gptr->GetAArmy()->getAS().enqueue(enemy);
 		}
 		else ESbelow80 = false;  //reached 80% or more
 	return true;

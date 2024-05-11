@@ -22,8 +22,8 @@ private:
 public:          //implementation in units folder is for Df,where as    
 	Game();      //the one inside Func.Enqueue Killed is for Dd and Db
 	void LoadParameters(char FileName[]);
-	EarthArmy& GetEArmy();
-	AlienArmy& GetAArmy();
+	EarthArmy* GetEArmy();
+	AlienArmy* GetAArmy();
 	KilledList& GetKList();
 	void Battle();
 	int GetTS();

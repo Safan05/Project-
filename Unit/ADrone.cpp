@@ -16,7 +16,7 @@ bool ADrone::attack(Game* const & GPtr)
 	//Attacking tanks with half attack capacity
 	for (int i = 0; i < GetAC() / 2; i++)
 	{
-		if (GPtr->GetEArmy().GetET().pop(enemy))
+		if (GPtr->GetEArmy()->GetET()->pop(enemy))
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -24,13 +24,13 @@ bool ADrone::attack(Game* const & GPtr)
 			{
 				ETank* et = dynamic_cast<ETank*> (enemy);
 				et->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				GPtr->GetEArmy()->GetUL()->AddUnit(enemy);
 			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetEArmy().IncAttackCount();
+				GPtr->GetEArmy()->IncAttackCount();
 
 				SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
@@ -45,12 +45,12 @@ bool ADrone::attack(Game* const & GPtr)
 		}
 	}
 	while (Ttemp.pop(enemy))
-		GPtr->GetEArmy().GetET().push(enemy);
+		GPtr->GetEArmy()->GetET()->push(enemy);
 
 	//Attacking Gunnery with half attack capacity
 	for (int i = GetAC() / 2; i < GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetEG().dequeue(enemy))
+		if (GPtr->GetEArmy()->GetEG()->dequeue(enemy))
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -59,7 +59,7 @@ bool ADrone::attack(Game* const & GPtr)
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetEArmy().IncAttackCount();
+				GPtr->GetEArmy()->IncAttackCount();
 				SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
@@ -73,7 +73,7 @@ bool ADrone::attack(Game* const & GPtr)
 		}
 	}
 	while (Gtemp.dequeue(enemy,j))
-		GPtr->GetEArmy().GetES().enqueue(enemy);
+		GPtr->GetEArmy()->GetEG()->enqueue(enemy);
 
 	return flag;
 }
