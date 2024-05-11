@@ -15,9 +15,8 @@ bool EarthSoldiers::enqueue(unit*& s)
 
 bool EarthSoldiers::dequeue(unit*& s)
 {
-	if(Scount>=0)
+	if(	LinkedQueue<unit*>::dequeue(s))
 	{
-		LinkedQueue<unit*>::dequeue(s);
 		Scount--; 
 		return true;
 	}

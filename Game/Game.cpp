@@ -33,9 +33,9 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
-			if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
+		//	if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
 
-			}
+		//	}
 			E.GetUL().RemoveOlderunits(this);
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
@@ -227,8 +227,8 @@ bool Game::AddKilled(unit*& d)
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\t\t\tEarth VS Aliens War Report\n\n";
-	WR << "Td\t\t\tID\t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
+	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
+	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
 	//===============================Earth Forces Stats=====================================
@@ -282,6 +282,30 @@ void Game::GenerateWarReport()
 	if (TotalAU)
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
+}
+string& Game::BattleResult()
+{
+	string result;
+	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
+	bool es, et, eg, as, ad, am;
+	es = !E.GetES().isEmpty();
+	et = !E.GetET().isEmpty();
+	eg = !E.GetEG().isEmpty();
+	as = !A.getAS().isEmpty();
+	ad = !A.getAD().isEmpty();
+	//am = !A.getAM().isEmpty();
+
+	if (TotalEU == 0 && TotalAU == 0)
+		result = "Drawn";
+	else
+		if (!eg && !et && es && !as && !am && ad)
+			result = "Drawn";
+		else
+	if (TotalEU > TotalAU)
+		result = "Win";
+	else if (TotalAU > TotalEU)
+		result = "Loss";
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
 {

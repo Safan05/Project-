@@ -1,52 +1,31 @@
-			Earth VS Aliens War Report
+					Earth VS Aliens War Report
 
-Td			ID				Tj				Df				Dd				Db
-13			38				3				0				10				10
-13			38				3				0				10				10
-15			65				5				0				10				10
-20			130				10				0				10				10
-24			181				14				0				10				10
-24			181				14				0				10				10
-25			195				15				0				10				10
-27			204				17				0				10				10
-29			219				18				0				11				11
-34			272				24				0				10				10
-35			280				25				0				10				10
-35			280				25				0				10				10
-36			289				26				0				10				10
-37			7				1				0				36				36
-37			311				27				0				10				10
-37			311				27				0				10				10
-38			324				28				0				10				10
-38			318				28				0				10				10
-39			335				29				0				10				10
-40			341				30				0				10				10
-43			386				33				0				10				10
-45			412				35				0				10				10
-45			411				35				0				10				10
-46			428				36				0				10				10
-46			427				36				0				10				10
-47			1				1				0				46				46
-48			559				46				0				2				2
+Td			ID   				Tj				Df				Dd				Db
+9			2011   				1				1				7				8
+14			39   				4				0				10				10
+16			45   				5				0				11				11
+16			49   				5				0				11				11
+16			45   				5				0				11				11
+16			2090   				9				0				7				7
 
 Battle Result : 
 			Earth Forces
- ES count : 176		ET count : 158		EG count : 220
-	ES_Destructed/ ES_Total = 1.1236
-	ET_Destructed/ ET_Total = 13.6612
+ ES count : 49		ET count : 61		EG count : 72
+	ES_Destructed/ ES_Total = 0
+	ET_Destructed/ ET_Total = 6.15385
 	EG_Destructed/ EG_Total = 0
-	ES_Infected_Healed/ ES_Total = 1
+	ES_Infected_Healed/ ES_Total = 0
 
-Total_Destructed/ Total units = 4.64716
+Total_Destructed/ Total units = 2.15054
 
-	Average Df, Dd, Db respectively = 4.79389, 12.037, 12.037
+	Average Df, Dd, Db respectively = 1.30137, 10.75, 10.75
 
 			Alien Forces
- AS count : 232		AD count : 132		AM count : 169
+ AS count : 60		AD count : 34		AM count : 47
 	AS_Destructed/ AS_Total = 0
-	AD_Destructed/ AD_Total = 0
+	AD_Destructed/ AD_Total = 5.55556
 	AM_Destructed/ AM_Total = 0
 
-Total_Destructed/ Total units = 0
+Total_Destructed/ Total units = 1.3986
 
-	Average Df, Dd, Db respectively = 14.4099, 0, 0, 0
+	Average Df, Dd, Db respectively = 4.94737, 94, 7.5
