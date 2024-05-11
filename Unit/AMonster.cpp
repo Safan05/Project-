@@ -20,12 +20,12 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			/*if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
+			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
 			{
 				ETank* et = dynamic_cast<ETank*> (enemy);
 				et->setUmlJoinTime(GPtr->GetTS());
 				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}*/
+			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
