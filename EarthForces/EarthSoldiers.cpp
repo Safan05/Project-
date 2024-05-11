@@ -44,6 +44,11 @@ int EarthSoldiers::GetScount()
 	return Scount;
 }
 
+LinkedQueue<unit*> EarthSoldiers::GetInfected()
+{
+	return LinkedQueue<unit*>(InfectedES);
+}
+
 
 void EarthSoldiers::PrintES()
 {
