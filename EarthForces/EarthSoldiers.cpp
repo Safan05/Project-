@@ -1,4 +1,5 @@
 #include "EarthSoldiers.h"
+#include"../Unit/ESoldier.h"
 #include<cmath>
 #include"..\Game\Game.h"
 EarthSoldiers::EarthSoldiers()
@@ -37,6 +38,23 @@ bool EarthSoldiers::InfDequeue(unit*& v)
 	if (InfectedES.dequeue(v))
 	{
 		InfCount--; return true;
+	}
+	return false;
+}
+
+bool EarthSoldiers::Infect(int z)
+{
+	Node<unit*>* ptr = frontPtr;
+	for (int i = z; i < z; i++)
+	{
+		if(ptr)
+			ptr = ptr->getNext();
+	}
+	if (ptr)
+	{
+		ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
+		e->SetInfected(true);
+		return true;
 	}
 	return false;
 }

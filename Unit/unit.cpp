@@ -1,5 +1,6 @@
 #include "..\Unit\unit.h"
 #include "..\Game\Game.h"
+#include"HUnit.h"
 #include<iostream>
 using namespace std;
 unit::unit(double H, int P, int AC, int T)
@@ -106,9 +107,14 @@ void unit::SetTd(int t)
 
 void unit::DeathReport(std::ofstream& wr)
 {
-	wr << Td << "\t\t" << id << "\t\t"
-		<< JoinTime << "\t\t" << Ta - JoinTime << "\t\t"
-		<< Td - Ta << "\t\t" << Td - JoinTime << endl;
+	HUnit* h = dynamic_cast<HUnit*>(this);
+	wr << Td << "\t\t\t" << id << "\t\t\t\t"
+		<< JoinTime << "\t\t\t\t";
+	if (h)
+		wr << "H";  //Heal units aren't attacked therefore have no Ta
+	else
+		wr << Ta - JoinTime;
+	wr << "\t\t\t\t" << Td - Ta << "\t\t\t\t" << Td - JoinTime << endl;
 }
 
 
