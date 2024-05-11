@@ -32,14 +32,13 @@ Game::Game()
 					A.AddUnit(U);
 				}
 			}
-			Battle();
 			cout << "Current TimeStep : " << TS << endl;
 			cout << "============= Earth Forces Alive Units =============" << endl;
 			E.PrintArmy();
 			cout << "============= Alien Forces Alive Units =============" << endl;
 			A.PrintArmy();
 			cout << "\n============= Units fighting at current step =======" << endl;
-			PrintAttacked();
+			Battle();
 			cout << "============= Killed/Destructed Units =============" << endl;
 			this->GetKList().PrintKillled();
 			cout << endl << "Enter any key to move to next time step : ";
@@ -132,6 +131,8 @@ Game::Game()
 				if (AR[i] < 0)
 					AR[i] *= -1;
 			}
+			In >> infection_prob;
+			In >> SU_Threshold;
 		}
 		else {
 			cout << "\033[1;31mNo valid file exists with this name enter the right name: \033[0m" << "\n";
@@ -190,12 +191,6 @@ void Game::Battle()
 {
 	E.EarthAttack(this);
 	A.Alienattack(this);
-}
-
-void Game::PrintAttacked()
-{
-	E.PrintAttack();
-	A.PrintAttack();
 }
 
 int Game::GetTS()

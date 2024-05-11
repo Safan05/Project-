@@ -10,6 +10,8 @@ private:
 	char Filename[50];
 	int N, Prob,mode;
 	int EP[4], AP[3], ER[6], AR[6];
+	int infection_prob;
+	int SU_Threshold;
 	RandGen G;
 	EarthArmy E;
 	AlienArmy A;
@@ -24,7 +26,6 @@ public:          //implementation in units folder is for Df,where as
 	AlienArmy& GetAArmy();
 	KilledList& GetKList();
 	void Battle();
-	void PrintAttacked();
 	int GetTS();
 	bool AddKilled(unit*&);
 	void GenerateWarReport();

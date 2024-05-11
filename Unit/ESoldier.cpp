@@ -11,26 +11,28 @@ bool ESoldier::attack(Game* const & GPtr)
 	unit* enemy = nullptr;
 	for (int i = 0; i < unit::GetAC(); i++)
 	{
-		if(!Infected)
-		if (GPtr->GetAArmy().getAS().dequeue(enemy))
+		if (!Infected)
 		{
-			double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
-			enemy->DecHealth(damage);
-			GetattackedIDs().enqueue(enemy->GetId());
-			if (!enemy->Wasattacked())
+			if (GPtr->GetAArmy().getAS().dequeue(enemy))
 			{
-				GPtr->GetAArmy().IncAttackCount();
-				enemy->SetAttacked(true);
-				enemy->SetTa(GPtr->GetTS());
-				GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				double damage = (this->GetPow() * this->GetHealth() / 100) / sqrt(enemy->GetHealth());
+				enemy->DecHealth(damage);
+				GetattackedIDs().enqueue(enemy->GetId());
+				if (!enemy->Wasattacked())
+				{
+					GPtr->GetAArmy().IncAttackCount();
+					enemy->SetAttacked(true);
+					enemy->SetTa(GPtr->GetTS());
+					GPtr->SetADf(GPtr->GetTS() - *(enemy->GetImpTime()));
+				}
+				if (enemy->GetHealth() <= 0)
+				{
+					enemy->SetTd(GPtr->GetTS());
+					GPtr->AddKilled(enemy);
+				}
+				else
+					templist.enqueue(enemy);
 			}
-			if (enemy->GetHealth() <= 0)
-			{
-				enemy->SetTd(GPtr->GetTS());
-				GPtr->GetKList().AddKilled(enemy);
-			}
-			else
-				templist.enqueue(enemy);
 		}
 		else
 		{
@@ -49,7 +51,7 @@ bool ESoldier::attack(Game* const & GPtr)
 				if (enemy->GetHealth() <= 0)
 				{
 					enemy->SetTd(GPtr->GetTS());
-					GPtr->GetKList().AddKilled(enemy);
+					GPtr->AddKilled(enemy);
 				}
 				else
 					templist.enqueue(enemy);
