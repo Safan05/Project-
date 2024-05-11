@@ -64,10 +64,10 @@ bool ESoldier::attack(Game* const & GPtr)
 					Etemplist.enqueue(enemy);
 			}
 		}
-		while (Etemplist.dequeue(enemy))
-			GPtr->GetEArmy().GetES().enqueue(enemy);
+
 	}
-	
+	while (templist.dequeue(enemy))
+		GPtr->GetAArmy().getAS().enqueue(enemy);
 	return true;
 }
 
