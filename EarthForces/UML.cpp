@@ -58,14 +58,14 @@ void UML::RemoveOlderunits(Game* const& GPtr)
 		if (es)
 		{
 			if (GPtr->GetTS() - es->getUmlJoinTime() >= 10)
-				GPtr->GetKList().AddKilled(u);
+				GPtr->AddKilled(u);
 			else temp.enqueue(u);
 		}
 		else
 		{
 			ETank* et = dynamic_cast<ETank*>(u);
 			if (GPtr->GetTS() - et->getUmlJoinTime() >= 10)
-				GPtr->GetKList().AddKilled(u);
+				GPtr->AddKilled(u);
 			else temp.enqueue(u);
 		}
 	}
