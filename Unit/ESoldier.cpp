@@ -57,7 +57,7 @@ bool ESoldier::attack(Game* const & GPtr)
 		}
 	}
 	while (templist.dequeue(enemy))
-		GPtr->GetAArmy().getAS().enqueue(enemy);
+		GPtr->GetEArmy().GetES().enqueue(enemy);
 	return true;
 }
 
