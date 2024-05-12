@@ -18,28 +18,30 @@ KilledList::KilledList()
 
 bool KilledList::AddKilled(unit*& d)
 {
-	if (LinkedQueue<unit*>::enqueue(d))
-	{
-		count++;
-		switch (d->GetType())
+	if (d) {
+		if (LinkedQueue<unit*>::enqueue(d))
 		{
-		case earthsoldier: 
-		{
-			EForces[0]++;
-			ESoldier* e = dynamic_cast<ESoldier*>(d);
-			if (e && (e->IsInfected() || e->isImmune()))
-				infect_healed_Count++;
-		} 
-		break;
-		case tank: EForces[1]++; break;
-		case gunnery: EForces[2]++; break;
-		case aliensoldier: AForces[0]++; break;
-		case drone: AForces[1]++; break;
-		case monster: AForces[2]++; break;
-		default:
+			count++;
+			switch (d->GetType())
+			{
+			case earthsoldier:
+			{
+				EForces[0]++;
+				ESoldier* e = dynamic_cast<ESoldier*>(d);
+				if (e && (e->IsInfected() || e->isImmune()))
+					infect_healed_Count++;
+			}
 			break;
+			case tank: EForces[1]++; break;
+			case gunnery: EForces[2]++; break;
+			case aliensoldier: AForces[0]++; break;
+			case drone: AForces[1]++; break;
+			case monster: AForces[2]++; break;
+			default:
+				break;
+			}
+			return true;
 		}
-		return true;
 	}
 	return false;
 }

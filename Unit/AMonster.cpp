@@ -57,6 +57,7 @@ bool AMonster::attack(Game* const & GPtr)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
+			//GetattackedIDs().enqueue(enemy->GetId());
 			enemy = GPtr->GetEArmy().GetES().GetInfected();
 			GPtr->GetEArmy().GetES().GetInfected() = NULL;
 		}

@@ -106,15 +106,28 @@ void ESoldier::PrintAttacked()
 {
 	if (!GetattackedIDs().isEmpty())
 	{
-		int id;
-		cout << "ES " << GetId() << " shots [";
-		while (GetattackedIDs().dequeue(id))
-		{
-			cout << id;
-			if (!GetattackedIDs().isEmpty())
-				cout << ", ";
+		if (!IsInfected()) {
+			int id;
+			cout << "ES " << GetId() << " shots [";
+			while (GetattackedIDs().dequeue(id))
+			{
+				cout << id;
+				if (!GetattackedIDs().isEmpty())
+					cout << ", ";
+			}
+			cout << "] IDs of all Alien units shot by ES" << GetId() << endl;
 		}
-		cout << "] IDs of all Alien units shot by ES" << GetId() << endl;
+		else {
+			int id;
+			cout << "ES " << "\033[32m" << GetId() << "\033[0m" << " shots [";
+			while (GetattackedIDs().dequeue(id))
+			{
+				cout << id;
+				if (!GetattackedIDs().isEmpty())
+					cout << ", ";
+			}
+			cout << "] IDs of all Earth units shot by ES" << "\033[32m" << GetId() << "\033[0m"<< endl;
+		}
 	}
-
+	
 }

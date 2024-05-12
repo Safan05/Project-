@@ -120,6 +120,15 @@
     <ClInclude Include="Game\KilledList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Allied Forces\AlliedArmy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Allied Forces\SaverUnits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit\SaverU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -188,11 +197,24 @@
     <ClCompile Include="Game\KilledList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Allied Forces\AlliedArmy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Allied Forces\SaverUnits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit\SaverU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Try.txt" />
     <Text Include="War Report.txt" />
-    <Text Include="WE_MA.txt" />
-    <Text Include="WE_WA.txt" />
+    <Text Include="Input\SE_MA.txt" />
+    <Text Include="Input\SE_SA.txt" />
+    <Text Include="Input\SE_WA.txt" />
+    <Text Include="Input\Try.txt" />
+    <Text Include="Input\WE_MA.txt" />
+    <Text Include="Input\WE_SA.txt" />
+    <Text Include="Input\WE_WA.txt" />
   </ItemGroup>
 </Project>

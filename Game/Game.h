@@ -31,7 +31,7 @@ public:          //implementation in units folder is for Df,where as
 	int GetTS();
 	bool AddKilled(unit*&);
 	void GenerateWarReport();
-	const char* BattleResult();
+	void BattleResult(char result[]);
 	void PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA);
 	void SetEDf(int f);
 	void SetADf(int f);
