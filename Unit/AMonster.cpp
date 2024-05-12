@@ -61,6 +61,7 @@ bool AMonster::attack(Game* const & GPtr)
 			{
 				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
+				GetattackedIDs().enqueue(enemy->GetId());
 				if (!enemy->Wasattacked())
 				{
 					GPtr->GetEArmy().IncAttackCount();
@@ -91,14 +92,13 @@ bool AMonster::attack(Game* const & GPtr)
 				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
 				{
 					toInfect->SetInfected(true);
-					//toInfect->SpreadInfection(GPtr);
+					Stemp.enqueue(enemy);
 				}
 			}
 		}
 	}
 	while (Stemp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
-
 	return flag;
 }
 

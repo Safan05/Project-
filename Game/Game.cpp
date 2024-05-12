@@ -209,21 +209,21 @@ void Game::GenerateWarReport()
 	double TotalEG = E.GetEG().GetGcount() + *(K.GetEcount() + 2);
 	double TotalInfected_Healed = E.GetES().GetInfCount() + K.GetInf_HealCount();
 	if (TotalES)
-		WR << (*K.GetEcount() / TotalES) * 100 << endl;                    else WR << "0\n";
+		WR << (*K.GetEcount() / TotalES) * 100 << "%" << endl;                    else WR << "0\n";
 	WR << "\tET_Destructed/ ET_Total = ";
 	if (TotalET) 
-		WR << (*(K.GetEcount() + 1) / TotalET) * 100 << endl;              else WR << "0\n";
+		WR << (*(K.GetEcount() + 1) / TotalET) * 100 << "%" << endl;              else WR << "0\n";
 	WR << "\tEG_Destructed/ EG_Total = ";
 	if (TotalEG)
-		WR << (*(K.GetEcount() + 2) / TotalEG) * 100 << endl;               else WR << "0\n";
+		WR << (*(K.GetEcount() + 2) / TotalEG) * 100 << "%" << endl;               else WR << "0\n";
 	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
 	WR << "\tES_Infected_Healed/ ES_Total = ";
 	if (TotalInfected_Healed)
-		WR << E.GetES().GetInfCount() / TotalInfected_Healed << endl;
+		WR << (E.GetES().GetInfCount() / TotalInfected_Healed) * 100 << "%" << endl;
 	                                                                else WR << "0\n";
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalEU)
-		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100 << endl;    	else WR << "0";
+		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100 << "%" << endl;    	else WR << "0";
 	PrintAverageResults(WR, 1, TotalEU, K.Ecount(), 0, 0);
 
 
@@ -237,17 +237,17 @@ void Game::GenerateWarReport()
 	double TotalAM = A.getAM().getCount() + *(K.GetAcount() + 2);
 	WR << "\tAS_Destructed/ AS_Total = ";
 	if (TotalAS)
-		WR << (*(K.GetAcount()) / TotalAS) * 100 << endl;               else WR << "0\n";
+		WR << (*(K.GetAcount()) / TotalAS) * 100 << "%" << endl;               else WR << "0\n";
 	WR << "\tAD_Destructed/ AD_Total = ";
 	if (TotalAD) 
-		WR << (*(K.GetAcount() + 1) / TotalAD) * 100 << endl;           else WR << "0\n";
+		WR << (*(K.GetAcount() + 1) / TotalAD) * 100 << "%" << endl;           else WR << "0\n";
 	WR << "\tAM_Destructed/ AM_Total = ";
 	if (TotalAM)
-		WR << (*(K.GetAcount() + 2) / TotalAM) * 100 << endl;           else WR << "0\n";
+		WR << (*(K.GetAcount() + 2) / TotalAM) * 100 << "%" << endl;           else WR << "0\n";
 	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalAU)
-		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << endl;       else WR << "0";
+		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
 string& Game::BattleResult()

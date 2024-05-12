@@ -13,7 +13,6 @@ public:
 	bool IsInfected();
 	void setImuune(bool im);
 	bool isImmune();
-	void SpreadInfection(Game* const& GPtr);
 	void PrintAttacked();
 	void setUmlJoinTime(int);
 	int getUmlJoinTime();
