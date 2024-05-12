@@ -2,6 +2,7 @@
 #include "RandGen.h"
 #include"..\EarthForces\EarthArmy.h"
 #include"..\Alien Forces\AlienArmy.h"
+#include"..\Allied Forces\AlliedArmy.h"
 #include"..\Game\KilledList.h"
 #include<string>
 class Game
@@ -16,6 +17,7 @@ private:
 	RandGen G;
 	EarthArmy E;
 	AlienArmy A;
+	AlliedArmy S;
 	KilledList K;
 	LinkedQueue<unit*> TempList;
 	int Kcount;
