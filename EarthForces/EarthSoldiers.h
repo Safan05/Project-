@@ -12,7 +12,7 @@ public:
 	EarthSoldiers();
 	bool enqueue(unit*&);
 	bool dequeue(unit*&);
-	bool Infect(int z);
+	void SpreadInfection();
 	int GetScount();
 	int GetInfCount();
 	unit*& GetInfected();

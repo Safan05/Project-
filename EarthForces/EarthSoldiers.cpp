@@ -34,27 +34,30 @@ bool EarthSoldiers::dequeue(unit*& s)
 	return false;
 }
 
-bool EarthSoldiers::Infect(int z)
+void EarthSoldiers::SpreadInfection()
 {
-	Node<unit*>* ptr = frontPtr;
-	for (int i = 0; i < z; i++)
+	for (int i = 0; i < InfCount; i++)
 	{
-		if(ptr)
-			ptr = ptr->getNext();
-	}
-	if (ptr)
-	{
-		ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
-		if (e->IsInfected() || e->isImmune())
-			return false;
-		else
+		bool notinfected = true;
+		int prob = rand() % 100 + 1;                       //check if prob to infect is 2%
+		if (prob <= 2)
 		{
-			e->SetInfected(true);
-			InfCount++;
-			return true;
+			while (notinfected)                            //loops until an ES gets Infected
+			{        
+				int n = rand() % Scount;                   //random num to traverse and infect
+				Node<unit*>* ptr = frontPtr;
+				for (int i = 1; i < n; i++)               //Stops at nth unit
+					ptr = ptr->getNext();
+				ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
+				if (!e->IsInfected() && !e->isImmune())
+				{
+					e->SetInfected(true);
+					InfCount++;
+					notinfected = false;
+				}
+			}
 		}
 	}
-	return false;
 }
 
 int EarthSoldiers::GetScount()

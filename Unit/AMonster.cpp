@@ -91,7 +91,7 @@ bool AMonster::attack(Game* const & GPtr)
 				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
 				{
 					toInfect->SetInfected(true);
-					//toInfect->SpreadInfection(GPtr);
+					Stemp.enqueue(enemy);
 				}
 			}
 		}
