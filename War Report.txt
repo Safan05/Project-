@@ -1,28 +1,39 @@
 						Earth VS Aliens War Report
 
 Td			ID   				Tj				Df				Dd				Db
-7			2001   				1				0				6				6
-14			2076   				7				0				7				7
-19			2140   				14				0				5				5
+10			59   				10				H				10				0
+15			2000   				2				0				13				13
+16			90   				16				H				16				0
+19			48   				6				0				13				13
+21			133   				21				H				21				0
+23			2006   				2				0				21				21
+24			177   				24				H				24				0
+27			197   				27				H				27				0
+31			233   				31				H				31				0
+32			252   				32				H				32				0
+34			2131   				14				0				20				20
+35			255   				35				H				35				0
+42			2189   				21				0				21				21
+50			399   				50				H				50				0
 
 Battle Result : 
 			Earth Forces
- ES count : 63		ET count : 90		EG count : 131
+ ES count : 229		ET count : 141		EG count : 39
 	ES_Destructed/ ES_Total = 0
-	ET_Destructed/ ET_Total = 0
+	ET_Destructed/ ET_Total = 0.704225
 	EG_Destructed/ EG_Total = 0
-	ES_Infected_Healed/ ES_Total = 1
+	ES_Infected_Healed/ ES_Total = 0
 
-Total_Destructed/ Total units = 0
+Total_Destructed/ Total units = 0.243902
 
-	Average Df, Dd, Db respectively = 1.70492, 0, 0, 0
+	Average Df, Dd, Db respectively = 5.22488, 13, 13
 
 			Alien Forces
- AS count : 87		AD count : 78		AM count : 79
+ AS count : 183		AD count : 128		AM count : 129
 	AS_Destructed/ AS_Total = 0
-	AD_Destructed/ AD_Total = 3.7037
+	AD_Destructed/ AD_Total = 3.0303
 	AM_Destructed/ AM_Total = 0
 
-Total_Destructed/ Total units = 1.21457
+Total_Destructed/ Total units = 0.900901
 
-	Average Df, Dd, Db respectively = 5.56098, 76, 6
+	Average Df, Dd, Db respectively = 10.6644, 397.25, 18.75

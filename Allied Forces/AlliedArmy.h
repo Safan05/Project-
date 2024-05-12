@@ -15,6 +15,6 @@ public:
 	void PrintArmy();
 	void SUattack(Game* const& Gptr);
 	void printAttack();
-	void distroyArmy();
+	void destroyArmy();
 };
 
