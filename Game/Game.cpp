@@ -274,6 +274,7 @@ string& Game::BattleResult()
 		result = "Win";
 	else if (TotalAU > TotalEU)
 		result = "Loss";
+	return result;
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
 {
