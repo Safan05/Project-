@@ -1,5 +1,6 @@
 #include "..\Unit\unit.h"
 #include "..\Game\Game.h"
+#include "ESoldier.h"
 #include"HUnit.h"
 #include<iostream>
 using namespace std;
@@ -126,6 +127,14 @@ void unit::DeathReport(std::ofstream& wr)
 
 void unit::PrintUnit()
 {
+	ESoldier* IsInfected = dynamic_cast<ESoldier*>(this);
+	if (IsInfected) {
+		if (IsInfected->IsInfected())
+			cout << "\033[32m" << id << "\033[0m";
+		else
+			cout << id;
+	}
+	else
 	cout << id;
 }
 

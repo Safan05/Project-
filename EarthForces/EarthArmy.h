@@ -26,6 +26,7 @@ public:
 	UML& GetUL();
 	void IncAttackCount();
 	int GetAttackCount();
+	void PrintAttack();
 	void PrintArmy();
 	void EarthAttack(Game* const& Gptr);
 };
