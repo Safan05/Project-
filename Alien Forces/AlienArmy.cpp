@@ -3,6 +3,9 @@
 using namespace std;
 AlienArmy::AlienArmy()
 {
+	ASattacker = NULL; 
+	AMattacker = NULL;
+	ADattacker_1 = NULL; ADattacker_2 = NULL;
 	id = 2000;
 	AttackCount = 0;
 }
@@ -47,18 +50,24 @@ int AlienArmy::GetAttackCount()
 
 void AlienArmy::Alienattack(Game* const& GPtr)
 {
-	unit* attacker = NULL, * attacker2 = NULL;
-	if (AS.peek(attacker))
-		attacker->attack(GPtr);
-	if (AM.pick(attacker))
+	//Alien soldiers attack
+	if (AS.peek(ASattacker))
+		ASattacker->attack(GPtr);
+	else ASattacker = NULL;          //in case alien soldiers didn't attack at this time step
+	//Alien monsters attack
+	if (AM.pick(AMattacker))
+		AMattacker->attack(GPtr);
+	else AMattacker = NULL;         //in case alien monsters didn't attack at this time step
+	//Alien drones attack
+	if (AD.peek(ADattacker_1, ADattacker_2))
 	{
-		AM.setattacker(attacker);
-		attacker->attack(GPtr);
+		ADattacker_1->attack(GPtr);
+		ADattacker_2->attack(GPtr);
 	}
-	if (AD.peek(attacker, attacker2))
+	else                            //in case alien drones didn't attack at this time step
 	{
-		attacker->attack(GPtr);
-		attacker2->attack(GPtr);
+		ADattacker_1 = NULL;
+		ADattacker_2 = NULL;
 	}
 }
 
@@ -86,15 +95,13 @@ void AlienArmy::PrintArmy()
 
 void AlienArmy::PrintAttack()
 {
-	unit* attacker = NULL, * attacker2 = NULL;
-	if (AS.peek(attacker))
-		attacker->PrintAttacked();
-	attacker = AM.getAttacker();
-	if (attacker)
-		attacker->PrintAttacked();
-	if (AD.peek(attacker, attacker2))
+	if (ASattacker)
+		ASattacker->PrintAttacked();
+	if (AMattacker)
+		AMattacker->PrintAttacked();
+	if (ADattacker_1 && ADattacker_2)
 	{
-		attacker->PrintAttacked();
-		attacker2->PrintAttacked();
+		ADattacker_1->PrintAttacked();
+		ADattacker_2->PrintAttacked();
 	}
 }

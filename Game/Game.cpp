@@ -362,6 +362,7 @@ void Game::Call_Generator() // function to call the random generator
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
 	cout << "Current TimeStep : " << TS << endl;
+	Battle();
 	cout << "============= Earth Forces Alive Units =============" << endl;
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
@@ -372,7 +373,6 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 			S.PrintArmy();
 		}
 	cout << "\n============= Units fighting at current step =======" << endl;
-	Battle();
 	E.PrintAttack();
 	A.PrintAttack();
 	S.printAttack();
