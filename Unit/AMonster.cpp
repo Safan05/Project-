@@ -16,7 +16,8 @@ bool AMonster::attack(Game* const & GPtr)
 	//Attacking tanks with half attack capacity
 	for (int i = 0; i < GetAC() / 2; i++)
 	{
-		if (GPtr->GetEArmy().GetET().pop(enemy))
+		GPtr->GetEArmy().GetET().pop(enemy);
+		if (enemy)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -46,6 +47,7 @@ bool AMonster::attack(Game* const & GPtr)
 				else Ttemp.push(enemy);
 			}
 		}
+		enemy = NULL;
 	}
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
@@ -53,7 +55,14 @@ bool AMonster::attack(Game* const & GPtr)
 	//Attacking soldiers with half attack capacity
 	for (int i = GetAC() / 2; i < GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetES().dequeue(enemy))
+		if (GPtr->GetEArmy().GetES().GetInfected())
+		{
+			enemy = GPtr->GetEArmy().GetES().GetInfected();
+			GPtr->GetEArmy().GetES().GetInfected() = NULL;
+		}
+		else
+			GPtr->GetEArmy().GetES().dequeue(enemy);
+		if (enemy)
 		{
 			flag = true;
 			int InfProp = (rand() % 100) + 1;   //checks whether the enemy sould be attacked or infected
@@ -96,6 +105,7 @@ bool AMonster::attack(Game* const & GPtr)
 				}
 			}
 		}
+		enemy = NULL;
 	}
 	while (Stemp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
