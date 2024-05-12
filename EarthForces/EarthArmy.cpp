@@ -99,8 +99,8 @@ void EarthArmy::PrintArmy()
 }
 void EarthArmy::PrintAttack()
 {
-	if (ESattacker)
-		ESattacker->PrintAttacked();
+	if (ESattacker)                         
+		ESattacker->PrintAttacked();       
 	if (ETattacker)
 		ETattacker->PrintAttacked();
 	if (EGattacker)
@@ -143,6 +143,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	}
 	else
 		EGattacker = nullptr;
+	ES.SpreadInfection();
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {

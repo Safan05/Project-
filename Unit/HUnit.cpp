@@ -19,6 +19,8 @@ bool HUnit::attack(Game* const& Gptr)
 			ESoldier* IsInfected = dynamic_cast<ESoldier*>(ToHeal);
 			if (IsInfected) {
 				IsInfected->setImuune(true);
+				IsInfected->SetInfected(false);
+				Gptr->GetEArmy().GetES().incImmuneCount();
 			}
 			if (ToHeal->GetHPercent() < 20)
 				templist.enqueue(ToHeal);

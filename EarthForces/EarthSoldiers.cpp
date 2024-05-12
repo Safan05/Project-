@@ -36,6 +36,7 @@ bool EarthSoldiers::dequeue(unit*& s)
 
 void EarthSoldiers::SpreadInfection()
 {
+	int inf = 0;
 	for (int i = 0; i < InfCount; i++)
 	{
 		bool notinfected = true;
@@ -49,20 +50,28 @@ void EarthSoldiers::SpreadInfection()
 				for (int i = 1; i < n; i++)               //Stops at nth unit
 					ptr = ptr->getNext();
 				ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
-				if (!e->IsInfected() && !e->isImmune())
+				if (!e->IsInfected()  && !e->isImmune())
 				{
 					e->SetInfected(true);
-					InfCount++;
+					inf++;
 					notinfected = false;
 				}
+				if (inf + InfCount + ImmuneCount >= Scount)
+					break;
 			}
 		}
 	}
+	InfCount += inf;
 }
 
 int EarthSoldiers::GetScount()
 {
 	return Scount;
+}
+
+void EarthSoldiers::incImmuneCount()
+{
+	ImmuneCount++;
 }
 
 int EarthSoldiers::GetInfCount()
@@ -79,7 +88,11 @@ void EarthSoldiers::PrintES()
 {
 	Node<unit*>* temp = frontPtr;
 	if (InfectedES)
+	{
 		InfectedES->PrintUnit();
+		if (temp)        //Printing style fix
+			cout << ", ";
+	}
 	while (temp)
 	{
 		temp->getItem()->PrintUnit();
