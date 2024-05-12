@@ -15,7 +15,7 @@ class AlienArmy
 	int AttackCount;
 public:
 	AlienArmy();
-	bool AddUnit(unit*);
+	bool AddUnit(unit*&);
 	AlienSoldiers& getAS();
 	AlienMonsters& getAM();
 	AlienDrones& getAD();

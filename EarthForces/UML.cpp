@@ -46,8 +46,12 @@ void UML::AddUnit(unit*& u)
 
 bool UML::RemoveUnit(unit*& h) {
 	int z;
-	count--;
-	return dequeue(h);
+	if (dequeue(h))
+	{
+		count--;
+		return true;
+	}
+	return false;
 }
 
 void UML::RemoveOlderunits(Game* const& GPtr)

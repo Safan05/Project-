@@ -11,7 +11,7 @@ Game::Game()
 	LoadParameters(Filename);
 	for (int i = 0; i < 3; i++) AvgDs[i] = 0;
 	cout << "\n";
-	if (mode == 1)
+	if (mode == '1')
 	{
 		char x;
 		cout << "Enter any key to start : ";
@@ -19,8 +19,10 @@ Game::Game()
 		cout << endl;
 		while (x != 'x') {
 			TS++;
+
 			this->Call_Generator();
 			this->InteractiveMode();
+
 			cin >> x;
 			cout << endl;
 			if (TS >= 50) 
@@ -32,7 +34,7 @@ Game::Game()
 		}
 	}
 	else
-		if (mode == 2)
+		if (mode == '2')
 		{
 			char L[34] = "Loading Your file is in progress";
 			for (int i = 0; i < 34; i++) {
@@ -125,8 +127,7 @@ void Game::Interface()
 		Sleep(20);
 	}
 	cin >> mode;
-
-	while (mode != 1 && mode != 2) {
+	while (mode != '1' && mode != '2') {
 		char Q[100] = "\033[1;31mThis is not a valid mode please enter 1 for interactive mode and 2 for silent mode\033[0m \n";
 		for (int i = 0; i < 100; i++) {
 			cout << Q[i];
@@ -190,8 +191,8 @@ bool Game::AddKilled(unit*& d)
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\t\t\tEarth VS Aliens War Report\n\n";
-	WR << "Td\t\t\tID\t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
+	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
+	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
 	//===============================Earth Forces Stats=====================================
@@ -245,6 +246,34 @@ void Game::GenerateWarReport()
 	if (TotalAU)
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
+}
+string& Game::BattleResult()
+{
+	string result;
+	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
+	bool es, et, eg, as, ad, am;
+	es = !E.GetES().isEmpty();
+	et = !E.GetET().isEmpty();
+	eg = !E.GetEG().isEmpty();
+	as = !A.getAS().isEmpty();
+	ad = !A.getAD().isEmpty();
+	am = !A.getAM().isEmpty();
+
+	if (TotalEU == 0 && TotalAU == 0)
+		result = "Drawn";
+	else
+		if (!eg && !et && es && !as && !am && ad)
+			result = "Drawn";
+		else
+			if (eg && am && !es && !et && !as && !ad)
+				result = "Win";
+			else
+	if (TotalEU > TotalAU)
+		result = "Win";
+	else if (TotalAU > TotalEU)
+		result = "Loss";
+	return result;
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
 {
@@ -329,8 +358,9 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	A.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
 	Battle();
+	E.PrintAttack();
+	A.PrintAttack();
 	cout << "\n============= Killed/Destructed Units =============" << endl;
-	//this->GetKList().PrintKillled();
 	K.PrintKillled();
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();

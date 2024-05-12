@@ -1,5 +1,6 @@
 #include "..\Unit\unit.h"
 #include "..\Game\Game.h"
+#include "ESoldier.h"
 #include"HUnit.h"
 #include<iostream>
 using namespace std;
@@ -108,7 +109,13 @@ void unit::SetTd(int t)
 void unit::DeathReport(std::ofstream& wr)
 {
 	HUnit* h = dynamic_cast<HUnit*>(this);
-	wr << Td << "\t\t\t" << id << "\t\t\t\t"
+	wr << Td << "\t\t\t" << id;
+	/*if (id>=0 && id<=9)
+		wr << "   ";
+	else
+	if (id>=10&&id<=99)
+		wr << "  ";*/
+	wr<< "   \t\t\t\t"
 		<< JoinTime << "\t\t\t\t";
 	if (h)
 		wr << "H";  //Heal units aren't attacked therefore have no Ta
@@ -120,6 +127,14 @@ void unit::DeathReport(std::ofstream& wr)
 
 void unit::PrintUnit()
 {
+	ESoldier* IsInfected = dynamic_cast<ESoldier*>(this);
+	if (IsInfected) {
+		if (IsInfected->IsInfected())
+			cout << "\033[32m" << id << "\033[0m";
+		else
+			cout << id;
+	}
+	else
 	cout << id;
 }
 

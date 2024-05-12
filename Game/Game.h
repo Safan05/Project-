@@ -3,12 +3,13 @@
 #include"..\EarthForces\EarthArmy.h"
 #include"..\Alien Forces\AlienArmy.h"
 #include"..\Game\KilledList.h"
+#include<string>
 class Game
 {
 private:
 	int TS;
-	char Filename[50];
-	int N, Prob,mode;
+	char Filename[50],mode;
+	int N, Prob;
 	int EP[4], AP[3], ER[6], AR[6],SR[6];
 	int infection_prob;
 	int SU_Threshold;
@@ -29,6 +30,7 @@ public:          //implementation in units folder is for Df,where as
 	int GetTS();
 	bool AddKilled(unit*&);
 	void GenerateWarReport();
+	string& BattleResult();
 	void PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA);
 	void SetEDf(int f);
 	void SetADf(int f);
