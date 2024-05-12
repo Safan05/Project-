@@ -46,7 +46,7 @@ Game::Game()
 				cout << "\033[32m" << char(219) << "\033[0m";
 				Sleep(20);
 			}
-			while (TS <= 50) {
+			while (TS < 50) {
 				TS++;
 				this->Call_Generator();
 				this->Battle();

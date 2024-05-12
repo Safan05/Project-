@@ -14,7 +14,7 @@ bool HUnit::attack(Game* const& Gptr)
 	{
 		if (Gptr->GetEArmy().GetUL().RemoveUnit(ToHeal))
 		{
-			double Healed = (this->GetPow() * (this->GetHealth() / 100)) / sqrt(ToHeal->GetHealth());
+			double Healed = (this->GetPow() * this->GetHealth() / 100) / sqrt(ToHeal->GetHealth());
 			ToHeal->IncHealth(Healed);
 			ESoldier* IsInfected = dynamic_cast<ESoldier*>(ToHeal);
 			if (IsInfected) {
