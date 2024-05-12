@@ -38,6 +38,7 @@ public:          //implementation in units folder is for Df,where as
 	void SetADf(int f);
 	void SetEDb(int d);
 	void SetADb(int d);
+	int getInfectionProb();
 	void Call_Generator();
 	void InteractiveMode();
 	void Interface();
