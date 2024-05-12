@@ -12,7 +12,14 @@ bool ASoldier::attack(Game* const & GPtr)
 	LinkedQueue<unit*> temp;
 	for (int i = 0; i < GetAC(); i++)
 	{
-		if (GPtr->GetEArmy().GetES().dequeue(enemy))
+		if (GPtr->GetEArmy().GetES().GetInfected())
+		{
+			enemy = GPtr->GetEArmy().GetES().GetInfected();
+			GPtr->GetEArmy().GetES().GetInfected() = NULL;
+		}
+		else
+			GPtr->GetEArmy().GetES().dequeue(enemy);
+		if(enemy)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -43,6 +50,7 @@ bool ASoldier::attack(Game* const & GPtr)
 				else temp.enqueue(enemy);
 			}
 		}
+		enemy = NULL;
 	}
 	while (temp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
