@@ -44,7 +44,7 @@ bool EarthSoldiers::InfDequeue(unit*& v)
 bool EarthSoldiers::Infect(int z)
 {
 	Node<unit*>* ptr = frontPtr;
-	for (int i = z; i < z; i++)
+	for (int i = 0; i < z; i++)
 	{
 		if(ptr)
 			ptr = ptr->getNext();
