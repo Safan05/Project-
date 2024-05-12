@@ -108,7 +108,13 @@ void unit::SetTd(int t)
 void unit::DeathReport(std::ofstream& wr)
 {
 	HUnit* h = dynamic_cast<HUnit*>(this);
-	wr << Td << "\t\t\t" << id << "\t\t\t\t"
+	wr << Td << "\t\t\t" << id;
+	/*if (id>=0 && id<=9)
+		wr << "   ";
+	else
+	if (id>=10&&id<=99)
+		wr << "  ";*/
+	wr<< "   \t\t\t\t"
 		<< JoinTime << "\t\t\t\t";
 	if (h)
 		wr << "H";  //Heal units aren't attacked therefore have no Ta

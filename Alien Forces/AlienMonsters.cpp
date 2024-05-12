@@ -60,6 +60,11 @@ void AlienMonsters::PrintAM()
 
 int AlienMonsters::getCount() { return count; }
 
+bool AlienMonsters::isEmpty()
+{
+	return (count == 0);
+}
+
 AlienMonsters::~AlienMonsters()
 {
 	for (int i = 0; i < count - 1; i++)
