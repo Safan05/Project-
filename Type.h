@@ -4,6 +4,7 @@
 		tank,
 		gunnery,
 		HealUnit,
+		SaverUnit,
 		aliensoldier,
 		monster,
 		drone
