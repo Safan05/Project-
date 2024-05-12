@@ -52,8 +52,13 @@ bool EarthSoldiers::Infect(int z)
 	if (ptr)
 	{
 		ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
-		e->SetInfected(true);
-		return true;
+		if (e->IsInfected() || e->isImmune())
+			return false;
+		else
+		{
+			e->SetInfected(true);
+			return true;
+		}
 	}
 	return false;
 }

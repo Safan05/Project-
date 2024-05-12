@@ -98,13 +98,15 @@ void ESoldier::SpreadInfection(Game* const& GPtr)
 	if (this->IsInfected())
 	{
 		bool notinfected = true;
-		int prob = rand() % 100 + 1;  //check if prob to infect is 2%
+		int prob = rand() % 100 + 1;                                //check if prob to infect is 2%
 		if (prob <= 2)
 		{
 			int c = rand() % GPtr->GetEArmy().GetES().GetScount();  //random num to traverse and infect
 			while (notinfected)    
 			{                                                       //loops till an ES unit gets infected
-				notinfected = GPtr->GetEArmy().GetES().Infect(c);
+				notinfected = !GPtr->GetEArmy().GetES().Infect(c);  //to infect return true if found soldier to infect
+				if (notinfected)
+					c = rand() % GPtr->GetEArmy().GetES().GetScount();
 			}
 		}
 		
