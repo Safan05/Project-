@@ -7,22 +7,27 @@ AlienArmy::AlienArmy()
 	AttackCount = 0;
 }
 
-bool AlienArmy::AddUnit(unit* u)
+bool AlienArmy::AddUnit(unit*& u)
 {
-	u->SetId(id++);
-	switch (u->GetType())
+	if (id <= 2999)
 	{
-	case aliensoldier:
-		return AS.enqueue(u);
-	case monster:
-		return AM.AddAlienMonster(u);
-	case drone:
-	{ 
-		unit* ptr = NULL;
-		return AD.enqueue(ptr, u);
+		u->SetId(id++);
+		switch (u->GetType())
+		{
+		case aliensoldier:
+			return AS.enqueue(u);
+		case monster:
+			return AM.AddAlienMonster(u);
+		case drone:
+		{
+			unit* ptr = NULL;
+			return AD.enqueue(ptr, u);
+		}
+		default: break;
+		}
+		return true;
 	}
-	default: return false;
-	}
+	return false;
 }
 
 int AlienArmy::getAlienCount()
@@ -44,23 +49,18 @@ void AlienArmy::Alienattack(Game* const& GPtr)
 {
 	unit* attacker = NULL, * attacker2 = NULL;
 	if (AS.peek(attacker))
-	{
-		if(attacker->attack(GPtr))
-			attacker->PrintAttacked();
-	}
+		attacker->attack(GPtr);
 	if (AM.pick(attacker))
 	{
 		AM.setattacker(attacker);
-		if(attacker->attack(GPtr))
-			attacker->PrintAttacked();
+		attacker->attack(GPtr);
 	}
 	if (AD.peek(attacker, attacker2))
 	{
-		if(attacker->attack(GPtr))
-			attacker->PrintAttacked();
-		if(attacker2->attack(GPtr))
-			attacker2->PrintAttacked();
+		attacker->attack(GPtr);
+		attacker2->attack(GPtr);
 	}
+	PrintAttack();
 }
 
 AlienSoldiers& AlienArmy::getAS() { return AS; }

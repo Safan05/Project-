@@ -16,12 +16,6 @@ bool ASoldier::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
-			{
-				ESoldier* es = dynamic_cast<ESoldier*> (enemy);
-				es->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
@@ -37,7 +31,17 @@ bool ASoldier::attack(Game* const & GPtr)
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
-			else temp.enqueue(enemy);
+			else 
+			{
+				int h = enemy->GetHPercent();
+				if (h <= 20)
+				{
+					ESoldier* es = dynamic_cast<ESoldier*> (enemy);
+					es->setUmlJoinTime(GPtr->GetTS());
+					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				}
+				else temp.enqueue(enemy);
+			}
 		}
 	}
 	while (temp.dequeue(enemy))
