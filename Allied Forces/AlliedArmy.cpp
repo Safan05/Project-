@@ -49,7 +49,7 @@ void AlliedArmy::printAttack()
 		u->PrintAttacked();
 }
 
-void AlliedArmy::distroyArmy()
+void AlliedArmy::destroyArmy()
 {
 	unit* u = NULL;
 	while (SU.dequeue(u))

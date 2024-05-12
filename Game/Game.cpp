@@ -59,7 +59,9 @@ Game::Game()
 	void Game::LoadParameters(char FileName[])
 	{
 		ifstream In;
-		In.open(FileName, ios::in);
+		char path[80] = "Input/";
+		strncat_s(path, FileName,80);
+		In.open(path, ios::in);
 		if (In.is_open()) {
 			In >> N;
 			int sum = 0;
@@ -343,7 +345,7 @@ void Game::Call_Generator() // function to call the random generator
 				cout << "No more available IDs";
 		}
 	}
-	if (E.GetES().GetScount() > 0)
+	if (E.GetES().GetScount() > 0){
 		if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
 			for (int i = 0; i < N; i++) {
 				unit* U = G.GenAllies(SR);
@@ -351,6 +353,9 @@ void Game::Call_Generator() // function to call the random generator
 				if (!S.AddUnit(U))
 					cout << "No more available IDs";
 			}
+		}
+		else
+			S.destroyArmy();
 		}
 	E.GetUL().RemoveOlderunits(this);
 }
@@ -361,8 +366,11 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
 	A.PrintArmy();
-	cout << "\n============= Allied Forces Alive Units =============" << endl;
-	S.PrintArmy();
+	if (E.GetES().GetScount() > 0) 
+		if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
+			cout << "\n============= Allied Forces Alive Units =============" << endl;
+			S.PrintArmy();
+		}
 	cout << "\n============= Units fighting at current step =======" << endl;
 	Battle();
 	E.PrintAttack();
