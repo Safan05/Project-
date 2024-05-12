@@ -27,10 +27,10 @@ Game::Game()
 			cout << endl;
 			if (TS >= 50) 
 			{
+				this->GenerateWarReport();
 					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
 					break;
 			}					
-			this->GenerateWarReport();
 		}
 	}
 	else
@@ -197,7 +197,12 @@ void Game::GenerateWarReport()
 	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
-	WR << "\nBattle Result : ";
+	WR << "\nBattle Result : "; 
+	if (TS > 40)
+	{
+		WR << BattleResult();
+
+	}
 	//===============================Earth Forces Stats=====================================
 
 	WR << "\n\t\t\tEarth Forces\n ";
@@ -250,9 +255,9 @@ void Game::GenerateWarReport()
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
-string& Game::BattleResult()
+const char* Game::BattleResult()
 {
-	string result;
+	char result[6];
 	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
 	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
 	bool es, et, eg, as, ad, am;
@@ -264,18 +269,22 @@ string& Game::BattleResult()
 	am = !A.getAM().isEmpty();
 
 	if (TotalEU == 0 && TotalAU == 0)
-		result = "Drawn";
+		strcpy_s(result, "Drawn");
 	else
 		if (!eg && !et && es && !as && !am && ad)
-			result = "Drawn";
+			strcpy_s(result, "Drawn");
 		else
 			if (eg && am && !es && !et && !as && !ad)
-				result = "Win";
+				strcpy_s(result, "Win");
 			else
-	if (TotalEU > TotalAU)
-		result = "Win";
-	else if (TotalAU > TotalEU)
-		result = "Loss";
+				if (eg && as && !es && !et && !am && !ad)
+					strcpy_s(result, "Drawn");
+				else
+					if (TotalEU > TotalAU)
+						strcpy_s(result, "Win");
+
+					else
+						strcpy_s(result, "Loss");
 	return result;
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
