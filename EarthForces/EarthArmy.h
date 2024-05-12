@@ -17,6 +17,9 @@ class EarthArmy
 	HealUnits HU;
 	int id;
 	int AttackCount;
+	unit* ESattacker;
+	unit* ETattacker;
+	unit* EGattacker;
 public:
 	EarthArmy();
 	bool AddUnit(unit*&);

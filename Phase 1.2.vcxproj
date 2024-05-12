@@ -194,6 +194,13 @@
     <ClCompile Include="Unit\unit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Input\SE_MA.txt" />
+    <Text Include="Input\SE_SA.txt" />
+    <Text Include="Input\SE_WA.txt" />
+    <Text Include="Input\Try.txt" />
+    <Text Include="Input\WE_MA.txt" />
+    <Text Include="Input\WE_SA.txt" />
+    <Text Include="Input\WE_WA.txt" />
     <Text Include="Try.txt" />
     <Text Include="War Report.txt" />
     <Text Include="WE_MA.txt" />
