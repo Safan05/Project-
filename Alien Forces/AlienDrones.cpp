@@ -59,7 +59,7 @@ bool AlienDrones::dequeue(unit*& beg, unit*& end)
 bool AlienDrones::peek(unit*& beg, unit*& end)
 {
 	if (count < 2) return false;
-	DoubleQueue<unit*>::peek(beg);
+	beg = frontPtr->getItem();
 	end = backPtr->getItem();
 	return true;
 }

@@ -42,10 +42,6 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 	return true;
 }
 
-unit* AlienMonsters::getAttacker() { return attacker; }
-
-void AlienMonsters::setattacker(unit* mon) { attacker = mon; }
-
 void AlienMonsters::PrintAM()
 {
 	int i;

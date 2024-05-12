@@ -11,6 +11,7 @@ class AlienArmy
 	AlienSoldiers AS;         //Alien Soldiers
 	AlienDrones AD;			  //Alien Drones
 	AlienMonsters AM;         //Alien Monsters 
+	unit* ASattacker, * ADattacker_1, * ADattacker_2, * AMattacker;  //allien units attacking at current time step
 	int id;
 	int AttackCount;
 public:
