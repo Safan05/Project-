@@ -57,7 +57,7 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			int InfProp = (rand() % 100) + 1;   //checks whether the enemy sould be attacked or infected
-			if (InfProp >GPtr->getInfectionProb())        //2% probability to infect the soldier
+			if (InfProp > GPtr->getInfectionProb())        //probability to attack the soldier
 			{
 				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
@@ -73,7 +73,7 @@ bool AMonster::attack(Game* const & GPtr)
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
-				else
+				else     // probability to infect the soldier
 				{
 					int h = enemy->GetHPercent();
 					if (h <= 20)
