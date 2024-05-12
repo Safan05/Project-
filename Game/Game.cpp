@@ -344,8 +344,8 @@ void Game::Call_Generator() // function to call the random generator
 			for (int i = 0; i < N; i++) {
 				unit* U = G.GenAllies(SR);
 				U->SetJoin(TS);
-				//if (!S.AddUnit(U))
-					//cout << "No more available IDs";
+				if (!S.AddUnit(U))
+					cout << "No more available IDs";
 			}
 		}
 	E.GetUL().RemoveOlderunits(this);
