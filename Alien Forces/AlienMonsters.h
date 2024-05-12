@@ -15,5 +15,6 @@ public:
 	void setattacker(unit*);
 	void PrintAM();
 	int getCount();
+	bool isEmpty();
 	~AlienMonsters();
 };

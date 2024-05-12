@@ -18,7 +18,6 @@ bool EarthGunnery::enqueue(unit*& g)
 bool EarthGunnery::dequeue(unit*& g)
 {
     int gp;
-    if (Gcount >= 0)
     if (priQueue<unit*>::dequeue(g, gp))
     {
         Gcount--;
