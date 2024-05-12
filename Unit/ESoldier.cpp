@@ -65,10 +65,9 @@ bool ESoldier::attack(Game* const & GPtr)
 					Etemplist.enqueue(enemy);
 			}
 		}
-
+		while (templist.dequeue(enemy))
+			GPtr->GetEArmy().GetES().enqueue(enemy);
 	}
-	while (templist.dequeue(enemy))
-		GPtr->GetAArmy().getAS().enqueue(enemy);
 	return true;
 }
 
@@ -87,30 +86,9 @@ bool ESoldier::isImmune()
 	return immune;
 }
 
-
 bool ESoldier::IsInfected()
 {
 	return Infected;
-}
-
-void ESoldier::SpreadInfection(Game* const& GPtr)
-{
-	if (this->IsInfected())
-	{
-		bool notinfected = true;
-		int prob = rand() % 100 + 1;                                //check if prob to infect is 2%
-		if (prob <= 2)
-		{
-			int c = rand() % GPtr->GetEArmy().GetES().GetScount();  //random num to traverse and infect
-			while (notinfected)    
-			{                                                       //loops till an ES unit gets infected
-				notinfected = !GPtr->GetEArmy().GetES().Infect(c);  //to infect return true if found soldier to infect
-				if (notinfected)
-					c = rand() % GPtr->GetEArmy().GetES().GetScount();
-			}
-		}
-		
-	}
 }
 
 void ESoldier::setUmlJoinTime(int t)
