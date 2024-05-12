@@ -30,7 +30,7 @@ int AlliedArmy::GetAttackCount()
 
 void AlliedArmy::PrintArmy()
 {
-	std::cout << SU.Getcount() << " ES [";
+	std::cout << SU.Getcount() << " SU [";
 	SU.PrintSU();
 	std::cout << "]\n";
 }
@@ -47,4 +47,11 @@ void AlliedArmy::printAttack()
 	unit* u = NULL;
 	if (SU.peek(u))
 		u->PrintAttacked();
+}
+
+void AlliedArmy::distroyArmy()
+{
+	unit* u = NULL;
+	while (SU.dequeue(u))
+		delete u;
 }

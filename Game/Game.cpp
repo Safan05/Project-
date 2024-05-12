@@ -356,10 +356,13 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
 	A.PrintArmy();
+	cout << "\n============= Allied Forces Alive Units =============" << endl;
+	S.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
 	Battle();
 	E.PrintAttack();
 	A.PrintAttack();
+	S.printAttack();
 	cout << "\n============= Killed/Destructed Units =============" << endl;
 	K.PrintKillled();
 	cout << "\n============= UML Units =============" << endl;
