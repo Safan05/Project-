@@ -51,7 +51,7 @@ bool AMonster::attack(Game* const & GPtr)
 	}
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
-
+	enemy = NULL;
 	//Attacking soldiers with half attack capacity
 	for (int i = GetAC() / 2; i < GetAC(); i++)
 	{

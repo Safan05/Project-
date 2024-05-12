@@ -10,6 +10,9 @@ private:
 	int TS;
 	char Filename[50],mode;
 	int N, Prob;
+	bool GenEarth;
+	bool GenAliens;
+	bool GenAllies;
 	int EP[4], AP[3], ER[6], AR[6],SR[6];
 	int infection_prob;
 	int SU_Threshold;

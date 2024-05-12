@@ -6,6 +6,9 @@
 using namespace std;
 Game::Game()
 {
+	GenEarth = true;
+	GenAliens = true;
+	GenAllies = true;
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
@@ -339,29 +342,41 @@ int Game::getInfectionProb()
 }
 void Game::Call_Generator() // function to call the random generator
 {
-	if (G.Probability(Prob)) {
+	if (G.Probability(Prob)&&GenEarth) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenEarth(EP, ER);
 			U->SetJoin(TS);
-			if (!E.AddUnit(U))
+			if (!E.AddUnit(U)) {
 				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenEarth = false;
+			}
 		}
 	}
-	if (G.Probability(Prob)) {
+	if (G.Probability(Prob)&&GenAliens) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenAliens(AP, AR);
 			U->SetJoin(TS);
-			if (!A.AddUnit(U))
+			if (!A.AddUnit(U)) {
 				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenAliens= false;
+			}
 		}
 	}
-	if (E.GetES().GetScount() > 0){
+	if (E.GetES().GetScount() > 0&&GenAllies){
 		if (((E.GetES().GetInfCount() * 100 )/ E.GetES().GetScount()) >= SU_Threshold) {
 			for (int i = 0; i < N; i++) {
 				unit* U = G.GenAllies(SR);
 				U->SetJoin(TS);
-				if (!S.AddUnit(U))
+				if (!S.AddUnit(U)) {
 					cout << "No more available IDs";
+					delete U;
+					U = nullptr;
+					GenAllies = false;
+				}
 			}
 		}
 		else
