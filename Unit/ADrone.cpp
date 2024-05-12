@@ -20,12 +20,6 @@ bool ADrone::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
-			{
-				ETank* et = dynamic_cast<ETank*> (enemy);
-				et->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
@@ -41,7 +35,17 @@ bool ADrone::attack(Game* const & GPtr)
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
-			else Ttemp.push(enemy);
+			else
+			{
+				int h = enemy->GetHPercent();
+				if (h <= 20)
+				{
+					ETank* et = dynamic_cast<ETank*> (enemy);
+					et->setUmlJoinTime(GPtr->GetTS());
+					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				}
+				else Ttemp.push(enemy);
+			}
 		}
 	}
 	while (Ttemp.pop(enemy))

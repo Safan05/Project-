@@ -20,12 +20,6 @@ bool AMonster::attack(Game* const & GPtr)
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-			if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
-			{
-				ETank* et = dynamic_cast<ETank*> (enemy);
-				et->setUmlJoinTime(GPtr->GetTS());
-				GPtr->GetEArmy().GetUL().AddUnit(enemy);
-			}
 			enemy->DecHealth(damage);
 			GetattackedIDs().enqueue(enemy->GetId());
 			if (!enemy->Wasattacked())
@@ -34,14 +28,23 @@ bool AMonster::attack(Game* const & GPtr)
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
-
 			}
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
-			else Ttemp.push(enemy);
+			else
+			{
+				int h = enemy->GetHPercent();
+				if (h <= 20)
+				{
+					ETank* et = dynamic_cast<ETank*> (enemy);
+					et->setUmlJoinTime(GPtr->GetTS());
+					GPtr->GetEArmy().GetUL().AddUnit(enemy);
+				}
+				else Ttemp.push(enemy);
+			}
 		}
 	}
 	while (Ttemp.pop(enemy))
@@ -57,12 +60,7 @@ bool AMonster::attack(Game* const & GPtr)
 			if (InfProp > 2)        //2% probability to infect the soldier
 			{
 				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
-				if (damage / enemy->GetHealth() >= 0.08 && damage < enemy->GetHealth())
-				{
-					ESoldier* es = dynamic_cast<ESoldier*> (enemy);
-					es->setUmlJoinTime(GPtr->GetTS());
-					GPtr->GetEArmy().GetUL().AddUnit(enemy);
-				}
+				enemy->DecHealth(damage);
 				if (!enemy->Wasattacked())
 				{
 					GPtr->GetEArmy().IncAttackCount();
@@ -75,7 +73,17 @@ bool AMonster::attack(Game* const & GPtr)
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
-				else Stemp.enqueue(enemy);
+				else
+				{
+					int h = enemy->GetHPercent();
+					if (h <= 20)
+					{
+						ESoldier* es = dynamic_cast<ESoldier*> (enemy);
+						es->setUmlJoinTime(GPtr->GetTS());
+						GPtr->GetEArmy().GetUL().AddUnit(enemy);
+					}
+					else Stemp.enqueue(enemy);
+				}
 		
 			}
 			else
