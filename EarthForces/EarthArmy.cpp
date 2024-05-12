@@ -117,7 +117,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 			if (eunit->IsInfected())
 			{
 				ES.dequeue(u);
-				ES.InfEnqueue(u);
+				ES.GetInfected() = u;
 				u->attack(Gptr);
 			}
 			else {
@@ -126,17 +126,23 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 			ESattacker = u;
 		}
 	}
+	else
+		ESattacker = nullptr;
 	if (ET.peek(u))
 	{
 		u->attack(Gptr);
 		ETattacker = u;
 	}
+	else
+		ETattacker = nullptr;
 	int g;
 	if (EG.peek(u, g))
 	{
 		u->attack(Gptr);
 		EGattacker = u;
 	}
+	else
+		EGattacker = nullptr;
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {

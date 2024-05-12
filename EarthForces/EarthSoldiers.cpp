@@ -5,38 +5,31 @@
 EarthSoldiers::EarthSoldiers()
 {
 	Scount = 0;
+	InfectedES = nullptr;
 }
 
 bool EarthSoldiers::enqueue(unit*& s)
 {
-	Scount++;
-	return LinkedQueue<unit*>::enqueue(s);
+	if (LinkedQueue<unit*>::enqueue(s))
+	{
+		ESoldier* e = dynamic_cast<ESoldier*>(s);
+		if (e->IsInfected())
+			InfCount++;
+		Scount++;
+		return true;
+	}
+	return false;
 }
 
 bool EarthSoldiers::dequeue(unit*& s)
 {
 	if(	LinkedQueue<unit*>::dequeue(s))
 	{
+		ESoldier* e = dynamic_cast<ESoldier*>(s);
+		if (e->IsInfected())
+			InfCount--;
 		Scount--; 
 		return true;
-	}
-	return false;
-}
-
-bool EarthSoldiers::InfEnqueue(unit*& v)
-{
-	if (InfectedES.enqueue(v))
-	{
-		InfCount++; return true;
-	}
-	return false;
-}
-
-bool EarthSoldiers::InfDequeue(unit*& v)
-{
-	if (InfectedES.dequeue(v))
-	{
-		InfCount--; return true;
 	}
 	return false;
 }
@@ -57,6 +50,7 @@ bool EarthSoldiers::Infect(int z)
 		else
 		{
 			e->SetInfected(true);
+			InfCount++;
 			return true;
 		}
 	}
@@ -72,15 +66,17 @@ int EarthSoldiers::GetInfCount()
 {
 	return InfCount;
 }
-LinkedQueue<unit*> EarthSoldiers::GetInfected()
+unit*& EarthSoldiers::GetInfected()
 {
-	return LinkedQueue<unit*>(InfectedES);
+	return InfectedES;
 }
 
 
 void EarthSoldiers::PrintES()
 {
 	Node<unit*>* temp = frontPtr;
+	if (InfectedES)
+		InfectedES->PrintUnit();
 	while (temp)
 	{
 		temp->getItem()->PrintUnit();
