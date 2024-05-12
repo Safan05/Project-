@@ -1,15 +1,55 @@
+/*
+This is a program that implements the queue abstract data type using a linked list.
+The queue is implemented as a chain of linked nodes that has two pointers,
+a frontPtr pointer for the front of the queue and a backPtr pointer for the back of the queue.
+*/
+
+/*
+
+				The Node: item of type T and a "next" pointer
+					-------------
+					| item| next | --->
+					-------------
+General Queue case:
+
+				 frontPtr																backPtr
+					\											   						/
+					 \											  					   /
+					------------- 	  ------------- 	  ------------- 	  -------------
+					| item| next |--->| item| next |--->  | item| next |--->  | item| next |---> NULL
+					------------- 	  ------------- 	  ------------- 	  -------------
+
+Empty Case:
+
+				 frontptr	 backptr
+						\	 /
+						 \	/
+					---- NULL ------
+
+
+Single Node Case:
+				 frontPtr	 backPtr
+					\		/
+					 \	   /
+					-----------
+					|item| next| -->NULL
+					-----------
+
+*/
 
 #ifndef LINKED_QUEUE_
 #define LINKED_QUEUE_
 
-
 #include "Node.h"
 #include "QueueADT.h"
+using namespace std;
+
 
 template <typename T>
 class LinkedQueue :public QueueADT<T>
 {
 protected:
+
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 public:
@@ -19,6 +59,9 @@ public:
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
 	~LinkedQueue();
+
+	//copy constructor
+	LinkedQueue(const LinkedQueue<T>& LQ);
 };
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -101,12 +144,9 @@ bool LinkedQueue<T>::dequeue(T& frntEntry)
 	delete nodeToDeletePtr;
 
 	return true;
+
 }
-
-
-
 /////////////////////////////////////////////////////////////////////////////////////////
-
 /*
 Function: peek
 copies the front of this queue to the passed param. The operation does not modify the queue.
@@ -114,7 +154,6 @@ copies the front of this queue to the passed param. The operation does not modif
 Input: None.
 Output: The front of the queue.
 */
-
 template <typename T>
 bool LinkedQueue<T>::peek(T& frntEntry) const
 {
@@ -126,12 +165,40 @@ bool LinkedQueue<T>::peek(T& frntEntry) const
 
 }
 ///////////////////////////////////////////////////////////////////////////////////
-
+/*
+Function: destructor
+removes all nodes from the queue by dequeuing them
+*/
 template <typename T>
 LinkedQueue<T>::~LinkedQueue()
 {
+	//Note that the cout statements here is just for learning purpose
+
+	//Free all nodes in the queue
 	T temp;
 	while (dequeue(temp));
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////
+/*
+Function: Copy constructor
+To avoid shallow copy,
+copy constructor is provided
+
+Input: LinkedQueue<T>: The Queue to be copied
+Output: none
+*/
+
+template <typename T>
+LinkedQueue<T>::LinkedQueue(const LinkedQueue<T>& LQ)
+{
+	frontPtr = backPtr = nullptr;
+	Node<T>* NodePtr = LQ.frontPtr;	//start at the front node in LQ
+	while (NodePtr)
+	{
+		enqueue(NodePtr->getItem());	//get data of each node and enqueue it in this queue 
+		NodePtr = NodePtr->getNext();
+	}
 }
 
 #endif
