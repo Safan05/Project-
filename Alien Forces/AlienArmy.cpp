@@ -60,7 +60,6 @@ void AlienArmy::Alienattack(Game* const& GPtr)
 		attacker->attack(GPtr);
 		attacker2->attack(GPtr);
 	}
-	PrintAttack();
 }
 
 AlienSoldiers& AlienArmy::getAS() { return AS; }

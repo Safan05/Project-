@@ -96,6 +96,7 @@ int KilledList::GetInf_HealCount()
 KilledList::~KilledList()
 {
 	unit* temp = nullptr;
-	while (this->dequeue(temp))
+	while (dequeue(temp)) {
 		delete temp;
+	}
 }

@@ -11,7 +11,7 @@ Game::Game()
 	LoadParameters(Filename);
 	for (int i = 0; i < 3; i++) AvgDs[i] = 0;
 	cout << "\n";
-	if (mode == 1)
+	if (mode == '1')
 	{
 		char x;
 		cout << "Enter any key to start : ";
@@ -34,7 +34,7 @@ Game::Game()
 		}
 	}
 	else
-		if (mode == 2)
+		if (mode == '2')
 		{
 			char L[34] = "Loading Your file is in progress";
 			for (int i = 0; i < 34; i++) {
@@ -127,8 +127,7 @@ void Game::Interface()
 		Sleep(20);
 	}
 	cin >> mode;
-
-	while (mode != 1 && mode != 2) {
+	while (mode != '1' && mode != '2') {
 		char Q[100] = "\033[1;31mThis is not a valid mode please enter 1 for interactive mode and 2 for silent mode\033[0m \n";
 		for (int i = 0; i < 100; i++) {
 			cout << Q[i];
@@ -359,8 +358,9 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	A.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
 	Battle();
+	E.PrintAttack();
+	A.PrintAttack();
 	cout << "\n============= Killed/Destructed Units =============" << endl;
-	//this->GetKList().PrintKillled();
 	K.PrintKillled();
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();

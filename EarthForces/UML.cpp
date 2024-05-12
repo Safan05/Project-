@@ -63,16 +63,21 @@ void UML::RemoveOlderunits(Game* const& GPtr)
 		ESoldier* es = dynamic_cast<ESoldier*>(u);
 		if (es)
 		{
-			if (GPtr->GetTS() - es->getUmlJoinTime() >= 10)
+			if (GPtr->GetTS() - es->getUmlJoinTime() >= 10) {
 				GPtr->AddKilled(u);
-			else temp.enqueue(u);
+			}
+			else 
+				temp.enqueue(u);
+			
 		}
 		else
 		{
 			ETank* et = dynamic_cast<ETank*>(u);
-			if (GPtr->GetTS() - et->getUmlJoinTime() >= 10)
+			if (GPtr->GetTS() - et->getUmlJoinTime() >= 10) {
 				GPtr->AddKilled(u);
-			else temp.enqueue(u);
+			}
+			else 
+				temp.enqueue(u);
 		}
 	}
 	while (temp.dequeue(u))
@@ -92,7 +97,6 @@ void UML::PrintUML()
 	}
 	cout << "]";
 }
-
 UML::~UML()
 {
 	unit* temp; int z;
