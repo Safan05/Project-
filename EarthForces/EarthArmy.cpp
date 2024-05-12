@@ -8,6 +8,9 @@ EarthArmy::EarthArmy() //should be deleted??
 {
 	id = 1;
 	AttackCount = 0;
+	ESattacker = nullptr;
+	ETattacker = nullptr;
+	EGattacker = nullptr;
 }
 
 bool EarthArmy::AddUnit(unit*& u)
@@ -96,13 +99,12 @@ void EarthArmy::PrintArmy()
 }
 void EarthArmy::PrintAttack()
 {
-	unit* u = nullptr; int g;
-	if (ES.peek(u))
-		u->PrintAttacked();
-	if (ET.peek(u))
-		u->PrintAttacked();
-	if (EG.peek(u, g))
-		u->PrintAttacked();
+	if (ESattacker)
+		ESattacker->PrintAttacked();
+	if (ETattacker)
+		ETattacker->PrintAttacked();
+	if (EGattacker)
+		EGattacker->PrintAttacked();
 }
 void EarthArmy::EarthAttack(Game* const& Gptr)
 {
