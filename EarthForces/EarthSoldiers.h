@@ -7,17 +7,17 @@ class EarthSoldiers :public LinkedQueue<unit*>
 {
 	int Scount;
 	int InfCount;
-	LinkedQueue<unit*> InfectedES;
+	int ImmuneCount;
+	unit* InfectedES;     //Infected front in queue 
 public:
 	EarthSoldiers();
 	bool enqueue(unit*&);
 	bool dequeue(unit*&);
-	bool InfEnqueue(unit*&);
-	bool InfDequeue(unit*&);
-	bool Infect(int z);
+	void SpreadInfection();
 	int GetScount();
+	void incImmuneCount();
 	int GetInfCount();
-	LinkedQueue<unit*> GetInfected();
+	unit*& GetInfected();
 	void PrintES();
 	~EarthSoldiers();
 };

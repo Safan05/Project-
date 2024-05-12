@@ -99,8 +99,8 @@ void EarthArmy::PrintArmy()
 }
 void EarthArmy::PrintAttack()
 {
-	if (ESattacker)
-		ESattacker->PrintAttacked();
+	if (ESattacker)                         
+		ESattacker->PrintAttacked();       
 	if (ETattacker)
 		ETattacker->PrintAttacked();
 	if (EGattacker)
@@ -116,23 +116,34 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 		{
 			if (eunit->IsInfected())
 			{
-				ES.InfEnqueue(u);
+				ES.dequeue(u);
+				ES.GetInfected() = u;
 				u->attack(Gptr);
 			}
 			else {
 				u->attack(Gptr);
 			}
+			ESattacker = u;
 		}
 	}
+	else
+		ESattacker = nullptr;
 	if (ET.peek(u))
 	{
 		u->attack(Gptr);
+		ETattacker = u;
 	}
+	else
+		ETattacker = nullptr;
 	int g;
 	if (EG.peek(u, g))
 	{
 		u->attack(Gptr);
+		EGattacker = u;
 	}
+	else
+		EGattacker = nullptr;
+	ES.SpreadInfection();
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {

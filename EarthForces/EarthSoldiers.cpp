@@ -5,62 +5,63 @@
 EarthSoldiers::EarthSoldiers()
 {
 	Scount = 0;
+	InfectedES = nullptr;
 }
 
 bool EarthSoldiers::enqueue(unit*& s)
 {
-	Scount++;
-	return LinkedQueue<unit*>::enqueue(s);
+	if (LinkedQueue<unit*>::enqueue(s))
+	{
+		ESoldier* e = dynamic_cast<ESoldier*>(s);
+		if (e->IsInfected())
+			InfCount++;
+		Scount++;
+		return true;
+	}
+	return false;
 }
 
 bool EarthSoldiers::dequeue(unit*& s)
 {
 	if(	LinkedQueue<unit*>::dequeue(s))
 	{
+		ESoldier* e = dynamic_cast<ESoldier*>(s);
+		if (e->IsInfected())
+			InfCount--;
 		Scount--; 
 		return true;
 	}
 	return false;
 }
 
-bool EarthSoldiers::InfEnqueue(unit*& v)
+void EarthSoldiers::SpreadInfection()
 {
-	if (InfectedES.enqueue(v))
+	int inf = 0;
+	for (int i = 0; i < InfCount; i++)
 	{
-		InfCount++; return true;
-	}
-	return false;
-}
-
-bool EarthSoldiers::InfDequeue(unit*& v)
-{
-	if (InfectedES.dequeue(v))
-	{
-		InfCount--; return true;
-	}
-	return false;
-}
-
-bool EarthSoldiers::Infect(int z)
-{
-	Node<unit*>* ptr = frontPtr;
-	for (int i = z; i < z; i++)
-	{
-		if(ptr)
-			ptr = ptr->getNext();
-	}
-	if (ptr)
-	{
-		ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
-		if (e->IsInfected() || e->isImmune())
-			return false;
-		else
+		bool notinfected = true;
+		int prob = rand() % 100 + 1;                       //check if prob to infect is 2%
+		if (prob <= 2)
 		{
-			e->SetInfected(true);
-			return true;
+			while (notinfected)                            //loops until an ES gets Infected
+			{        
+				int n = rand() % Scount;                   //random num to traverse and infect
+				Node<unit*>* ptr = frontPtr;
+				for (int i = 1; i < n; i++)               //Stops at nth unit
+					ptr = ptr->getNext();
+				ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
+				if (!e->IsInfected()  && !e->isImmune())
+				{
+					e->SetInfected(true);
+					inf++;
+					notinfected = false;
+				}
+				if (inf + InfCount + ImmuneCount >= Scount)
+					break;
+			}
 		}
 	}
-	return false;
+	InfCount += inf;
 }
 
 int EarthSoldiers::GetScount()
@@ -68,19 +69,30 @@ int EarthSoldiers::GetScount()
 	return Scount;
 }
 
+void EarthSoldiers::incImmuneCount()
+{
+	ImmuneCount++;
+}
+
 int EarthSoldiers::GetInfCount()
 {
 	return InfCount;
 }
-LinkedQueue<unit*> EarthSoldiers::GetInfected()
+unit*& EarthSoldiers::GetInfected()
 {
-	return LinkedQueue<unit*>(InfectedES);
+	return InfectedES;
 }
 
 
 void EarthSoldiers::PrintES()
 {
 	Node<unit*>* temp = frontPtr;
+	if (InfectedES)
+	{
+		InfectedES->PrintUnit();
+		if (temp)        //Printing style fix
+			cout << ", ";
+	}
 	while (temp)
 	{
 		temp->getItem()->PrintUnit();

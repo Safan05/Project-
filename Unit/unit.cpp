@@ -110,11 +110,6 @@ void unit::DeathReport(std::ofstream& wr)
 {
 	HUnit* h = dynamic_cast<HUnit*>(this);
 	wr << Td << "\t\t\t" << id;
-	/*if (id>=0 && id<=9)
-		wr << "   ";
-	else
-	if (id>=10&&id<=99)
-		wr << "  ";*/
 	wr<< "   \t\t\t\t"
 		<< JoinTime << "\t\t\t\t";
 	if (h)
