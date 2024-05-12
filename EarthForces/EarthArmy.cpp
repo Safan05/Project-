@@ -108,31 +108,33 @@ void EarthArmy::PrintAttack()
 }
 void EarthArmy::EarthAttack(Game* const& Gptr)
 {
-	unit* u = nullptr;
-	if (ES.peek(u))
+	if (ES.peek(ESattacker))
 	{
-		ESoldier* eunit = dynamic_cast<ESoldier*>(u);
+		ESoldier* eunit = dynamic_cast<ESoldier*>(ESattacker);
 		if (eunit)
 		{
 			if (eunit->IsInfected())
 			{
-				ES.InfEnqueue(u);
-				u->attack(Gptr);
+				ES.InfEnqueue(ESattacker);
+				ESattacker->attack(Gptr);
 			}
 			else {
-				u->attack(Gptr);
+				ESattacker->attack(Gptr);
 			}
 		}
 	}
-	if (ET.peek(u))
+	else ESattacker = nullptr;
+	if (ET.peek(ETattacker))
 	{
-		u->attack(Gptr);
+		ETattacker->attack(Gptr);
 	}
+	else ETattacker=nullptr;
 	int g;
-	if (EG.peek(u, g))
+	if (EG.peek(EGattacker, g))
 	{
-		u->attack(Gptr);
+		EGattacker->attack(Gptr);
 	}
+	else EGattacker = nullptr;
 	// healing logic
 	unit* H;
 	if (HU.pop(H)) {
