@@ -163,6 +163,7 @@ void Game::Battle()
 {
 	E.EarthAttack(this);
 	A.Alienattack(this);
+	S.SUattack(this);
 }
 
 int Game::GetTS()
@@ -319,6 +320,10 @@ void Game::SetEDb(int d)
 void Game::SetADb(int d)
 {
 	AvgDs[5] += d;
+}
+int Game::getInfectionProb()
+{
+	return infection_prob;
 }
 void Game::Call_Generator() // function to call the random generator
 {
