@@ -12,6 +12,7 @@ public:
 	bool AddUnit(unit*&);
 	SaverUnits& getSU();
 	int GetAttackCount();
+	void IncAttackCount();
 	void PrintArmy();
 	void SUattack(Game* const& Gptr);
 	void printAttack();

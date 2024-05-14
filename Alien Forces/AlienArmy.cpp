@@ -1,4 +1,5 @@
 #include "AlienArmy.h"
+#include"..\Unit\AMonster.h"
 #include<iostream>
 using namespace std;
 AlienArmy::AlienArmy()
@@ -95,10 +96,17 @@ void AlienArmy::PrintArmy()
 
 void AlienArmy::PrintAttack()
 {
+	//print units attacked by alien soldier at current time step 
 	if (ASattacker)
 		ASattacker->PrintAttacked();
+	//print units attacked or infected by alien monster at current time step 
 	if (AMattacker)
+	{
 		AMattacker->PrintAttacked();
+		AMonster* am = dynamic_cast<AMonster*>(AMattacker);
+		am->PrintInfected();
+	}
+	//print units attacked by alien drones at current time step 
 	if (ADattacker_1 && ADattacker_2)
 	{
 		ADattacker_1->PrintAttacked();

@@ -4,6 +4,7 @@
 class ESoldier : public unit
 {
 	bool Infected;
+	bool AttackedWhileInfected;
 	bool immune;
 	int UmlJoinTime;
 public:
@@ -14,6 +15,8 @@ public:
 	void setImuune(bool im);
 	bool isImmune();
 	void PrintAttacked();
+	void setAWI(bool t);
+	bool getAWI();
 	void setUmlJoinTime(int);
 	int getUmlJoinTime();
 };
