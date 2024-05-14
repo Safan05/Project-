@@ -9,8 +9,11 @@ bool ASoldier::attack(Game* const & GPtr)
 {
 	bool flag = false;
 	unit* enemy = NULL;
-	LinkedQueue<unit*> temp;
-	for (int i = 0; i < GetAC(); i++)
+	LinkedQueue<unit*> temp, SUtemp;
+	int ac = GetAC();
+	if (GPtr->GetSArmy().getSU().Getcount() > 0)
+		ac = ceil(0.75 * ac);
+	for (int i = 0; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
@@ -54,6 +57,35 @@ bool ASoldier::attack(Game* const & GPtr)
 	}
 	while (temp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
+	//if saver units exist,attack saver units with quarter the attack capacity
+	for (int i = ac; i < GetAC(); i++)
+	{
+		GPtr->GetSArmy().getSU().dequeue(enemy);
+		if (enemy)
+		{
+			flag = true;
+			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
+			enemy->DecHealth(damage);
+			GetattackedIDs().enqueue(enemy->GetId());
+			if (!enemy->Wasattacked())
+			{
+				GPtr->GetSArmy().IncAttackCount();
+				enemy->SetAttacked(true);
+				enemy->SetTa(GPtr->GetTS());
+				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
+
+			}
+			if (enemy->is_killed())
+			{
+				enemy->SetTd(GPtr->GetTS());
+				GPtr->AddKilled(enemy);
+			}
+			else SUtemp.enqueue(enemy);
+		}
+		enemy = NULL;
+	}
+	while (SUtemp.dequeue(enemy))
+		GPtr->GetSArmy().getSU().enqueue(enemy);
 	return flag;
 }
 

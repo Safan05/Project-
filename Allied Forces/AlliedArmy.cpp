@@ -28,6 +28,11 @@ int AlliedArmy::GetAttackCount()
 	return AttackCount;
 }
 
+void AlliedArmy::IncAttackCount()
+{
+	AttackCount++;
+}
+
 void AlliedArmy::PrintArmy()
 {
 	std::cout << SU.Getcount() << " SU [";

@@ -26,6 +26,7 @@ public:          //implementation in units folder is for Df,where as
 	void LoadParameters(char FileName[]);
 	EarthArmy& GetEArmy();
 	AlienArmy& GetAArmy();
+	AlliedArmy& GetSArmy();
 	KilledList& GetKList();
 	void Battle();
 	int GetTS();
