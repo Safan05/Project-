@@ -87,12 +87,12 @@ unit*& EarthSoldiers::GetInfected()
 void EarthSoldiers::PrintES()
 {
 	Node<unit*>* temp = frontPtr;
-/*if (InfectedES)
+	if (InfectedES)
 	{
 		InfectedES->PrintUnit();
 		if (temp)        //Printing style fix
 			cout << ", ";
-	}*/
+	}
 	while (temp)
 	{
 		temp->getItem()->PrintUnit();

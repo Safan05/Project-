@@ -55,7 +55,7 @@ bool AMonster::attack(Game* const & GPtr)
 	//Attacking Earth soldiers and Saver units with half attack capacity
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
-		ac = ceil(0.75 * ac);
+		ac = ceil(0.5 * ac);
 	for (int i = GetAC() / 2; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())

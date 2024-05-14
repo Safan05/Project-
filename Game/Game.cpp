@@ -203,7 +203,7 @@ bool Game::AddKilled(unit*& d)
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
+	WR << "\t\t\t\t\t\t"<< "Earth"<< " VS"<< " Aliens"<< " War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
@@ -384,30 +384,32 @@ void Game::Call_Generator() // function to call the random generator
 			}
 		}
 	}
+	if(E.GetES().GetScount())
 	if (((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) >= SU_Threshold)
 		GenAllies = true;
 	else if (E.GetES().GetInfCount() == 0 && GenAllies)
 		GenAllies = false;
 
-		if (GenAllies)
-			for (int i = 0; i < N; i++) {
-				unit* U = G.GenAllies(SR);
-				U->SetJoin(TS);
-				if (!S.AddUnit(U)) {
-					cout << "No more available IDs";
-					delete U;
-					U = nullptr;
-					GenAllies = false;
-				}
+	if (GenAllies)
+		for (int i = 0; i < N; i++) {
+			unit* U = G.GenAllies(SR);
+			U->SetJoin(TS);
+			if (!S.AddUnit(U)) {
+				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenAllies = false;
 			}
-		
-		else
-			S.destroyArmy();
+		}
+
+	else
+		S.destroyArmy();
 		
 	E.GetUL().RemoveOlderunits(this);
 }
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
+	HUnit* Healer = new HUnit(0,0,0,0); //dummy pointer to call print of a static data member 
 	Battle();
 	cout << "Current TimeStep : " << TS << endl;
 	cout << "============= Earth Forces Alive Units =============" << endl;
@@ -420,11 +422,13 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	E.PrintAttack();
 	A.PrintAttack();
 	S.printAttack();
-	cout << "\n============= Killed/Destructed Units =============" << endl;
+	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
+	Healer->PrintAttacked();
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
+	delete Healer;
 }
 Game::~Game() { 
 	unit* temp = nullptr;

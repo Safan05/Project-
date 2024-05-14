@@ -12,7 +12,7 @@ bool ASoldier::attack(Game* const & GPtr)
 	LinkedQueue<unit*> temp, SUtemp;
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
-		ac = ceil(0.75 * ac);
+		ac = ceil(0.5 * ac);
 	for (int i = 0; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
@@ -57,7 +57,7 @@ bool ASoldier::attack(Game* const & GPtr)
 	}
 	while (temp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
-	//if saver units exist,attack saver units with quarter the attack capacity
+	//if saver units exist,attack saver units with half the attack capacity
 	for (int i = ac; i < GetAC(); i++)
 	{
 		GPtr->GetSArmy().getSU().dequeue(enemy);
