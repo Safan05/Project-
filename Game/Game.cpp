@@ -159,6 +159,11 @@ AlienArmy& Game::GetAArmy()
 	return A;
 }
 
+AlliedArmy& Game::GetSArmy()
+{
+	return S;
+}
+
 KilledList& Game::GetKList()
 {
 	return K;
