@@ -14,6 +14,7 @@ bool ESoldier::attack(Game* const & GPtr)
 	
 	if (!Infected)
 	{
+		setAWI(false);
 		for (int i = 0; i < unit::GetAC(); i++)
 		{
 			if (GPtr->GetAArmy().getAS().dequeue(enemy))
@@ -43,6 +44,7 @@ bool ESoldier::attack(Game* const & GPtr)
 	}
 	else
 	{
+		setAWI(true);
 		for (int i = 0; i < unit::GetAC(); i++)
 		{
 			if (GPtr->GetEArmy().GetES().dequeue(enemy))
@@ -106,7 +108,7 @@ void ESoldier::PrintAttacked()
 {
 	if (!GetattackedIDs().isEmpty())
 	{
-		if (!IsInfected()) {
+		if (!getAWI()) {
 			int id;
 			cout << "ES " << GetId() << " shots [";
 			while (GetattackedIDs().dequeue(id))
@@ -130,4 +132,14 @@ void ESoldier::PrintAttacked()
 		}
 	}
 	
+}
+
+void ESoldier::setAWI(bool t)
+{
+	AttackedWhileInfected = t;
+}
+
+bool ESoldier::getAWI()
+{
+	return AttackedWhileInfected;
 }

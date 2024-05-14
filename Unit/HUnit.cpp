@@ -15,17 +15,19 @@ bool HUnit::attack(Game* const& Gptr)
 		if (Gptr->GetEArmy().GetUL().RemoveUnit(ToHeal))
 		{
 			double Healed = (this->GetPow() * this->GetHealth() / 100) / sqrt(ToHeal->GetHealth());
-			ToHeal->IncHealth(Healed);
-			ESoldier* IsInfected = dynamic_cast<ESoldier*>(ToHeal);
-			if (IsInfected) {
-				IsInfected->setImuune(true);
-				IsInfected->SetInfected(false);
+			ESoldier* Soldier = dynamic_cast<ESoldier*>(ToHeal);
+			if(Soldier)
+			if (Soldier->IsInfected()) {
+				Soldier->setImuune(true);
+				Soldier->SetInfected(false);
 				Gptr->GetEArmy().GetES().incImmuneCount();
+				Healed /= 2;
 			}
+			ToHeal->IncHealth(Healed);
 			if (ToHeal->GetHPercent() < 20)
 				templist.enqueue(ToHeal);
 			else {
-				if (IsInfected)
+				if (Soldier)
 					Gptr->GetEArmy().GetES().enqueue(ToHeal);
 				else
 					Gptr->GetEArmy().GetET().push(ToHeal);

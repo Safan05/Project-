@@ -366,8 +366,12 @@ void Game::Call_Generator() // function to call the random generator
 			}
 		}
 	}
-	if (E.GetES().GetScount() > 0&&GenAllies){
-		if (((E.GetES().GetInfCount() * 100 )/ E.GetES().GetScount()) >= SU_Threshold) {
+	if (((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) >= SU_Threshold)
+		GenAllies = true;
+	else if (E.GetES().GetInfCount() == 0 && GenAllies)
+		GenAllies = false;
+
+		if (GenAllies)
 			for (int i = 0; i < N; i++) {
 				unit* U = G.GenAllies(SR);
 				U->SetJoin(TS);
@@ -378,25 +382,22 @@ void Game::Call_Generator() // function to call the random generator
 					GenAllies = false;
 				}
 			}
-		}
+		
 		else
 			S.destroyArmy();
-		}
+		
 	E.GetUL().RemoveOlderunits(this);
 }
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
-	cout << "Current TimeStep : " << TS << endl;
 	Battle();
+	cout << "Current TimeStep : " << TS << endl;
 	cout << "============= Earth Forces Alive Units =============" << endl;
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
 	A.PrintArmy();
-	if (E.GetES().GetScount() > 0) 
-		if (((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) >= SU_Threshold) {
-			cout << "\n============= Allied Forces Alive Units =============" << endl;
-			S.PrintArmy();
-		}
+	cout << "\n============= Allied Forces Alive Units =============" << endl;
+	S.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
 	E.PrintAttack();
 	A.PrintAttack();

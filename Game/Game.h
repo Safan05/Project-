@@ -13,6 +13,7 @@ private:
 	bool GenEarth;
 	bool GenAliens;
 	bool GenAllies;
+	bool DestroyAllies;
 	int EP[4], AP[3], ER[6], AR[6],SR[6];
 	int infection_prob;
 	int SU_Threshold;
