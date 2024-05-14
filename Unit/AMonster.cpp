@@ -51,12 +51,13 @@ bool AMonster::attack(Game* const & GPtr)
 	}
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
-
+	enemy = NULL;
 	//Attacking soldiers with half attack capacity
 	for (int i = GetAC() / 2; i < GetAC(); i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
+			//GetattackedIDs().enqueue(enemy->GetId());
 			enemy = GPtr->GetEArmy().GetES().GetInfected();
 			GPtr->GetEArmy().GetES().GetInfected() = NULL;
 		}

@@ -6,6 +6,9 @@
 using namespace std;
 Game::Game()
 {
+	GenEarth = true;
+	GenAliens = true;
+	GenAllies = true;
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
@@ -178,9 +181,10 @@ bool Game::AddKilled(unit*& d)
 	d->SetTd(this->GetTS());
 	int id = d->GetId();
 	if (id <= 999 && id >= 1) {
-		AvgDs[0] += d->GetTa() - d->GetJoin();
-		if(!h)       //Heal units heal already attacked units therefore their Ta,Df are already set
+		if (!h) {      //Heal units heal already attacked units therefore their Ta,Df are already set
+			AvgDs[0] += d->GetTa() - d->GetJoin();
 			AvgDs[1] += TS - d->GetTa();
+		}
 		AvgDs[2] += TS - d->GetJoin();
 	}
 	else {
@@ -197,11 +201,12 @@ void Game::GenerateWarReport()
 	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
-	WR << "\nBattle Result : "; 
+	WR << "\nBattle Result : ";
 	if (TS > 40)
 	{
-		WR << BattleResult();
-
+		char result[6];
+		BattleResult(result);
+		WR << result;
 	}
 	//===============================Earth Forces Stats=====================================
 
@@ -255,9 +260,9 @@ void Game::GenerateWarReport()
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
-const char* Game::BattleResult()
+void Game::BattleResult(char result[])
 {
-	char result[6];
+	//char result[6];
 	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
 	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
 	bool es, et, eg, as, ad, am;
@@ -269,23 +274,22 @@ const char* Game::BattleResult()
 	am = !A.getAM().isEmpty();
 
 	if (TotalEU == 0 && TotalAU == 0)
-		strcpy_s(result, "Drawn");
+		strcpy_s(result, 6,"Drawn");
 	else
 		if (!eg && !et && es && !as && !am && ad)
-			strcpy_s(result, "Drawn");
+			strcpy_s(result, 6,"Drawn");
 		else
 			if (eg && am && !es && !et && !as && !ad)
-				strcpy_s(result, "Win");
+				strcpy_s(result,6 ,"Win");
 			else
 				if (eg && as && !es && !et && !am && !ad)
-					strcpy_s(result, "Drawn");
+					strcpy_s(result, 6,"Drawn");
 				else
 					if (TotalEU > TotalAU)
-						strcpy_s(result, "Win");
+						strcpy_s(result, 6,"Win");
 
 					else
-						strcpy_s(result, "Loss");
-	return result;
+						strcpy_s(result, 6,"Loss");
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
 {
@@ -338,49 +342,62 @@ int Game::getInfectionProb()
 }
 void Game::Call_Generator() // function to call the random generator
 {
-	if (G.Probability(Prob)) {
+	if (G.Probability(Prob)&&GenEarth) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenEarth(EP, ER);
 			U->SetJoin(TS);
-			if (!E.AddUnit(U))
+			if (!E.AddUnit(U)) {
 				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenEarth = false;
+			}
 		}
 	}
-	if (G.Probability(Prob)) {
+	if (G.Probability(Prob)&&GenAliens) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenAliens(AP, AR);
 			U->SetJoin(TS);
-			if (!A.AddUnit(U))
+			if (!A.AddUnit(U)) {
 				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenAliens= false;
+			}
 		}
 	}
-	if (E.GetES().GetScount() > 0){
-		if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
+	if (((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) >= SU_Threshold)
+		GenAllies = true;
+	else if (E.GetES().GetInfCount() == 0 && GenAllies)
+		GenAllies = false;
+
+		if (GenAllies)
 			for (int i = 0; i < N; i++) {
 				unit* U = G.GenAllies(SR);
 				U->SetJoin(TS);
-				if (!S.AddUnit(U))
+				if (!S.AddUnit(U)) {
 					cout << "No more available IDs";
+					delete U;
+					U = nullptr;
+					GenAllies = false;
+				}
 			}
-		}
+		
 		else
 			S.destroyArmy();
-		}
+		
 	E.GetUL().RemoveOlderunits(this);
 }
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
-	cout << "Current TimeStep : " << TS << endl;
 	Battle();
+	cout << "Current TimeStep : " << TS << endl;
 	cout << "============= Earth Forces Alive Units =============" << endl;
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
 	A.PrintArmy();
-	if (E.GetES().GetScount() > 0) 
-		if (E.GetES().GetInfCount() / E.GetES().GetScount() >= SU_Threshold) {
-			cout << "\n============= Allied Forces Alive Units =============" << endl;
-			S.PrintArmy();
-		}
+	cout << "\n============= Allied Forces Alive Units =============" << endl;
+	S.PrintArmy();
 	cout << "\n============= Units fighting at current step =======" << endl;
 	E.PrintAttack();
 	A.PrintAttack();

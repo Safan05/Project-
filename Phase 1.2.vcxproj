@@ -201,10 +201,7 @@
     <Text Include="Input\WE_MA.txt" />
     <Text Include="Input\WE_SA.txt" />
     <Text Include="Input\WE_WA.txt" />
-    <Text Include="Try.txt" />
     <Text Include="War Report.txt" />
-    <Text Include="WE_MA.txt" />
-    <Text Include="WE_WA.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
