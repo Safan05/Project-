@@ -271,19 +271,19 @@ const char* Game::BattleResult()
 	if (TotalEU == 0 && TotalAU == 0)
 		strcpy_s(result, "Drawn");
 	else
-		if (!eg && !et && es && !as && !am && ad)
+		if (!eg && !et && es && !as && !am && ad)                //only Esoldiers and ADrones exist
 			strcpy_s(result, "Drawn");
 		else
-			if (eg && am && !es && !et && !as && !ad)
+			if (eg && as && !es && !et && !am && !ad)           //only Egunnery and ASoldiers
 				strcpy_s(result, "Win");
 			else
 				if (eg && as && !es && !et && !am && !ad)
 					strcpy_s(result, "Drawn");
 				else
-					if (TotalEU > TotalAU)
+					if (!TotalAU && TotalEU)
 						strcpy_s(result, "Win");
 
-					else
+					else if(TotalAU&&!TotalEU)
 						strcpy_s(result, "Loss");
 	return result;
 }
