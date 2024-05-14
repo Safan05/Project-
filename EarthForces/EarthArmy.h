@@ -10,14 +10,17 @@
 class Game;
 class EarthArmy
 {
+	// The Lists that the Earth army contains
 	EarthSoldiers ES;
 	EarthGunnery EG;
 	EarthTanks ET;
 	UML UL;
 	HealUnits HU;
+	// id and attacked units counter
 	int id;
 	int AttackCount;
-	unit* ESattacker;
+	// pointers to store the attacker units to print it after battle 
+	unit* ESattacker;	
 	unit* ETattacker;
 	unit* EGattacker;
 public:

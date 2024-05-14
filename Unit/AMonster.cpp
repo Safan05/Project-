@@ -51,7 +51,7 @@ bool AMonster::attack(Game* const & GPtr)
 	}
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
-
+   enemy = NULL;
 	//Attacking Earth soldiers and Saver units with half attack capacity
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
@@ -60,6 +60,7 @@ bool AMonster::attack(Game* const & GPtr)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
+			//GetattackedIDs().enqueue(enemy->GetId());
 			enemy = GPtr->GetEArmy().GetES().GetInfected();
 			GPtr->GetEArmy().GetES().GetInfected() = NULL;
 		}
