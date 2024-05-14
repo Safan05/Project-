@@ -30,20 +30,24 @@ void UML::AddUnit(unit*& u)
 				ETank* t = dynamic_cast<ETank*>(frontPtr->getItem());
 				if (frontPtr->getItem()->GetHealth() > u->GetHealth() || t)
 				{
-					nptr->setNext(frontPtr); frontPtr = nptr;
+					nptr->setNext(frontPtr);
+					frontPtr = nptr;
 				}
 				else
 				{
 					Node<unit*>* ptr = frontPtr;
 					while (ptr->getNext() && (ptr->getNext()->getItem()->GetType() == 0) && (ptr->getNext()->getItem()->GetHealth() < u->GetHealth()))
 						ptr = ptr->getNext();
-					if(ptr->getNext())
 					nptr->setNext(ptr->getNext());
 					ptr->setNext(nptr);
 				}
 			}
-
+			Node<unit*>* ptr = frontPtr;
+			while (ptr->getNext())
+				ptr = ptr->getNext();
+			backPtr = ptr;
 		}
+
 	}
 }
 

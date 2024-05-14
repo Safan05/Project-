@@ -30,7 +30,7 @@ Game::Game()
 			cin >> x;
 			cout << endl;
 			char result[80];
-			if ((this->BattleResult(result)&&TS>=40))
+			if ((this->BattleResult(result)))
 			{
 				this->GenerateWarReport();
 					cout << "\033[1;31mThe War Finished and it's result is : "<<result<<"\033[0m";
@@ -52,7 +52,7 @@ Game::Game()
 				Sleep(20);
 			}
 			char dummy[30];
-			while ((!this->BattleResult(dummy)||TS<40)&&TS<5000) {
+			while ((!this->BattleResult(dummy)||TS<40)) {
 				TS++;
 				this->Call_Generator();
 				this->Battle();
@@ -310,7 +310,6 @@ bool Game::BattleResult(char result[])
 					ResultAcheived = true;
 				}
 				else {
-					strcpy_s(result, 6, "Still");
 					ResultAcheived = false;
 				}
 	return ResultAcheived;
@@ -434,6 +433,8 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
 	Healer->PrintAttacked();
+	if(E.GetES().GetScount())
+	cout << "\n Infection Percentage :" <<((E.GetES().GetInfCount()*100)/E.GetES().GetScount()) <<"%\n";
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
