@@ -33,10 +33,10 @@ public:          //implementation in units folder is for Df,where as
 	AlliedArmy& GetSArmy();
 	KilledList& GetKList();
 	void Battle();
+	bool BattleResult(char result[]);
 	int GetTS();
 	bool AddKilled(unit*&);
 	void GenerateWarReport();
-	void BattleResult(char result[]);
 	void PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA);
 	void SetEDf(int f);
 	void SetADf(int f);

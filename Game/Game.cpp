@@ -203,7 +203,7 @@ bool Game::AddKilled(unit*& d)
 void Game::GenerateWarReport()
 {
 	ofstream WR("War Report.txt", ios::out);
-	WR << "\t\t\t\t\t\tEarth VS Aliens War Report\n\n";
+	WR << "\t\t\t\t\t\t"<< "Earth"<< " VS"<< " Aliens"<< " War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
 	WR << "\nBattle Result : ";
@@ -265,13 +265,13 @@ void Game::GenerateWarReport()
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
-void Game::BattleResult(char result[])
+bool Game::BattleResult(char result[])
 {
-	//char result[6];
-	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
-	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
-	bool es, et, eg, as, ad, am;
-	es = !E.GetES().isEmpty();
+	bool ResultAcheived = false;
+	int TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
+	int TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
+	bool es, et, eg, as, ad, am;    //the following bools are to be true 
+	es = !E.GetES().isEmpty();      //if exists atleast one unit in its list
 	et = !E.GetET().isEmpty();
 	eg = !E.GetEG().isEmpty();
 	as = !A.getAS().isEmpty();
@@ -279,22 +279,35 @@ void Game::BattleResult(char result[])
 	am = !A.getAM().isEmpty();
 
 	if (TotalEU == 0 && TotalAU == 0)
-		strcpy_s(result, 6,"Drawn");
+	{
+		strcpy_s(result, 6, "Drawn");
+		ResultAcheived = true;
+	}
 	else
-		if (!eg && !et && es && !as && !am && ad)
-			strcpy_s(result, 6,"Drawn");
+		if (!eg && !et && es && !as && !am && ad)         //only ESoldier and ADrones exist
+		{
+			strcpy_s(result, 6, "Drawn");
+			ResultAcheived = true;
+		}
 		else
-			if (eg && am && !es && !et && !as && !ad)
-				strcpy_s(result,6 ,"Win");
+			if (eg && as && !es && !et && !am && !ad)    //only Egunnery and ASoldier exist
+			{
+				strcpy_s(result, 6, "Drawn");
+				ResultAcheived = true;
+			}
 			else
-				if (eg && as && !es && !et && !am && !ad)
-					strcpy_s(result, 6,"Drawn");
-				else
-					if (TotalEU > TotalAU)
-						strcpy_s(result, 6,"Win");
-
-					else
-						strcpy_s(result, 6,"Loss");
+				if (TotalEU && !TotalAU)
+				{
+					strcpy_s(result, 6, "Win");
+					ResultAcheived = true;
+				}
+				else if (!TotalEU && TotalAU)
+				{
+					strcpy_s(result, 6, "Loss");
+					ResultAcheived = true;
+				}
+				else ResultAcheived = false;
+	return ResultAcheived;
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
 {
@@ -371,30 +384,32 @@ void Game::Call_Generator() // function to call the random generator
 			}
 		}
 	}
+	if(E.GetES().GetScount())
 	if (((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) >= SU_Threshold)
 		GenAllies = true;
 	else if (E.GetES().GetInfCount() == 0 && GenAllies)
 		GenAllies = false;
 
-		if (GenAllies)
-			for (int i = 0; i < N; i++) {
-				unit* U = G.GenAllies(SR);
-				U->SetJoin(TS);
-				if (!S.AddUnit(U)) {
-					cout << "No more available IDs";
-					delete U;
-					U = nullptr;
-					GenAllies = false;
-				}
+	if (GenAllies)
+		for (int i = 0; i < N; i++) {
+			unit* U = G.GenAllies(SR);
+			U->SetJoin(TS);
+			if (!S.AddUnit(U)) {
+				cout << "No more available IDs";
+				delete U;
+				U = nullptr;
+				GenAllies = false;
 			}
-		
-		else
-			S.destroyArmy();
+		}
+
+	else
+		S.destroyArmy();
 		
 	E.GetUL().RemoveOlderunits(this);
 }
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
+	HUnit* Healer = new HUnit(0,0,0,0); //dummy pointer to call print of a static data member 
 	Battle();
 	cout << "Current TimeStep : " << TS << endl;
 	cout << "============= Earth Forces Alive Units =============" << endl;
@@ -407,11 +422,13 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	E.PrintAttack();
 	A.PrintAttack();
 	S.printAttack();
-	cout << "\n============= Killed/Destructed Units =============" << endl;
+	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
+	Healer->PrintAttacked();
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
+	delete Healer;
 }
 Game::~Game() { 
 	unit* temp = nullptr;

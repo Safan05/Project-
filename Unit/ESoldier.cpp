@@ -54,9 +54,9 @@ bool ESoldier::attack(Game* const & GPtr)
 				GetattackedIDs().enqueue(enemy->GetId());
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetEArmy().IncAttackCount();
+					GPtr->GetEArmy().IncAttackCount();  //used later for calculating Avg Df
 					enemy->SetAttacked(true);
-					enemy->SetTa(GPtr->GetTS());
+					enemy->SetTa(GPtr->GetTS());  
 					GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 				}
 				if (enemy->is_killed())
