@@ -12,7 +12,7 @@ bool ASoldier::attack(Game* const & GPtr)
 	LinkedQueue<unit*> temp, SUtemp;
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
-		ac = ceil(0.5 * ac);
+		ac = GetAC() / 2;
 	for (int i = 0; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
@@ -25,28 +25,34 @@ bool ASoldier::attack(Game* const & GPtr)
 		if(enemy)
 		{
 			flag = true;
+			ESoldier* es = dynamic_cast<ESoldier*>(enemy);
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
-			GetattackedIDs().enqueue(enemy->GetId());
+			//add enemy's ID to the attacked list
+			if (es->IsInfected())
+				GetattackedIDs().enqueue(enemy->GetId() + 10000);  //to know if the id is infected
+			else GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
-
 			}
+			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to uml or temp list according to its health percentage 
 			else 
 			{
 				int h = enemy->GetHPercent();
 				if (h <= 20)
 				{
-					ESoldier* es = dynamic_cast<ESoldier*> (enemy);
 					es->setUmlJoinTime(GPtr->GetTS());
 					GPtr->GetEArmy().GetUL().AddUnit(enemy);
 				}
@@ -57,6 +63,7 @@ bool ASoldier::attack(Game* const & GPtr)
 	}
 	while (temp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
+	enemy = NULL;
 	//if saver units exist,attack saver units with half the attack capacity
 	for (int i = ac; i < GetAC(); i++)
 	{
@@ -97,10 +104,13 @@ void ASoldier::PrintAttacked()
 		cout << "AS " << GetId() << " shots [";
 		while (GetattackedIDs().dequeue(i))
 		{
-			cout << i;
+			if (i < 10000)
+				cout << i;
+			else
+				cout << "\033[32m" << i - 10000 << "\033[0m";
 			if (!GetattackedIDs().isEmpty())
 				cout << ", ";
 		}
-		cout << "] IDs of all Earth units shot by AS" << GetId() << endl;
+		cout << "] IDs of all Earth and saver units shot by AS" << GetId() << endl;
 	}
 }

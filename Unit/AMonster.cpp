@@ -55,7 +55,7 @@ bool AMonster::attack(Game* const & GPtr)
 	//Attacking Earth soldiers and Saver units with half attack capacity
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
-		ac = ceil(0.5 * ac);
+		ac = 3 * ac / 4;
 	for (int i = GetAC() / 2; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
@@ -69,12 +69,18 @@ bool AMonster::attack(Game* const & GPtr)
 		if (enemy)
 		{
 			flag = true;
-			int InfProp = (rand() % 100) + 1;   //checks whether the enemy should be attacked or infected
+			ESoldier* es = dynamic_cast<ESoldier*>(enemy);
+
+			int InfProp = (rand() % 100) + 1;              //checks whether the enemy should be attacked or infected
 			if (InfProp > GPtr->getInfectionProb())        //probability to attack the soldier
 			{
 				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
-				GetattackedIDs().enqueue(enemy->GetId());
+				//add enemy's ID to the attacked list
+				if (es->IsInfected())
+					GetattackedIDs().enqueue(enemy->GetId() + 10000);  //to know if the id is infected
+				else GetattackedIDs().enqueue(enemy->GetId());
+				//set the output file parameters
 				if (!enemy->Wasattacked())
 				{
 					GPtr->GetEArmy().IncAttackCount();
@@ -82,17 +88,18 @@ bool AMonster::attack(Game* const & GPtr)
 					enemy->SetTa(GPtr->GetTS());
 					GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 				}
+				//if enemy's health reaches 0, add it to killed list 
 				if (enemy->is_killed())
 				{
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
+				//if enemy is still alive, add it to uml or temp list according to its health percentage 
 				else
 				{
 					int h = enemy->GetHPercent();
 					if (h <= 20)
 					{
-						ESoldier* es = dynamic_cast<ESoldier*> (enemy);
 						es->setUmlJoinTime(GPtr->GetTS());
 						GPtr->GetEArmy().GetUL().AddUnit(enemy);
 					}
@@ -102,11 +109,10 @@ bool AMonster::attack(Game* const & GPtr)
 			}
 			else    // probability to infect the soldier
 			{
-				ESoldier* toInfect = dynamic_cast<ESoldier*>(enemy);
-				if (!toInfect->isImmune())   //cannot reinfect an immune soldier
+				if (!es->isImmune())   //cannot reinfect an immune soldier
 				{
-					toInfect->SetInfected(true);
-					infectedList.enqueue(toInfect->GetId());
+					es->SetInfected(true);
+					infectedList.enqueue(es->GetId());
 					Stemp.enqueue(enemy);
 				}
 			}
@@ -115,12 +121,11 @@ bool AMonster::attack(Game* const & GPtr)
 	}
 	while (Stemp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
-
-	//if saver units exist,attack saver units with 1/8 of the attack capacity
+	enemy = NULL;
+	//if saver units exist,attack saver units with 1/4 of the attack capacity
 	for (int i = ac; i < GetAC(); i++)
 	{
-		GPtr->GetSArmy().getSU().dequeue(enemy);
-		if (enemy)
+		if(GPtr->GetSArmy().getSU().dequeue(enemy))
 		{
 			flag = true;
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
@@ -141,7 +146,6 @@ bool AMonster::attack(Game* const & GPtr)
 			}
 			else SUtemp.enqueue(enemy);
 		}
-		enemy = NULL;
 	}
 	while (SUtemp.dequeue(enemy))
 		GPtr->GetSArmy().getSU().enqueue(enemy);
@@ -156,11 +160,14 @@ void AMonster::PrintAttacked()
 		cout << "AM " << GetId() << " shots [";
 		while (GetattackedIDs().dequeue(i))
 		{
-			cout << i;
+			if (i < 10000)
+				cout << i;
+			else
+				cout << "\033[32m" << i - 10000 << "\033[0m";
 			if (!GetattackedIDs().isEmpty())
 				cout << ", ";
 		}
-		cout << "] IDs of all Earth units shot by AM" << GetId() << endl;
+		cout << "] IDs of all Earth and saver units shot by AM" << GetId() << endl;
 	}
 }
 

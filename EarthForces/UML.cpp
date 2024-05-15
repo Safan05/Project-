@@ -102,7 +102,7 @@ void UML::PrintUML()
 			cout << ", ";
 		temp = temp->getNext();
 	}
-	cout << "]";
+	cout << "]\n";
 }
 UML::~UML()
 {
