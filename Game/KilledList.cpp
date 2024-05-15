@@ -57,7 +57,7 @@ void KilledList::PrintKillled()
 			cout << ", ";
 		temp = temp->getNext();
 	}
-	cout << "]";
+	cout << "]\n";
 }
 
 void KilledList::PrintReports(std::ofstream& f)

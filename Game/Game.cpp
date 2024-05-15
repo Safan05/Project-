@@ -175,8 +175,8 @@ KilledList& Game::GetKList()
 void Game::Battle()
 {
 	E.EarthAttack(this);
-	A.Alienattack(this);
 	S.SUattack(this);
+	A.Alienattack(this);
 }
 
 int Game::GetTS()
@@ -433,8 +433,8 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
 	Healer->PrintAttacked();
-	if(E.GetES().GetScount())
-	cout << "\n Infection Percentage :" <<((E.GetES().GetInfCount()*100)/E.GetES().GetScount()) <<"%\n";
+	if (E.GetES().GetScount())
+		cout << "\n Infection Percentage :" << ((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) << "%\n";
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
