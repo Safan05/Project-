@@ -6,8 +6,9 @@
 using namespace std;
 Game::Game()
 {
-	GenEarth = true;
-	GenAliens = true;
+	GenEarthID = true;
+	GenAliensID = true;
+	GenAlliesID = true;
 	GenAllies = true;
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
@@ -28,10 +29,11 @@ Game::Game()
 
 			cin >> x;
 			cout << endl;
-			if (TS >= 50) 
+			char result[80];
+			if ((this->BattleResult(result)))
 			{
 				this->GenerateWarReport();
-					cout << "\033[1;31mYou have reached the limit of generating more units!\033[0m";
+					cout << "\033[1;31mThe War Finished and it's result is : "<<result<<"\033[0m";
 					break;
 			}					
 		}
@@ -49,7 +51,8 @@ Game::Game()
 				cout << "\033[32m" << char(219) << "\033[0m";
 				Sleep(20);
 			}
-			while (TS < 50) {
+			char dummy[30];
+			while ((!this->BattleResult(dummy)||TS<40)) {
 				TS++;
 				this->Call_Generator();
 				this->Battle();
@@ -306,7 +309,9 @@ bool Game::BattleResult(char result[])
 					strcpy_s(result, 6, "Loss");
 					ResultAcheived = true;
 				}
-				else ResultAcheived = false;
+				else {
+					ResultAcheived = false;
+				}
 	return ResultAcheived;
 }
 void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
@@ -360,27 +365,29 @@ int Game::getInfectionProb()
 }
 void Game::Call_Generator() // function to call the random generator
 {
-	if (G.Probability(Prob)&&GenEarth) {
+	if (G.Probability(Prob)&&GenEarthID) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenEarth(EP, ER);
 			U->SetJoin(TS);
 			if (!E.AddUnit(U)) {
+				if(mode==1)
 				cout << "No more available IDs";
 				delete U;
 				U = nullptr;
-				GenEarth = false;
+				GenEarthID = false;
 			}
 		}
 	}
-	if (G.Probability(Prob)&&GenAliens) {
+	if (G.Probability(Prob)&&GenAliensID) {
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenAliens(AP, AR);
 			U->SetJoin(TS);
 			if (!A.AddUnit(U)) {
+				if (mode == 1)
 				cout << "No more available IDs";
 				delete U;
 				U = nullptr;
-				GenAliens= false;
+				GenAliensID= false;
 			}
 		}
 	}
@@ -390,15 +397,16 @@ void Game::Call_Generator() // function to call the random generator
 	else if (E.GetES().GetInfCount() == 0 && GenAllies)
 		GenAllies = false;
 
-	if (GenAllies)
+	if (G.Probability(Prob) && GenAllies && GenAlliesID)
 		for (int i = 0; i < N; i++) {
 			unit* U = G.GenAllies(SR);
 			U->SetJoin(TS);
 			if (!S.AddUnit(U)) {
+				if (mode == 1)
 				cout << "No more available IDs";
 				delete U;
 				U = nullptr;
-				GenAllies = false;
+				GenAlliesID = false;
 			}
 		}
 
@@ -425,6 +433,8 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
 	Healer->PrintAttacked();
+	if(E.GetES().GetScount())
+	cout << "\n Infection Percentage :" <<((E.GetES().GetInfCount()*100)/E.GetES().GetScount()) <<"%\n";
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
