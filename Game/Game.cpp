@@ -30,7 +30,7 @@ Game::Game()
 			cin >> x;
 			cout << endl;
 			char result[80];
-			if ((this->BattleResult(result)))
+			if ((this->BattleResult(result)&&TS>=40))
 			{
 				this->GenerateWarReport();
 					cout << "\033[1;31mThe War Finished and it's result is : "<<result<<"\033[0m";
@@ -307,6 +307,10 @@ bool Game::BattleResult(char result[])
 				else if (!TotalEU && TotalAU)
 				{
 					strcpy_s(result, 6, "Loss");
+					ResultAcheived = true;
+				}
+				else if (TS > 100000) {
+					strcpy_s(result, 6, "Drawn");
 					ResultAcheived = true;
 				}
 				else {
