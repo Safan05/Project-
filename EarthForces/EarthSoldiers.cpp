@@ -56,7 +56,7 @@ void EarthSoldiers::SpreadInfection()
 				for (int i = 1; i < n; i++)               //Stops at nth unit
 					ptr = ptr->getNext();
 				ESoldier* e = dynamic_cast<ESoldier*>(ptr->getItem());
-				if (!e->IsInfected()  && !e->isImmune())
+				if (!e->IsInfected()  && !e->isImmune())  //Can't reinfect a soldier
 				{
 					e->SetInfected(true);
 					inf++;
@@ -67,7 +67,7 @@ void EarthSoldiers::SpreadInfection()
 			}
 		}
 	}
-	InfCount += inf;
+	InfCount += inf;      //adds newly infected Esoldiers 
 }
 
 int EarthSoldiers::GetScount()
@@ -95,7 +95,7 @@ void EarthSoldiers::PrintES()
 	if (InfectedES)
 	{
 		InfectedES->PrintUnit();
-		if (temp)        //Printing style fix
+		if (temp)                   //Printing style fix
 			cout << ", ";
 	}
 	while (temp)

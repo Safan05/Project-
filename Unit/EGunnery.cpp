@@ -6,10 +6,12 @@ EGunnery::EGunnery(double H, int P, int AC, int T) :unit(H, P, AC, T)
 
 bool EGunnery::attack(Game* const & GPtr)
 {
-    int EGshots = 0;
     LinkedQueue<unit*>templist; int gp;
     unit* enemy = nullptr;
-    for (int i = 0; i < unit::GetAC() / 2; i++)
+    int ac = unit::GetAC();
+    if (GPtr->GetAArmy().getAD().getCount() > 0) //to handle if Attack capacity is to be directed to one type of units
+        ac = unit::GetAC() / 2;
+    for (int i = 0; i < ac; i++)    //attack alien monsters
     {
         if (GPtr->GetAArmy().getAM().removeAlienMonster(enemy))
         {
@@ -38,7 +40,7 @@ bool EGunnery::attack(Game* const & GPtr)
     unit* denemy;
     unit* dummy = nullptr;
     AlienDrones ADtemp;
-    for (int i = unit::GetAC() / 2; i < unit::GetAC(); i++)
+    for (int i = ac; i < unit::GetAC(); i++) //attack Alien Drones
     {
         
         if (GPtr->GetAArmy().getAD().dequeue(enemy,denemy))

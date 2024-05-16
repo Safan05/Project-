@@ -36,7 +36,6 @@ bool HUnit::attack(Game* const& Gptr)
 			}
 		}
 	}
-
 		while (templist.dequeue(ToHeal)) {
 			Gptr->GetEArmy().GetUL().AddUnit(ToHeal);
 		}

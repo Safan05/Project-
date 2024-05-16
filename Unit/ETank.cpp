@@ -10,7 +10,10 @@ bool ETank::attack(Game* const & Gptr)
 
 	LinkedListStack<unit*> templist;           //any DS for templist of monsters is valid  
 	unit* enemy = nullptr;                     //however stack is easier in pushing
-	for (int i = 0; i < unit::GetAC() / 2; i++)
+	int ac = unit::GetAC();
+	if (Gptr->GetAArmy().getAD().getCount() > 0)
+		ac = unit::GetAC() / 2;
+	for (int i = 0; i < ac; i++)
 	{
 		if (Gptr->GetAArmy().getAM().removeAlienMonster(enemy))
 		{
@@ -42,7 +45,7 @@ bool ETank::attack(Game* const & Gptr)
 		if (ESbelow80)
 		{
 			LinkedQueue<unit*> templist;
-			for (int i = unit::GetAC() / 2; i < unit::GetAC(); i++)
+			for (int i = ac; i < unit::GetAC(); i++)
 			{
 				if (Gptr->GetAArmy().getAS().dequeue(enemy))
 				{
