@@ -85,8 +85,6 @@ bool ASoldier::attack(Game* const & GPtr)
 			{
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
-
 			}
 			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())

@@ -57,7 +57,8 @@ bool AMonster::attack(Game* const & GPtr)
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
    enemy = NULL;
-	//Attacking Earth soldiers and Saver units with half attack capacity
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //Attacking Earth soldiers and Saver units with half attack capacity
 	int ac = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
 		ac = 3 * ac / 4;
@@ -128,6 +129,7 @@ bool AMonster::attack(Game* const & GPtr)
 	while (Stemp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
 	enemy = NULL;
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//if saver units exist,attack saver units with 1/4 of the attack capacity
 	for (int i = ac; i < GetAC(); i++)
 	{
@@ -144,8 +146,6 @@ bool AMonster::attack(Game* const & GPtr)
 			{
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
-
 			}
 			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
