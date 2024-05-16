@@ -4,7 +4,7 @@
 #include"../Game/Game.h"
 using namespace std;
 
-EarthArmy::EarthArmy() //should be deleted??
+EarthArmy::EarthArmy() 
 {
 	id = 1;
 	AttackCount = 0;
@@ -15,22 +15,22 @@ EarthArmy::EarthArmy() //should be deleted??
 
 bool EarthArmy::AddUnit(unit*& u)
 {
-	if (id <= 999)
+	if (id <= 999)               //Ensures Ids fit in range 1 < id < 999
 	{
 		u->SetId(id++);
 		switch (u->GetType())
 		{
 		case earthsoldier:
-			ES.enqueue(u);
+			ES.enqueue(u);       //if the new unit is Earth soldier ,add it to ES list
 			break;
 		case tank:
-			ET.push(u);
+			ET.push(u);         //if the new unit is Earth tank ,add it to ET list
 			break;
 		case gunnery:
-			EG.enqueue(u);
+			EG.enqueue(u);      //if the new unit is Earth gunnery ,add it to EG list
 			break;
 		case HealUnit:
-			HU.push(u);
+			HU.push(u);         //if the new unit is Heal  ,add it to HU list
 			break;
 		default:
 			break;
@@ -99,11 +99,11 @@ void EarthArmy::PrintArmy()
 }
 void EarthArmy::PrintAttack()
 {
-	if (ESattacker)                         
+	if (ESattacker)         //print units attacked by Earth Soldier at current time step            
 		ESattacker->PrintAttacked();       
-	if (ETattacker)
+	if (ETattacker)         //print units attacked by Earth Tank at current time step 
 		ETattacker->PrintAttacked();
-	if (EGattacker)
+	if (EGattacker)        //print units attacked by Earth Gunnery at current time step 
 		EGattacker->PrintAttacked();
 }
 void EarthArmy::EarthAttack(Game* const& Gptr)
@@ -111,17 +111,17 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	unit* u = nullptr;
 	if (ES.peek(u))
 	{
-		ESoldier* eunit = dynamic_cast<ESoldier*>(u);
+		ESoldier* eunit = dynamic_cast<ESoldier*>(u);  //to check infection state
 		if (eunit)
 		{
 			if (eunit->IsInfected())
 			{
-				ES.dequeue(u);
-				ES.GetInfected() = u;
-				u->attack(Gptr);
+				ES.dequeue(u);              //infetced ES must be dequeued to attack other ESoldiers
+				ES.GetInfected() = u;      //addresss stored in a pointer to call its (print attacked) later
+				u->attack(Gptr);           //Infected Earth Soldier Attack    
 			}
 			else {
-				u->attack(Gptr);
+				u->attack(Gptr);     //Earth Soldier Attack    
 			}
 			ESattacker = u;
 		}
@@ -130,7 +130,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 		ESattacker = nullptr;
 	if (ET.peek(u))
 	{
-		u->attack(Gptr);
+		u->attack(Gptr);            //Earth Tank Attack
 		ETattacker = u;
 	}
 	else
@@ -138,12 +138,12 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	int g;
 	if (EG.peek(u, g))
 	{
-		u->attack(Gptr);
+		u->attack(Gptr);            //Earth Gunnery Attack 
 		EGattacker = u;
 	}
 	else
 		EGattacker = nullptr;
-	ES.SpreadInfection();
+	ES.SpreadInfection();          //Spread Infection if exists infected within the list
 	// healing logic
 	unit* H;
 	if(!UL.isEmpty())
