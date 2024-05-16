@@ -17,22 +17,22 @@ Game::Game()
 	cout << "\n";
 	if (mode == '1')
 	{
-		char x;
+		char x;		// dummy character to be entered by the user to proceed to the next TS
 		cout << "Enter any key to start : ";
 		cin >> x;
 		cout << endl;
 		while (x != 'x') {
 			TS++;
-			this->Call_Generator();
-			this->InteractiveMode();
+			this->Call_Generator();		// calling the random generator
+			this->InteractiveMode();	// printing the o/p in the output console and making the units attack each other
 
 			cin >> x;
 			cout << endl;
-			char result[80];
-			if ((this->BattleResult(result)&&TS>=40))
+			char result[80];		// character array to check for the result
+			if ((this->BattleResult(result)&&TS>=40))	// keep going untill being at a Time Step greater than or equal 40 and also untill the Battle result function returns a result.
 			{
-				this->GenerateWarReport();
-					cout << "\033[1;31mThe War Finished and it's result is : "<<result<<"\033[0m";
+				this->GenerateWarReport();	// creating the output file
+					cout << "\033[1;31mThe War Finished and it's result is : "<<result<<"\033[0m";  // printing the result in the console
 					break;
 			}					
 		}
@@ -53,7 +53,10 @@ Game::Game()
 			char dummy[30];
 			while ((!this->BattleResult(dummy)||TS<40)) {
 				TS++;
-				this->Call_Generator();
+				this->Call_Generator();			
+				if (TS > 99950)					// just for debugging in case we reached this high time step
+					this->InteractiveMode();
+				else
 				this->Battle();
 			}
 			this->GenerateWarReport();
@@ -208,7 +211,7 @@ void Game::GenerateWarReport()
 	WR << "\t\t\t\t\t\t"<< "Earth"<< " VS"<< " Aliens"<< " War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
-	WR << "\nWar ended at time step " << TS;
+	WR << "\nWar ended at time step: " << GetTS();
 	WR << "\nBattle Result : ";
 	if (TS > 40)
 	{
@@ -240,7 +243,7 @@ void Game::GenerateWarReport()
 		WR << (TotalInfected_Healed / TotalES) * 100 << "%" << endl;
 	                                                                else WR << "0\n";
 	WR << "\nTotal_Destructed/ Total units = ";
-	if (TotalEU)
+	if (TotalEU + K.Ecount())
 		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100 << "%" << endl;    	else WR << "0";
 	PrintAverageResults(WR, 1, TotalEU, K.Ecount(), 0, 0);
 
@@ -264,7 +267,7 @@ void Game::GenerateWarReport()
 		WR << (*(K.GetAcount() + 2) / TotalAM) * 100 << "%" << endl;           else WR << "0\n";
 	double TotalAU = A.getAS().getCount() + A.getAD().getCount() + A.getAM().getCount();
 	WR << "\nTotal_Destructed/ Total units = ";
-	if (TotalAU)
+	if (TotalAU + K.Acount())
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
 	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
 }
@@ -452,8 +455,5 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	delete Healer;
 }
 Game::~Game() { 
-	unit* temp = nullptr;
-	while (TempList.dequeue(temp)) {
-		delete temp;
-	}
+	
 }

@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-	srand(time(0));
-	Game g;
+	srand(time(0));	 // Generating a new seed for random of the current time 
+	Game g;	// the constructor of the game moderates all the project
 	return 0;
 }
