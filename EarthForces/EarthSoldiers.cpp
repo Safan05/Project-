@@ -5,6 +5,8 @@
 EarthSoldiers::EarthSoldiers()
 {
 	Scount = 0;
+	InfCount = 0;
+	ImmuneCount = 0;
 	InfectedES = nullptr;
 }
 
@@ -15,6 +17,8 @@ bool EarthSoldiers::enqueue(unit*& s)
 		ESoldier* e = dynamic_cast<ESoldier*>(s);
 		if (e->IsInfected())
 			InfCount++;
+		if (e->isImmune())
+			ImmuneCount++;
 		Scount++;
 		return true;
 	}
@@ -28,6 +32,8 @@ bool EarthSoldiers::dequeue(unit*& s)
 		ESoldier* e = dynamic_cast<ESoldier*>(s);
 		if (e->IsInfected())
 			InfCount--;
+		if (e->isImmune())
+			ImmuneCount--;
 		Scount--; 
 		return true;
 	}
@@ -69,14 +75,13 @@ int EarthSoldiers::GetScount()
 	return Scount;
 }
 
-void EarthSoldiers::incImmuneCount()
-{
-	ImmuneCount++;
-}
-
 int EarthSoldiers::GetInfCount()
 {
 	return InfCount;
+}
+int EarthSoldiers::GetImmuneCount()
+{
+	return ImmuneCount;
 }
 unit*& EarthSoldiers::GetInfected()
 {

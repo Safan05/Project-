@@ -7,25 +7,27 @@ AlienArmy::AlienArmy()
 	ASattacker = NULL; 
 	AMattacker = NULL;
 	ADattacker_1 = NULL; ADattacker_2 = NULL;
-	id = 2000;
+	id = 2000;         //alien ids range between 2000 and 2999
 	AttackCount = 0;
 }
 
 bool AlienArmy::AddUnit(unit*& u)
 {
-	if (id <= 2999)
+	if (id <= 2999)       //check for available ids
 	{
 		u->SetId(id++);
 		switch (u->GetType())
 		{
-		case aliensoldier:
+		case aliensoldier:            //if the new unit is Alien soldier ,add it to AS list
 			return AS.enqueue(u);
-		case monster:
+		case monster:                 //if the new unit is Alien monster ,add it to AM list 
 			return AM.AddAlienMonster(u);
-		case drone:
+		case drone:                   //if the new unit is Alien Drone ,add it to AD list
 		{
 			unit* ptr = NULL;
-			return AD.enqueue(ptr, u);
+			if (AD.getCount() % 2 == 0)
+				return AD.enqueue(ptr, u);
+			return AD.enqueue(u, ptr);
 		}
 		default: break;
 		}
@@ -34,7 +36,7 @@ bool AlienArmy::AddUnit(unit*& u)
 	return false;
 }
 
-int AlienArmy::getAlienCount()
+int AlienArmy::getAlienCount()      
 {
 	return AS.getCount() + AM.getCount() + AD.getCount();
 }
@@ -109,7 +111,7 @@ void AlienArmy::PrintAttack()
 	//print units attacked by alien drones at current time step 
 	if (ADattacker_1 && ADattacker_2)
 	{
-		ADattacker_1->PrintAttacked();
-		ADattacker_2->PrintAttacked();
+		ADattacker_1->PrintAttacked();        //units attacked by the front drone   
+		ADattacker_2->PrintAttacked();        //units attacked by the back drone 
 	}
 }
