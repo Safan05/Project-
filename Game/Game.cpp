@@ -9,7 +9,7 @@ Game::Game()
 	GenEarthID = true;
 	GenAliensID = true;
 	GenAlliesID = true;
-	GenAllies = true;
+	GenAllies = false;
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);

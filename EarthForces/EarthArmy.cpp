@@ -146,6 +146,7 @@ void EarthArmy::EarthAttack(Game* const& Gptr)
 	ES.SpreadInfection();
 	// healing logic
 	unit* H;
+	if(!UL.isEmpty())
 	if (HU.pop(H)) {
 		H->attack(Gptr);
 		H->SetTd(Gptr->GetTS());

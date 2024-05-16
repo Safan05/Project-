@@ -1,0 +1,50 @@
+Tasneem Ahmed:
+1-function to add killed unit to Killed List (1)
+2-Earth units attack Alien units (1)
+3-ES attacks AS (3)
+4-ET attacks AM (3)
+5-ET attacks AS (if ES< 30% AS) (3)
+6-EG attacks AM (3)
+7-EG attacks Drone (3)
+8-Generate the output file and support silent mode too (1.5) 
+
+Bonus Part:
+1-Infeted ES attacks ES (1%)
+2-Infection Spread (1%)
+3-Update print screen (1%)
+Total Weight: 18.5+3%
+
+Doha Ahmed:
+1-Alien units attack Earth Units (1)
+2-AS attacks ES (3)
+3-AM attacks ET (3)
+4-AM attacks ES (3)
+5-AD attacks ET (3)
+6-AD attacks EG (3)
+7-Kill units in UML with wait > 10 timesteps (1)
+
+Bonus Part:
+1-AM infects ES (1%)
+2-immunity (1%)
+3-Gen SU , store (0.5%)
+4-SU withdrawal (0.5%)
+5-SU Attack (1%)
+Total Weight: 17+ 4%
+
+Abdallah Ahmed:
+1-Main Simulation Function in class Game (2)
+2-update RandGen to generate HU and adds it to HL (1)
+3-Heal Soldiers, and add to temp or move back to battle (2)
+4-Heal Tanks, and add to temp or move back to battle (2)
+5-healed units from temp back to UML (1)
+6-Kill the HU (1)
+7-Print the o/p screen as required (3)
+8-Generate the output file and support silent mode too (1.5) 
+9-Prepare 6 non-trivial input files with their outputs (2)
+
+Bonus Part:
+1-Update print Screen (1%)
+2-Gen SU , store (0.5%)
+3-SU withdrawal (0.5%)
+4-Healing inf.ES (1%)
+Total Weight: 15.5 + 3%
