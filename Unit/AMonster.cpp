@@ -12,9 +12,11 @@ bool AMonster::attack(Game* const & GPtr)
 	LinkedListStack<unit*> Ttemp;
 	LinkedQueue<unit*> Stemp, SUtemp;
 	unit* enemy = NULL;
-
-	//Attacking tanks with half attack capacity
-	for (int i = 0; i < GetAC() / 2; i++)
+	int ac1 = GetAC();
+	//if Earth soldiers exist, attack earth tanks with only half the attack capacity
+	if (GPtr->GetEArmy().GetES().GetScount() > 0)
+		ac1 = GetAC() / 2;
+	for (int i = 0; i < ac1; i++)
 	{
 		GPtr->GetEArmy().GetET().pop(enemy);
 		if (enemy)
@@ -59,10 +61,10 @@ bool AMonster::attack(Game* const & GPtr)
    enemy = NULL;
    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
    //Attacking Earth soldiers and Saver units with half attack capacity
-	int ac = GetAC();
+	int ac2 = GetAC();
 	if (GPtr->GetSArmy().getSU().Getcount() > 0)
-		ac = 3 * ac / 4;
-	for (int i = GetAC() / 2; i < ac; i++)
+		ac2 = 3 * ac2 / 4;
+	for (int i = ac1; i < ac2; i++)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
@@ -131,7 +133,7 @@ bool AMonster::attack(Game* const & GPtr)
 	enemy = NULL;
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//if saver units exist,attack saver units with 1/4 of the attack capacity
-	for (int i = ac; i < GetAC(); i++)
+	for (int i = ac2; i < GetAC(); i++)
 	{
 		if(GPtr->GetSArmy().getSU().dequeue(enemy))
 		{
