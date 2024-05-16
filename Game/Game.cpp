@@ -208,6 +208,7 @@ void Game::GenerateWarReport()
 	WR << "\t\t\t\t\t\t"<< "Earth"<< " VS"<< " Aliens"<< " War Report\n\n";
 	WR << "Td\t\t\tID   \t\t\t\tTj\t\t\t\tDf\t\t\t\tDd\t\t\t\tDb\n";
 	K.PrintReports(WR);
+	WR << "\nWar ended at time step: " << GetTS();
 	WR << "\nBattle Result : ";
 	if (TS > 40)
 	{

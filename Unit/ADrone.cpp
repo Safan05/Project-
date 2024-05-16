@@ -12,9 +12,11 @@ bool ADrone::attack(Game* const & GPtr)
 	LinkedListStack<unit*> Ttemp;
 	priQueue<unit*> Gtemp;
 	unit* enemy = NULL;
-
-	//Attacking tanks with half attack capacity
-	for (int i = 0; i < GetAC() / 2; i++)
+	int ac = GetAC();
+	//if Earth gunnery exist,attack earth tanks with only half the attack capacity
+	if (GPtr->GetEArmy().GetEG().GetGcount() > 0)
+		ac = GetAC() / 2;
+	for (int i = 0; i < ac; i++)
 	{
 		if (GPtr->GetEArmy().GetET().pop(enemy))
 		{
@@ -57,8 +59,9 @@ bool ADrone::attack(Game* const & GPtr)
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
 	enemy = NULL;
+	//////////////////////////////////////////////////////////////////////////////////////
 	//Attacking Gunnery with half attack capacity
-	for (int i = GetAC() / 2; i < GetAC(); i++)
+	for (int i = ac; i < GetAC(); i++)
 	{
 		if (GPtr->GetEArmy().GetEG().dequeue(enemy))
 		{
