@@ -113,7 +113,10 @@ void ESoldier::PrintAttacked()
 			cout << "ES " << GetId() << " shots [";
 			while (GetattackedIDs().dequeue(id))
 			{
-				cout << id;
+				if (id > 10000)
+					cout<< "\033[32m" << id - 10000 << "\033[0m";
+				else
+					cout << id;
 				if (!GetattackedIDs().isEmpty())
 					cout << ", ";
 			}
@@ -124,7 +127,10 @@ void ESoldier::PrintAttacked()
 			cout << "ES " << "\033[32m" << GetId() << "\033[0m" << " shots [";
 			while (GetattackedIDs().dequeue(id))
 			{
-				cout << id;
+				if (id > 10000)
+					cout << "\033[32m" << id - 10000 << "\033[0m";
+				else
+					cout << id;
 				if (!GetattackedIDs().isEmpty())
 					cout << ", ";
 			}

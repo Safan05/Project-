@@ -15,8 +15,8 @@ public:
 	bool dequeue(unit*&);
 	void SpreadInfection();
 	int GetScount();
-	void incImmuneCount();
 	int GetInfCount();
+	int GetImmuneCount();
 	unit*& GetInfected();
 	void PrintES();
 	~EarthSoldiers();
