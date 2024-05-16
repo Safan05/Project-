@@ -20,10 +20,8 @@ bool EGunnery::attack(Game* const & GPtr)
             GetattackedIDs().enqueue(enemy->GetId());
             if (!enemy->Wasattacked())
             {
-                GPtr->GetAArmy().IncAttackCount();
                 enemy->SetAttacked(true);     //mark as attacked
                 enemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
             }
             if (enemy->GetHealth() <= 0)
             {
@@ -52,10 +50,8 @@ bool EGunnery::attack(Game* const & GPtr)
                 GetattackedIDs().enqueue(enemy->GetId());
                 if (!enemy->Wasattacked())
                 {
-                    GPtr->GetAArmy().IncAttackCount();
                     enemy->SetAttacked(true);     //mark as attacked
                     enemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                    GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
                 }
                 if (enemy->is_killed())
                 {
@@ -74,7 +70,6 @@ bool EGunnery::attack(Game* const & GPtr)
                 {
                     denemy->SetAttacked(true);     //mark as attacked
                     denemy->SetTa(GPtr->GetTS());  //document time of fist attack
-                    GPtr->SetADf(GPtr->GetTS() - denemy->GetJoin());
                 }
                 if (denemy->is_killed())
                 {

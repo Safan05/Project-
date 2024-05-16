@@ -21,10 +21,8 @@ bool SaverU::attack(Game* const& Gptr)
 			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
-				//Gptr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
-				Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
 			}
 			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())

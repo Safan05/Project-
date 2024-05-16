@@ -27,10 +27,8 @@ bool ESoldier::attack(Game* const & GPtr)
 				//set the output file parameters
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetAArmy().IncAttackCount();
 					enemy->SetAttacked(true);
 					enemy->SetTa(GPtr->GetTS());
-					GPtr->SetADf(GPtr->GetTS() - enemy->GetJoin());
 				}
 				//if enemy's health reaches 0, add it to killed list 
 				if (enemy->is_killed())
@@ -58,10 +56,8 @@ bool ESoldier::attack(Game* const & GPtr)
 				GetattackedIDs().enqueue(enemy->GetId());
 				if (!enemy->Wasattacked())
 				{
-					GPtr->GetEArmy().IncAttackCount();  //used later for calculating Avg Df
 					enemy->SetAttacked(true);
 					enemy->SetTa(GPtr->GetTS());  
-					GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 				}
 				if (enemy->is_killed())
 				{

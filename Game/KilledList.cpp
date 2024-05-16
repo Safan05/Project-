@@ -8,6 +8,8 @@ using namespace std;
 KilledList::KilledList()
 {
 	count = 0;
+	attackcount = 0;
+	healunits = 0;
 	infect_healed_Count = 0;
 	for (int i = 0; i < 3; i++)
 	{
@@ -18,7 +20,15 @@ KilledList::KilledList()
 
 bool KilledList::AddKilled(unit*& d)
 {
-	if (d) {
+	if (d)
+	{
+		if (d->GetId() > 0 && d->GetId() <= 999)
+		{
+			if (d->Wasattacked())
+				attackcount++;
+		}
+		if (d->GetType() == HealUnit)
+			healunits++;
 		if (LinkedQueue<unit*>::enqueue(d))
 		{
 			count++;
@@ -88,6 +98,21 @@ int KilledList::Ecount()
 int KilledList::Acount()
 {
 	return AForces[0] + AForces[1] + AForces[2];
+}
+
+void KilledList::incattackcount()
+{
+	attackcount++;
+}
+
+int KilledList::GetAttCount()
+{
+	return attackcount;
+}
+
+int KilledList::GetHealUcount()
+{
+	return healunits;
 }
 
 int KilledList::GetInf_HealCount()

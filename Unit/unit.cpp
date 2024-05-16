@@ -13,7 +13,8 @@ unit::unit(double H, int P, int AC, int T)
 	Isattacked = false;
 	id = -1;
 	InitialHealth = H;
-	Ta = -1;
+	Ta = 0;
+	Td = 0;
 }
 int unit::GetId() {
 	return id;
@@ -101,6 +102,11 @@ int unit::GetTa()
 	return Ta;
 }
 
+int unit::GetTd()
+{
+	return Td;
+}
+
 void unit::SetTd(int t)
 {
 	Td = t;
@@ -116,7 +122,12 @@ void unit::DeathReport(std::ofstream& wr)
 		wr << "H";  //Heal units aren't attacked therefore have no Ta
 	else
 		wr << Ta - JoinTime;
-	wr << "\t\t\t\t" << Td - Ta << "\t\t\t\t" << Td - JoinTime << endl;
+	wr << "\t\t\t\t";
+	if (h)         //Heal units aren't attacked therefore have no Ta
+		wr << "0";
+	else
+		wr << Td - Ta;
+	wr << "\t\t\t\t" << Td - JoinTime << endl;
 }
 
 

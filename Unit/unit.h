@@ -31,6 +31,7 @@ public:
 	void SetJoin(int J);
 	int GetJoin();
 	int GetTa();
+	int GetTd();
 	int GetAC();
 	int GetPow();
 	double GetHealth();

@@ -40,12 +40,7 @@ public:
 	int GetTS();	// getter for the current time step
 	bool AddKilled(unit*&);
 	void GenerateWarReport();
-	void PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA);	// used in generating war report to print the average results in the output file
-	// setters for Earth and Aliens average Df,Db
-	void SetEDf(int f);
-	void SetADf(int f);
-	void SetEDb(int d);
-	void SetADb(int d);
+	void PrintAverageResults(ofstream& WR, bool IsE, double KilledE, double KilledA);	// used in generating war report to print the average results in the output file
 	int getInfectionProb(); // getter for infection prob to be used in monster attack
 	void Call_Generator();
 	void InteractiveMode();
