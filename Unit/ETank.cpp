@@ -11,7 +11,7 @@ bool ETank::attack(Game* const & Gptr)
 	LinkedListStack<unit*> templist;           //any DS for templist of monsters is valid  
 	unit* enemy = nullptr;                     //however stack is easier in pushing
 	int ac = unit::GetAC();
-	if (Gptr->GetAArmy().getAD().getCount() > 0)
+	if (Gptr->GetAArmy().getAS().getCount() > 0)
 		ac = unit::GetAC() / 2;
 	for (int i = 0; i < ac; i++)
 	{
