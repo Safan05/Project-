@@ -38,21 +38,10 @@ bool ESoldier::attack(Game* const & GPtr)
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
-				//if enemy is still alive, add it to uml or temp list according to its health percentage 
-				else
-				{
-					int h = enemy->GetHPercent();
-					if (h <= 20)
-					{
-						ESoldier* es = dynamic_cast<ESoldier*>(enemy);
-						es->setUmlJoinTime(GPtr->GetTS());
-						GPtr->GetEArmy().GetUL().AddUnit(enemy);
-					}
-					//return all units in temp list to their original list
-					else templist.enqueue(enemy);
-				}
+				
 			}
-
+			else
+				Etemplist.enqueue(enemy);
 		}
 		//return all units in temp list to their original list
 		while (templist.dequeue(enemy))
@@ -80,8 +69,19 @@ bool ESoldier::attack(Game* const & GPtr)
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
+				//if enemy is still alive, add it to uml or temp list according to its health percentage 
 				else
-					Etemplist.enqueue(enemy);
+				{
+					int h = enemy->GetHPercent();
+					if (h <= 20)
+					{
+						ESoldier* es = dynamic_cast<ESoldier*>(enemy);
+						es->setUmlJoinTime(GPtr->GetTS());
+						GPtr->GetEArmy().GetUL().AddUnit(enemy);
+					}
+					//return all units in temp list to their original list
+					else templist.enqueue(enemy);
+				}
 			}
 		}
 		while (Etemplist.dequeue(enemy))
