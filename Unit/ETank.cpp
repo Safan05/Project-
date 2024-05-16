@@ -35,10 +35,10 @@ bool ETank::attack(Game* const & Gptr)
 	}
 	while (templist.pop(enemy))
 		Gptr->GetAArmy().getAM().AddAlienMonster(enemy);
-	bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30 / 100)) ? true : false;
+	bool AttackAS = ((Gptr->GetEArmy().GetES().GetScount()) < (Gptr->GetAArmy().getAS().getCount() * 30.0 / 100)) ? true : false;
 	if (AttackAS)
 		ESbelow80 = true;  //to continue attacking till > 80%
-	if (!((Gptr->GetEArmy().GetES().GetScount()) >= (Gptr->GetAArmy().getAS().getCount() * 80 / 100)))
+	if (!((Gptr->GetEArmy().GetES().GetScount()) >= (Gptr->GetAArmy().getAS().getCount() * 80.0 / 100)))
 		if (ESbelow80)
 		{
 			LinkedQueue<unit*> templist;
