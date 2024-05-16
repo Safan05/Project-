@@ -11,11 +11,13 @@ bool ASoldier::attack(Game* const & GPtr)
 	unit* enemy = NULL;
 	LinkedQueue<unit*> temp, SUtemp;
 	int ac = GetAC();
-	if (GPtr->GetSArmy().getSU().Getcount() > 0)
+	//if saver units exist,attack earth soldiers with only half the attack capacity
+	if (GPtr->GetSArmy().getSU().Getcount() > 0)    
 		ac = GetAC() / 2;
 	for (int i = 0; i < ac; i++)
 	{
-		if (GPtr->GetEArmy().GetES().GetInfected())
+		//attack the infected front pointer first if it exsits
+		if (GPtr->GetEArmy().GetES().GetInfected())   
 		{
 			enemy = GPtr->GetEArmy().GetES().GetInfected();
 			GPtr->GetEArmy().GetES().GetInfected() = NULL;
@@ -61,9 +63,11 @@ bool ASoldier::attack(Game* const & GPtr)
 		}
 		enemy = NULL;
 	}
+	//return all units in temp list to their original list
 	while (temp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
 	enemy = NULL;
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//if saver units exist,attack saver units with half the attack capacity
 	for (int i = ac; i < GetAC(); i++)
 	{
@@ -71,26 +75,29 @@ bool ASoldier::attack(Game* const & GPtr)
 		if (enemy)
 		{
 			flag = true;
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			//add enemy's ID to the attacked list
 			GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetSArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
-				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
-
 			}
+			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to temp list
 			else SUtemp.enqueue(enemy);
 		}
 		enemy = NULL;
 	}
+	//return all units in temp list to their original list
 	while (SUtemp.dequeue(enemy))
 		GPtr->GetSArmy().getSU().enqueue(enemy);
 	return flag;
@@ -104,9 +111,9 @@ void ASoldier::PrintAttacked()
 		cout << "AS " << GetId() << " shots [";
 		while (GetattackedIDs().dequeue(i))
 		{
-			if (i < 10000)
+			if (i < 10000)  //soldier is NOT infected
 				cout << i;
-			else
+			else            //soldier is infected
 				cout << "\033[32m" << i - 10000 << "\033[0m";
 			if (!GetattackedIDs().isEmpty())
 				cout << ", ";

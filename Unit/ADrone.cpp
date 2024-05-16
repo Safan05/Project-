@@ -19,9 +19,12 @@ bool ADrone::attack(Game* const & GPtr)
 		if (GPtr->GetEArmy().GetET().pop(enemy))
 		{
 			flag = true;
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			//add enemy's ID to the attacked list
 			GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
@@ -30,11 +33,13 @@ bool ADrone::attack(Game* const & GPtr)
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 			}
+			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to uml or temp list according to its health percentage 
 			else
 			{
 				int h = enemy->GetHPercent();
@@ -48,6 +53,7 @@ bool ADrone::attack(Game* const & GPtr)
 			}
 		}
 	}
+	//return all units in temp list to their original list
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
 	enemy = NULL;
@@ -57,9 +63,12 @@ bool ADrone::attack(Game* const & GPtr)
 		if (GPtr->GetEArmy().GetEG().dequeue(enemy))
 		{
 			flag = true;
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			//add enemy's ID to the attacked list
 			GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
@@ -67,15 +76,17 @@ bool ADrone::attack(Game* const & GPtr)
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 			}
+			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to temp list
 			else Gtemp.enqueue(enemy, enemy->GetPow() + enemy->GetHealth());
 		}
 	}
-
+	//return all units in temp list to their original list
 	while (Gtemp.dequeue(enemy, j))
 		GPtr->GetEArmy().GetEG().enqueue(enemy);
 

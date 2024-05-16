@@ -3,13 +3,14 @@
 
 AlliedArmy::AlliedArmy()
 {
+	//saver units ids range between 4000 and 4999
 	id = 4000;
-	AttackCount = 0;
+	SUattacker = NULL;
 }
 
 bool AlliedArmy::AddUnit(unit*& u)
 {
-	if (id <= 4999)
+	if (id <= 4999)   //check for available ids
 	{
 		u->SetId(id++);
 		SU.enqueue(u);
@@ -23,16 +24,6 @@ SaverUnits& AlliedArmy::getSU()
 	return SU;
 }
 
-int AlliedArmy::GetAttackCount()
-{
-	return AttackCount;
-}
-
-void AlliedArmy::IncAttackCount()
-{
-	AttackCount++;
-}
-
 void AlliedArmy::PrintArmy()
 {
 	std::cout << SU.Getcount() << " SU [";
@@ -42,16 +33,17 @@ void AlliedArmy::PrintArmy()
 
 void AlliedArmy::SUattack(Game* const& Gptr)
 {
-	unit* u = NULL;
-	if (SU.peek(u))
-		u->attack(Gptr);
+	if (SU.peek(SUattacker))
+		SUattacker->attack(Gptr);
+	else SUattacker = NULL;     //in case saver units didn't attack at this time step
 }
 
 void AlliedArmy::printAttack()
 {
-	unit* u = NULL;
-	if (SU.peek(u))
-		u->PrintAttacked();
+	if (SUattacker)
+	{
+		SUattacker->PrintAttacked();
+	}
 }
 
 void AlliedArmy::destroyArmy()
