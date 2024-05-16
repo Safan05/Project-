@@ -38,10 +38,9 @@ bool ESoldier::attack(Game* const & GPtr)
 					enemy->SetTd(GPtr->GetTS());
 					GPtr->AddKilled(enemy);
 				}
-				
+				else
+					templist.enqueue(enemy);
 			}
-			else
-				Etemplist.enqueue(enemy);
 		}
 		//return all units in temp list to their original list
 		while (templist.dequeue(enemy))
@@ -80,7 +79,7 @@ bool ESoldier::attack(Game* const & GPtr)
 						GPtr->GetEArmy().GetUL().AddUnit(enemy);
 					}
 					//return all units in temp list to their original list
-					else templist.enqueue(enemy);
+					else Etemplist.enqueue(enemy);
 				}
 			}
 		}
