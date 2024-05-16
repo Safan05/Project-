@@ -33,7 +33,7 @@ public:
 	int GetTa();
 	int GetAC();
 	int GetPow();
-	int GetHealth();
+	double GetHealth();
 	LinkedQueue<int>& GetattackedIDs();
 	void DecHealth(double h);
 	void IncHealth(double h);

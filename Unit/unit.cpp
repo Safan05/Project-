@@ -61,7 +61,7 @@ int unit::GetPow()
 	return Power;
 }
 
-int unit::GetHealth()
+double unit::GetHealth()
 {
 	return Health;
 }
