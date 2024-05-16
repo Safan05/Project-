@@ -20,9 +20,12 @@ bool AMonster::attack(Game* const & GPtr)
 		if (enemy)
 		{
 			flag = true;
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			//add enemy's ID to the attacked list
 			GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetEArmy().IncAttackCount();
@@ -35,6 +38,7 @@ bool AMonster::attack(Game* const & GPtr)
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to uml or temp list according to its health percentage 
 			else
 			{
 				int h = enemy->GetHPercent();
@@ -49,6 +53,7 @@ bool AMonster::attack(Game* const & GPtr)
 		}
 		enemy = NULL;
 	}
+	//return all units in temp list to their original list
 	while (Ttemp.pop(enemy))
 		GPtr->GetEArmy().GetET().push(enemy);
    enemy = NULL;
@@ -60,7 +65,6 @@ bool AMonster::attack(Game* const & GPtr)
 	{
 		if (GPtr->GetEArmy().GetES().GetInfected())
 		{
-			//GetattackedIDs().enqueue(enemy->GetId());
 			enemy = GPtr->GetEArmy().GetES().GetInfected();
 			GPtr->GetEArmy().GetES().GetInfected() = NULL;
 		}
@@ -74,6 +78,7 @@ bool AMonster::attack(Game* const & GPtr)
 			int InfProp = (rand() % 100) + 1;              //checks whether the enemy should be attacked or infected
 			if (InfProp > GPtr->getInfectionProb())        //probability to attack the soldier
 			{
+				//calculate the damage and decrement enemy's health
 				double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 				enemy->DecHealth(damage);
 				//add enemy's ID to the attacked list
@@ -119,6 +124,7 @@ bool AMonster::attack(Game* const & GPtr)
 		}
 		enemy = NULL;
 	}
+	//return all units in temp list to their original list
 	while (Stemp.dequeue(enemy))
 		GPtr->GetEArmy().GetES().enqueue(enemy);
 	enemy = NULL;
@@ -128,9 +134,12 @@ bool AMonster::attack(Game* const & GPtr)
 		if(GPtr->GetSArmy().getSU().dequeue(enemy))
 		{
 			flag = true;
+			//calculate the damage and decrement enemy's health
 			double damage = (GetPow() * GetHealth() / 100) / sqrt(enemy->GetHealth());
 			enemy->DecHealth(damage);
+			//add enemy's ID to the attacked list
 			GetattackedIDs().enqueue(enemy->GetId());
+			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
 				GPtr->GetSArmy().IncAttackCount();
@@ -139,14 +148,17 @@ bool AMonster::attack(Game* const & GPtr)
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
 
 			}
+			//if enemy's health reaches 0, add it to killed list 
 			if (enemy->is_killed())
 			{
 				enemy->SetTd(GPtr->GetTS());
 				GPtr->AddKilled(enemy);
 			}
+			//if enemy is still alive, add it to temp list
 			else SUtemp.enqueue(enemy);
 		}
 	}
+	//return all units in temp list to their original list
 	while (SUtemp.dequeue(enemy))
 		GPtr->GetSArmy().getSU().enqueue(enemy);
 	return flag;
@@ -160,9 +172,9 @@ void AMonster::PrintAttacked()
 		cout << "AM " << GetId() << " shots [";
 		while (GetattackedIDs().dequeue(i))
 		{
-			if (i < 10000)
+			if (i < 10000)   //unit is NOT infected
 				cout << i;
-			else
+			else             //unit is infected
 				cout << "\033[32m" << i - 10000 << "\033[0m";
 			if (!GetattackedIDs().isEmpty())
 				cout << ", ";
