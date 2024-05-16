@@ -422,6 +422,14 @@ void Game::Call_Generator() // function to call the random generator
 void Game::InteractiveMode() // Calling Battle and printing in the interactive mode
 {
 	HUnit* Healer = new HUnit(0,0,0,0); //dummy pointer to call print of a static data member 
+	cout << "Current TimeStep : " << TS << endl;
+	cout << "============= Earth Forces before the battle =============" << endl;
+	E.PrintArmy();
+	cout << "\n============= Alien Forces before the battle =============" << endl;
+	A.PrintArmy();
+	cout << "\n============= Allied Forces before the battle =============" << endl;
+	S.PrintArmy();
+	cout << "\n============= units stats after the battle =============" << endl;
 	Battle();
 	cout << "Current TimeStep : " << TS << endl;
 	if (E.GetES().GetScount())

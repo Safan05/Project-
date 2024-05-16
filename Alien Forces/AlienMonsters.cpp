@@ -6,6 +6,7 @@
 
 AlienMonsters::AlienMonsters()
 {
+	// array initially empty 
 	count = 0;
 	for (int i = 0; i < 1000; i++)
 		monsters[i] = nullptr;
@@ -15,14 +16,15 @@ bool AlienMonsters::pick(unit*& mon)
 {
 	if (count < 1)
 		return false;
-	int i = rand() % count;
+	int i = rand() % count;      //generate a random index between zero and the number of monsters in the array
 	mon = monsters[i];
 	return true;
 }
 
 bool AlienMonsters::AddAlienMonster(unit* m)
 {
-	if (count == 1000) return false;
+	if (count == 1000)
+		return false;
 	monsters[count] = m;
 	count++;
 	return true;
@@ -32,13 +34,14 @@ bool AlienMonsters::removeAlienMonster(unit*& m)
 {
 	if (count < 1) 
 		return false;
-	int i = rand() % count;
+	int i = rand() % count;       //generate a random index between zero and the number of monsters in the array
 	m = monsters[i];
+	//swap the element to be removed with the last element in the array
 	unit* temp = monsters[count-1];
 	monsters[count-1] = monsters[i];
 	monsters[i] = temp;
-	monsters[count - 1] = NULL;
-	count--;
+	monsters[count - 1] = NULL;     //make the last element point to null
+	count--;                        //then decrease the count
 	return true;
 }
 

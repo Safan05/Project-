@@ -30,7 +30,7 @@ void AlienSoldiers::PrintAS()
 	while (temp)
 	{
 		temp->getItem()->PrintUnit();
-		if (temp->getNext())        //Printing style fix
+		if (temp->getNext())       
 			cout << ", ";
 		temp = temp->getNext();
 	}
