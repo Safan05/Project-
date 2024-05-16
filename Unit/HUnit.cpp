@@ -22,8 +22,7 @@ bool HUnit::attack(Game* const& Gptr)
 				if (Soldier->IsInfected()) {
 					Soldier->setImuune(true);
 					Soldier->SetInfected(false);
-					Gptr->GetEArmy().GetES().incImmuneCount();
-					Healed /= 2;
+					Healed /= 2;                              
 				}
 			ToHeal->IncHealth(Healed);
 			if (ToHeal->GetHPercent() < 20)

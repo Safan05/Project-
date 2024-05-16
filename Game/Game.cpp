@@ -225,7 +225,7 @@ void Game::GenerateWarReport()
 	double TotalES = E.GetES().GetScount() + *(K.GetEcount());
 	double TotalET = E.GetET().GetTcount() + *(K.GetEcount() + 1);
 	double TotalEG = E.GetEG().GetGcount() + *(K.GetEcount() + 2);
-	double TotalInfected_Healed = E.GetES().GetInfCount() + K.GetInf_HealCount();
+	double TotalInfected_Healed = E.GetES().GetInfCount()+E.GetES().GetImmuneCount() + K.GetInf_HealCount();
 	if (TotalES)
 		WR << (*K.GetEcount() / TotalES) * 100 << "%" << endl;                    else WR << "0\n";
 	WR << "\tET_Destructed/ ET_Total = ";
@@ -236,8 +236,8 @@ void Game::GenerateWarReport()
 		WR << (*(K.GetEcount() + 2) / TotalEG) * 100 << "%" << endl;               else WR << "0\n";
 	double TotalEU = E.GetEG().GetGcount() + E.GetES().GetScount() + E.GetET().GetTcount();
 	WR << "\tES_Infected_Healed/ ES_Total = ";
-	if (TotalInfected_Healed)
-		WR << (E.GetES().GetInfCount() / TotalInfected_Healed) * 100 << "%" << endl;
+	if (TotalES)
+		WR << (TotalInfected_Healed / TotalES) * 100 << "%" << endl;
 	                                                                else WR << "0\n";
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalEU)
@@ -424,6 +424,8 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	HUnit* Healer = new HUnit(0,0,0,0); //dummy pointer to call print of a static data member 
 	Battle();
 	cout << "Current TimeStep : " << TS << endl;
+	if (E.GetES().GetScount())
+		cout << "\nInfection Percentage :" << ((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) << "%\n";
 	cout << "============= Earth Forces Alive Units =============" << endl;
 	E.PrintArmy();
 	cout << "\n============= Alien Forces Alive Units =============" << endl;
@@ -437,8 +439,6 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	cout << "\n============= \033[31mKilled/Destructed Units\033[0m =============" << endl;
 	K.PrintKillled();
 	Healer->PrintAttacked();
-	if (E.GetES().GetScount())
-		cout << "\n Infection Percentage :" << ((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) << "%\n";
 	cout << "\n============= UML Units =============" << endl;
 	E.GetUL().PrintUML();
 	cout << endl << "Enter any key to move to next time step : ";
