@@ -16,9 +16,8 @@ class EarthArmy
 	EarthTanks ET;
 	UML UL;
 	HealUnits HU;
-	// id and attacked units counter
+	// id
 	int id;
-	int AttackCount;
 	// pointers to store the attacker units to print it after battle 
 	unit* ESattacker;	
 	unit* ETattacker;
@@ -30,8 +29,6 @@ public:
 	EarthGunnery& GetEG();
 	EarthTanks& GetET();
 	UML& GetUL();
-	void IncAttackCount();
-	int GetAttackCount();
 	void PrintAttack();
 	void PrintArmy();
 	void EarthAttack(Game* const& Gptr);

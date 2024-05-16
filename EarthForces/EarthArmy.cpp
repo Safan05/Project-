@@ -7,7 +7,6 @@ using namespace std;
 EarthArmy::EarthArmy() 
 {
 	id = 1;
-	AttackCount = 0;
 	ESattacker = nullptr;
 	ETattacker = nullptr;
 	EGattacker = nullptr;
@@ -58,16 +57,6 @@ EarthTanks& EarthArmy::GetET()
 UML& EarthArmy::GetUL()
 {
 	return UL;
-}
-
-void EarthArmy::IncAttackCount()
-{
-	AttackCount++;
-}
-
-int EarthArmy::GetAttackCount()
-{
-	return AttackCount;
 }
 
 void EarthArmy::PrintArmy()

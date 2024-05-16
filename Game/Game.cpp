@@ -13,7 +13,7 @@ Game::Game()
 	TS = 0;
 	this->Interface(); // just a function for printing and taking values at the beginning of the program
 	LoadParameters(Filename);
-	for (int i = 0; i < 3; i++) AvgDs[i] = 0;
+	for (int i = 0; i < 5; i++) AvgDs[i] = 0;
 	cout << "\n";
 	if (mode == '1')
 	{
@@ -190,17 +190,19 @@ bool Game::AddKilled(unit*& d)
 	HUnit* h = dynamic_cast<HUnit*>(d);
 	d->SetTd(this->GetTS());
 	int id = d->GetId();
-	if (id <= 999 && id >= 1) {
+	if (id <= 999 && id >= 1)
+	{
 		if (!h) {      //Heal units heal already attacked units therefore their Ta,Df are already set
-			AvgDs[0] += d->GetTa() - d->GetJoin();
-			AvgDs[1] += TS - d->GetTa();
+			AvgDs[0] += (d->GetTa() - d->GetJoin());
+			AvgDs[1] += (TS - d->GetTa());
 		}
-		AvgDs[2] += TS - d->GetJoin();
+		AvgDs[2] += (TS - d->GetJoin());
 	}
-	else {
-		AvgDs[3] += d->GetTa() - d->GetJoin();
-		AvgDs[4] += TS - d->GetTa();
-		AvgDs[5] += TS - d->GetJoin();
+	else if (id <= 2999 && id >= 2000)
+	{
+		AvgDs[3] += (d->GetTa() - d->GetJoin());
+		AvgDs[4] += (TS - d->GetTa());
+		AvgDs[5] += (TS - d->GetJoin());
 	}
 	return K.AddKilled(d);
 }
@@ -245,7 +247,7 @@ void Game::GenerateWarReport()
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalEU + K.Ecount())
 		WR << ((K.Ecount()) / (TotalEU + K.Ecount())) * 100 << "%" << endl;    	else WR << "0";
-	PrintAverageResults(WR, 1, TotalEU, K.Ecount(), 0, 0);
+	PrintAverageResults(WR, 1, K.Ecount(), 0);
 
 
 	//===============================Alien Forces Stats=====================================
@@ -269,7 +271,7 @@ void Game::GenerateWarReport()
 	WR << "\nTotal_Destructed/ Total units = ";
 	if (TotalAU + K.Acount())
 		WR << (K.Acount() / (TotalAU + K.Acount())) * 100 << "%" << endl;       else WR << "0";
-	PrintAverageResults(WR, 0, 0, 0, TotalAU, K.Acount());
+	PrintAverageResults(WR, 0, 0, K.Acount());
 }
 bool Game::BattleResult(char result[])
 {
@@ -321,17 +323,17 @@ bool Game::BattleResult(char result[])
 				}
 	return ResultAcheived;
 }
-void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double KilledE, int AliveA, double KilledA)
+void Game::PrintAverageResults(ofstream& WR, bool IsE, double KilledE, double KilledA)
 {
 	if (IsE)
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		if (E.GetAttackCount())
-			WR << (AvgDs[0] / double(E.GetAttackCount())) << ", ";
+		if (K.GetAttCount())
+			WR << (AvgDs[0] / double(K.GetAttCount())) << ", ";
 		else WR << "0, ";
 		if (KilledE)
 		{
-			WR << (AvgDs[1] / KilledE) << ", ";
+			WR << (AvgDs[1] / double(K.GetAttCount())) << ", ";
 			WR << (AvgDs[2] / KilledE) << "\n";
 		}
 		else WR << "0, 0, 0\n";
@@ -339,33 +341,18 @@ void Game::PrintAverageResults(ofstream& WR, bool IsE, int aliveE, double Killed
 	else
 	{
 		WR << "\n\tAverage Df, Dd, Db respectively = ";
-		if (A.GetAttackCount())
-			WR << (AvgDs[3] / double(A.GetAttackCount())) << ", ";
+		if (KilledA)
+			WR << (AvgDs[3] / double(KilledA)) << ", ";
 		else WR << "0, ";
 		if (KilledA)
 		{
-			WR << (AvgDs[3] / KilledA) << ", ";
+			WR << (AvgDs[4] / KilledA) << ", ";
 			WR << (AvgDs[5] / KilledA) << "\n";
 		}
 		else WR << "0, 0, 0\n";
 	}
 }
-void Game::SetEDf(int f)
-{
-	AvgDs[0] += f;
-}
-void Game::SetADf(int f)
-{
-	AvgDs[3] += f;
-}
-void Game::SetEDb(int d)
-{
-	AvgDs[2] += d;
-}
-void Game::SetADb(int d)
-{
-	AvgDs[5] += d;
-}
+
 int Game::getInfectionProb()
 {
 	return infection_prob;

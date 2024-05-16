@@ -8,7 +8,6 @@ AlienArmy::AlienArmy()
 	AMattacker = NULL;
 	ADattacker_1 = NULL; ADattacker_2 = NULL;
 	id = 2000;         //alien ids range between 2000 and 2999
-	AttackCount = 0;
 }
 
 bool AlienArmy::AddUnit(unit*& u)
@@ -39,16 +38,6 @@ bool AlienArmy::AddUnit(unit*& u)
 int AlienArmy::getAlienCount()      
 {
 	return AS.getCount() + AM.getCount() + AD.getCount();
-}
-
-void AlienArmy::IncAttackCount()
-{
-	AttackCount++;
-}
-
-int AlienArmy::GetAttackCount()
-{
-	return AttackCount;
 }
 
 void AlienArmy::Alienattack(Game* const& GPtr)

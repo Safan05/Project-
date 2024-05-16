@@ -14,9 +14,8 @@ class AlienArmy
 	AlienMonsters AM;         
 	//allien units attacking at current time step
 	unit* ASattacker, * ADattacker_1, * ADattacker_2, * AMattacker;  
-	// id and NO. attacked alien units
-	int id;
-	int AttackCount;          
+	// id
+	int id;        
 public:
 	AlienArmy();
 	bool AddUnit(unit*&);      //add new unit to its suitable list
@@ -26,8 +25,6 @@ public:
 	AlienDrones& getAD();
 	//getters for the alien units total count and attacked count
 	int getAlienCount();
-	int GetAttackCount();
-	void IncAttackCount();      //increment attacked count
 	void Alienattack(Game* const& GPtr);
 	void PrintArmy();           //print alive allien forces
 	void PrintAttack();         //print units attacked by allien forces at current time step
