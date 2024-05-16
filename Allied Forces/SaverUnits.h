@@ -7,8 +7,8 @@ class SaverUnits :public LinkedQueue<unit*>
 	int count;
 public:
 	SaverUnits();
-	bool enqueue(unit*&);
-	bool dequeue(unit*&);
+	bool enqueue(unit*&);      //same as in the LinkedQueue class + increasing the count 
+	bool dequeue(unit*&);      //same as in the LinkedQueue class + decreasing the count
 	int Getcount();
 	void PrintSU();
 	~SaverUnits();
