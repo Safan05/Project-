@@ -430,7 +430,6 @@ void Game::InteractiveMode() // Calling Battle and printing in the interactive m
 	S.PrintArmy();
 	cout << "\n============= units stats after the battle =============" << endl;
 	Battle();
-	cout << "Current TimeStep : " << TS << endl;
 	if (E.GetES().GetScount())
 		cout << "\nInfection Percentage :" << ((E.GetES().GetInfCount() * 100) / E.GetES().GetScount()) << "%\n";
 	cout << "============= Earth Forces Alive Units =============" << endl;
