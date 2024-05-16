@@ -14,7 +14,7 @@ class AlienArmy
 	AlienMonsters AM;         
 	//allien units attacking at current time step
 	unit* ASattacker, * ADattacker_1, * ADattacker_2, * AMattacker;  
-	// id and NO.units attacked by alien forces
+	// id and NO. attacked alien units
 	int id;
 	int AttackCount;          
 public:

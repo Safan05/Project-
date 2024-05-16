@@ -21,7 +21,7 @@ bool SaverU::attack(Game* const& Gptr)
 			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
-				Gptr->GetAArmy().IncAttackCount();
+				//Gptr->GetAArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(Gptr->GetTS());
 				Gptr->SetADf(Gptr->GetTS() - enemy->GetJoin());
