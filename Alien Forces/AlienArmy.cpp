@@ -24,9 +24,10 @@ bool AlienArmy::AddUnit(unit*& u)
 			return AM.AddAlienMonster(u);
 		case drone:                   //if the new unit is Alien Drone ,add it to AD list
 		{
-			//a new drone is enqueued at the end of the list ,but during attack drones are enqueued and dequeued at the front and the back (one fresh and one old drone)
 			unit* ptr = NULL;
-			return AD.enqueue(ptr, u);
+			if (AD.getCount() % 2 == 0)
+				return AD.enqueue(ptr, u);
+			return AD.enqueue(u, ptr);
 		}
 		default: break;
 		}
@@ -110,7 +111,7 @@ void AlienArmy::PrintAttack()
 	//print units attacked by alien drones at current time step 
 	if (ADattacker_1 && ADattacker_2)
 	{
-		ADattacker_1->PrintAttacked();        //units attacked by the front drone (oldest drone)   
-		ADattacker_2->PrintAttacked();        //units attacked by the back drone  (freshest drone)
+		ADattacker_1->PrintAttacked();        //units attacked by the front drone   
+		ADattacker_2->PrintAttacked();        //units attacked by the back drone 
 	}
 }
