@@ -142,7 +142,6 @@ bool AMonster::attack(Game* const & GPtr)
 			//set the output file parameters
 			if (!enemy->Wasattacked())
 			{
-				GPtr->GetSArmy().IncAttackCount();
 				enemy->SetAttacked(true);
 				enemy->SetTa(GPtr->GetTS());
 				GPtr->SetEDf(GPtr->GetTS() - enemy->GetJoin());
